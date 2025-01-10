@@ -14,7 +14,7 @@ const config = {
 		adapter: adapter(),
 
 		alias: {
-			$core: 'src/lib/core/',
+			$core: 'src/lib/core/src',
 			$helpers: 'src/lib/helpers.js',
 			$utilities: 'src/lib/utilities/src/index.js',
 			$accessibility: 'src/lib/accessibility/src/index.js',
