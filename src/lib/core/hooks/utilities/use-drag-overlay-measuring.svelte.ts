@@ -1,8 +1,7 @@
 import type {ClientRect} from '$core/types/rect.js';
-import {isHTMLElement} from '$lib/utilities/src/type-guards/ishtmlelement.js';
+import {isHTMLElement, useNodeRef} from '$utilities';
 import {useResizeObserver} from './index.js';
-import {getMeasurableNode} from '$core/utilities/nodes/get-measurable-node.js';
-import {useNodeRef} from '$utilities';
+import {getMeasurableNode} from '$core/utilities/nodes/index.js';
 
 interface Arguments {
 	measureFn: () => (element: HTMLElement) => ClientRect;
