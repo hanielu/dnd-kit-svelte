@@ -1,5 +1,5 @@
 import type {ClientRect} from '../../types/index.js';
-import {Rect, getClientRect} from '$lib/core/utilities/index.js';
+import {Rect, getClientRect} from '$core/utilities/index.js';
 import {useMutationObserver, useResizeObserver} from './index.js';
 
 function defaultMeasure(element: HTMLElement) {

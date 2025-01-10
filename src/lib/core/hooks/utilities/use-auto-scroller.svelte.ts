@@ -1,4 +1,4 @@
-import {getScrollDirectionAndSpeed} from '$lib/core/utilities/index.js';
+import {getScrollDirectionAndSpeed} from '$core/utilities/index.js';
 import {useInterval, useLazyMemo, usePrevious} from '$utilities';
 import type {Coordinates, ClientRect} from '../../types/index.js';
 import {Direction} from '../../types/index.js';

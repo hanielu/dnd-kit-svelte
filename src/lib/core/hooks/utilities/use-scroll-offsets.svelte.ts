@@ -3,7 +3,7 @@ import {
 	getScrollableElement,
 	getScrollCoordinates,
 	getScrollOffsets,
-} from '$lib/core/utilities/index.js';
+} from '$core/utilities/index.js';
 import {add, type Coordinates} from '$utilities';
 
 type ScrollCoordinates = Map<HTMLElement | Window, Coordinates>;

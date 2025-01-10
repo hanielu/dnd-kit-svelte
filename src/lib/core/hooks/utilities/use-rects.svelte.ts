@@ -1,5 +1,5 @@
 import type {ClientRect} from '../../types/index.js';
-import {getClientRect, isDocumentScrollingElement, Rect} from '$lib/core/utilities/index.js';
+import {getClientRect, isDocumentScrollingElement, Rect} from '$core/utilities/index.js';
 import {getWindow} from '$utilities';
 import {useResizeObserver} from './index.js';
 import {useWindowRect} from './use-window-rect.js';

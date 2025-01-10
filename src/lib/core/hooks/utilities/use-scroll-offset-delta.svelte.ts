@@ -1,4 +1,4 @@
-import {defaultCoordinates} from '$lib/core/utilities/index.js';
+import {defaultCoordinates} from '$core/utilities/index.js';
 import {subtract, type Coordinates} from '$utilities';
 import {untrack} from 'svelte';
 

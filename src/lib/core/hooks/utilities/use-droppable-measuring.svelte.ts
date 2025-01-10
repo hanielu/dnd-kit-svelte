@@ -1,8 +1,8 @@
-import type {ClientRect} from '$lib/core/types/rect.js';
-import type {DroppableContainer, RectMap} from '$lib/core/store/types.js';
-import type {UniqueIdentifier} from '$lib/core/types/other.js';
+import type {ClientRect} from '$core/types/rect.js';
+import type {DroppableContainer, RectMap} from '$core/store/types.js';
+import type {UniqueIdentifier} from '$core/types/other.js';
 import {box} from 'svelte-toolbelt';
-import {Rect} from '$lib/core/utilities/rect/index.js';
+import {Rect} from '$core/utilities/rect/index.js';
 import {untrack} from 'svelte';
 import {useLazyMemo} from '$utilities';
 

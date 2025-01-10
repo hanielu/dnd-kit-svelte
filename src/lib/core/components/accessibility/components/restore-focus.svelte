@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {getInternalContext} from '$lib/core/store/context.js';
+	import {getInternalContext} from '$core/store/context.js';
 	import {isKeyboardEvent, findFirstFocusableNode} from '$utilities';
 
 	interface Props {

@@ -1,5 +1,5 @@
-import type {DraggableNodes, DraggableNode} from '$lib/core/store/types.js';
-import type {UniqueIdentifier} from '$lib/core/types/other.js';
+import type {DraggableNodes, DraggableNode} from '$core/store/types.js';
+import type {UniqueIdentifier} from '$core/types/other.js';
 import {useLazyMemo} from '$utilities';
 
 export function useCachedNode(args: () => [draggableNodes: DraggableNodes, id: UniqueIdentifier | null]) {

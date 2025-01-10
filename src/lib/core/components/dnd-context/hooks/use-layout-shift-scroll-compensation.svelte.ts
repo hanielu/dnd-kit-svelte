@@ -1,5 +1,5 @@
-import type {DraggableNode} from '$lib/core/store/types.js';
-import {getRectDelta, getFirstScrollableAncestor} from '$lib/core/utilities/index.js';
+import type {DraggableNode} from '$core/store/types.js';
+import {getRectDelta, getFirstScrollableAncestor} from '$core/utilities/index.js';
 import type {MeasuringFunction} from '../types.js';
 import type {ClientRect} from '../../../types/index.js';
 

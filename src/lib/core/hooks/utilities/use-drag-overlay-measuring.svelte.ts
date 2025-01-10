@@ -1,7 +1,7 @@
-import type {ClientRect} from '$lib/core/types/rect.js';
+import type {ClientRect} from '$core/types/rect.js';
 import {isHTMLElement} from '$lib/utilities/src/type-guards/isHTMLElement.js';
 import {useResizeObserver} from './index.js';
-import {getMeasurableNode} from '$lib/core/utilities/nodes/getMeasurableNode.js';
+import {getMeasurableNode} from '$core/utilities/nodes/getMeasurableNode.js';
 import {useNodeRef} from '$utilities';
 
 interface Arguments {

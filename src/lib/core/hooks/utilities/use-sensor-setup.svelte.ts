@@ -1,4 +1,4 @@
-import type {SensorDescriptor} from '$lib/core/sensors/types.js';
+import type {SensorDescriptor} from '$core/sensors/types.js';
 import {canUseDOM} from '$utilities';
 
 export function useSensorSetup(sensorsFn: () => SensorDescriptor<any>[]) {

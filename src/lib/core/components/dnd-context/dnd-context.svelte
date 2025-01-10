@@ -1,11 +1,6 @@
 <script lang="ts" module>
-	import type {
-		SensorActivatorFunction,
-		SensorContext,
-		SensorDescriptor,
-		SensorInstance,
-	} from '$lib/core/sensors/types.js';
-	import type {UniqueIdentifier} from '$lib/core/types/other.js';
+	import type {SensorActivatorFunction, SensorContext, SensorDescriptor, SensorInstance} from '$core/sensors/types.js';
+	import type {UniqueIdentifier} from '$core/types/other.js';
 	import {getContext, setContext, type Snippet} from 'svelte';
 	import {
 		Action,
@@ -16,7 +11,7 @@
 		type InternalContextDescriptor,
 		InternalContextKey,
 		PublicContextKey,
-	} from '$lib/core/store/index.js';
+	} from '$core/store/index.js';
 	import {DndMonitorContextKey, useDndMonitorProvider} from '../dnd-monitor/index.js';
 	import {defaultData, defaultSensors} from './defaults.js';
 	import type {
@@ -27,16 +22,16 @@
 		DragOverEvent,
 		DragEndEvent,
 		DragCancelEvent,
-	} from '$lib/core/types/index.js';
+	} from '$core/types/index.js';
 	import {
 		adjustScale,
 		getAdjustedRect,
 		getFirstCollision,
 		rectIntersection,
 		type CollisionDetection,
-	} from '$lib/core/utilities/index.js';
+	} from '$core/utilities/index.js';
 	import type {MeasuringConfiguration} from './types.js';
-	import {applyModifiers, type Modifiers} from '$lib/core/modifiers/index.js';
+	import {applyModifiers, type Modifiers} from '$core/modifiers/index.js';
 	import {add, getEventCoordinates, getWindow, useUniqueId, type Transform} from '$utilities';
 	import {useLayoutShiftScrollCompensation, useMeasuringConfiguration} from './hooks/index.js';
 	import {
@@ -55,9 +50,9 @@
 		useSensorSetup,
 		useWindowRect,
 		type SyntheticListener,
-	} from '$lib/core/hooks/utilities/index.js';
-	import type {AutoScrollOptions} from '$lib/core/hooks/index.js';
-	import type {Sensor} from '$lib/core/sensors/index.js';
+	} from '$core/hooks/utilities/index.js';
+	import type {AutoScrollOptions} from '$core/hooks/index.js';
+	import type {Sensor} from '$core/sensors/index.js';
 	import {watch} from 'runed';
 	import type {Announcements, ScreenReaderInstructions} from '../accessibility/types.js';
 	import {Accessibility, RestoreFocus} from '../accessibility/index.js';

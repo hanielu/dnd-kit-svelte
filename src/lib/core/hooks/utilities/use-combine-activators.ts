@@ -1,4 +1,4 @@
-import type {SensorDescriptor, SensorActivatorFunction} from '$lib/core/sensors/index.js';
+import type {SensorDescriptor, SensorActivatorFunction} from '$core/sensors/index.js';
 import {box} from 'svelte-toolbelt';
 import type {SyntheticListener, SyntheticListeners} from './use-synthetic-listeners.svelte.js';
 

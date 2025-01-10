@@ -1,4 +1,4 @@
-import {getWindowClientRect} from '$lib/core/utilities/rect/getWindowClientRect.js';
+import {getWindowClientRect} from '$core/utilities/rect/getWindowClientRect.js';
 
 export function useWindowRect(elementFn: () => typeof window | null) {
 	const element = $derived.by(elementFn);
