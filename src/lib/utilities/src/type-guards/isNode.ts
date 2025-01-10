@@ -1,3 +1,3 @@
 export function isNode(node: Object): node is Node {
-  return 'nodeType' in node;
+	return 'nodeType' in node;
 }

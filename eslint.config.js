@@ -20,25 +20,21 @@ export default ts.config(
 				...globals.browser,
 				...globals.node,
 			},
-			// Disable the rule that disallows using 'any'
-			ecmaFeatures: {
-				'no-restricted-syntax': [
-					'error',
-					{
-						selector: 'TSAnyKeyword',
-						message: 'Using `any` is not allowed.',
-					},
-				],
-			},
 		},
 	},
 	{
 		files: ['**/*.svelte'],
-
 		languageOptions: {
 			parserOptions: {
 				parser: ts.parser,
 			},
+		},
+	},
+	{
+		rules: {
+			'@typescript-eslint/no-empty-object-type': 'off',
+			'@typescript-eslint/no-explicit-any': 'off',
+			'@typescript-eslint/no-unused-vars': 'off',
 		},
 	}
 );

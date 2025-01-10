@@ -1,5 +1,4 @@
 <script lang="ts">
-	import {browser} from '$app/environment';
 	import {DndContext, type UniqueIdentifier} from '$core/index.js';
 	import Draggable from './draggable.svelte';
 	import Droppable from './droppable.svelte';
@@ -8,7 +7,6 @@
 	let parent = $state<UniqueIdentifier | null>(null);
 </script>
 
-<!-- {#if browser} -->
 <DndContext
 	onDragEnd={(event) => {
 		parent = event.over?.id ?? null;
@@ -30,7 +28,6 @@
 		{/each}
 	</div>
 </DndContext>
-<!-- {/if} -->
 
 {#snippet draggableMarkup()}
 	<Draggable>Drag me</Draggable>

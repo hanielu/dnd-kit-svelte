@@ -5,10 +5,10 @@ import {
 	presetUno,
 	presetWebFonts,
 	transformerDirectives,
-	transformerVariantGroup
+	transformerVariantGroup,
 } from 'unocss';
-import { fontFamily } from '@unocss/preset-mini/theme';
-import { customPreset, shadcnPreset } from './presets';
+import {fontFamily} from '@unocss/preset-mini/theme';
+import {customPreset, shadcnPreset} from './presets';
 
 // https://unocss.dev
 export default defineConfig({
@@ -16,21 +16,21 @@ export default defineConfig({
 	content: {
 		filesystem: ['./node_modules/bits-ui/dist/**/*.{html,js,svelte,ts}'],
 		pipeline: {
-			include: [/\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html|ts)($|\?)/]
-		}
+			include: [/\.(vue|svelte|[jt]sx|mdx?|astro|elm|php|phtml|html|ts)($|\?)/],
+		},
 	},
 	theme: {
 		fontFamily: {
 			inter: ['Inter', fontFamily.sans],
-			baiJamjuree: ['Bai Jamjuree', fontFamily.sans]
-		}
+			baiJamjuree: ['Bai Jamjuree', fontFamily.sans],
+		},
 	},
 	rules: [],
 	shortcuts: [
 		{
-			'container-base': 'max-w-7xl mx-a'
+			'container-base': 'max-w-7xl mx-a',
 		},
-		[/^area-(.*)$/, ([, v]) => `[grid-area:_${v}]`, { layer: 'default' }],
+		[/^area-(.*)$/, ([, v]) => `[grid-area:_${v}]`, {layer: 'default'}],
 		[
 			/^gta-(.*)$/,
 			([, v]) =>
@@ -40,7 +40,7 @@ export default defineConfig({
 					.split(' ')
 					.map((v) => '"' + v + '"')
 					.join('_')}]`,
-			{ layer: 'default' }
+			{layer: 'default'},
 		],
 		[
 			/^teeny-scrollbar-(w|h)-(\d+)$/,
@@ -49,9 +49,9 @@ export default defineConfig({
       scrollbar:${ax}-${dg}
       scrollbar-track:(rd-2.5 bg-neutral-2/4)
       scrollbar-thumb:(rd-2.5 bg-neutral-2/40)
-      `
+      `,
 		],
-		[/^scroll-th-(.+)$/, ([, v]) => `scrollbar-thumb:${v}`]
+		[/^scroll-th-(.+)$/, ([, v]) => `scrollbar-thumb:${v}`],
 	],
 	variants: [],
 	preflights: [
@@ -62,8 +62,8 @@ export default defineConfig({
               
             }
             `;
-			}
-		}
+			},
+		},
 	],
 
 	presets: [
@@ -71,12 +71,12 @@ export default defineConfig({
 		shadcnPreset,
 		presetUno(),
 		presetAnimations(),
-		presetIcons({ scale: 1.2 }),
+		presetIcons({scale: 1.2}),
 		presetWebFonts({
 			fonts: {
-				inter: 'Inter:400;500;600;700'
-			}
-		})
+				inter: 'Inter:400;500;600;700',
+			},
+		}),
 	],
-	transformers: [transformerDirectives(), transformerVariantGroup()]
+	transformers: [transformerDirectives(), transformerVariantGroup()],
 });
