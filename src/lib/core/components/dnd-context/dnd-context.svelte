@@ -91,7 +91,7 @@
 		};
 	}
 
-	const ActiveDraggableContextKey = Symbol('ActiveDraggableContext');
+	export const ActiveDraggableContextKey = Symbol('ActiveDraggableContext');
 	export function getActiveDraggableContext() {
 		return getContext<{current: Transform}>(ActiveDraggableContextKey);
 	}

@@ -49,6 +49,6 @@ export function getInternalContext() {
 	return getContext<{current: InternalContextDescriptor}>(InternalContextKey);
 }
 
-export function getPublicContext() {
+export function getDndContext() {
 	return getContext<{current: PublicContextDescriptor}>(PublicContextKey);
 }

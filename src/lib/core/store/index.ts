@@ -16,4 +16,10 @@ export type {
 	State,
 } from './types.js';
 
-export {InternalContextKey, PublicContextKey, getInternalContext, getPublicContext} from './context.js';
+export {
+	InternalContextKey,
+	PublicContextKey,
+	defaultInternalContext,
+	getInternalContext,
+	getDndContext,
+} from './context.js';

@@ -8,7 +8,7 @@ export {useMutationObserver} from './use-mutation-observer.svelte.js';
 export {useResizeObserver} from './use-resize-observer.svelte.js';
 export {useDragOverlayMeasuring} from './use-drag-overlay-measuring.svelte.js';
 export {useRectDelta} from './use-rect-delta.js';
-export {useWindowRect} from './use-window-rect.js';
+export {useWindowRect} from './use-window-rect.svelte.js';
 export {useScrollableAncestors} from './use-scrollable-ancestors.svelte.js';
 export {useRects} from './use-rects.svelte.js';
 export {useScrollOffsets} from './use-scroll-offsets.svelte.js';

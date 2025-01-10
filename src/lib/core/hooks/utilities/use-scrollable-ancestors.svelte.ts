@@ -1,4 +1,4 @@
-import {getScrollableAncestors} from '$core/utilities/index.js';
+import {getScrollableAncestors} from '$lib/core/utilities/index.js';
 import {useLazyMemo} from '$utilities';
 
 const defaultValue: Element[] = [];

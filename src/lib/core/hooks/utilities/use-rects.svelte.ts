@@ -2,7 +2,7 @@ import type {ClientRect} from '../../types/index.js';
 import {getClientRect, isDocumentScrollingElement, Rect} from '$core/utilities/index.js';
 import {getWindow} from '$utilities';
 import {useResizeObserver} from './index.js';
-import {useWindowRect} from './use-window-rect.js';
+import {useWindowRect} from './use-window-rect.svelte.js';
 
 const defaultValue: Rect[] = [];
 
@@ -10,7 +10,7 @@ export function useRects(args: () => [elements: Element[], measure?: (element: E
 	const [elements, measure = getClientRect] = $derived.by(args);
 	const [firstElement] = $derived(elements);
 	const windowRect = useWindowRect(() => (firstElement ? getWindow(firstElement) : null));
-	let rects = $state(defaultValue);
+	let rects = $state<ClientRect[]>(defaultValue);
 
 	function measureRects() {
 		if (!elements.length) {

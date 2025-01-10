@@ -1,8 +1,8 @@
-export function useNodeRef(onChange: (newElement: HTMLElement | null, previousElement: HTMLElement | null) => void) {
+export function useNodeRef(onChange?: (newElement: HTMLElement | null, previousElement: HTMLElement | null) => void) {
 	let node = $state<HTMLElement | null>(null);
 	const setNodeRef = (element: HTMLElement | null) => {
 		if (element !== node) {
-			onChange(element, node);
+			onChange?.(element, node);
 		}
 
 		node = element;
@@ -12,6 +12,9 @@ export function useNodeRef(onChange: (newElement: HTMLElement | null, previousEl
 		{
 			get current() {
 				return node;
+			},
+			set current(value) {
+				setNodeRef(value);
 			},
 		},
 		setNodeRef,

@@ -1,2 +1,136 @@
 <script lang="ts" module>
+	import type {DropAnimation} from '../index.js';
+	import type {Modifiers} from '$core/modifiers/types.js';
+	import {NullifiedContextProvider} from './components/nullified-context-provider/index.js';
+	import {PositionedOverlay, type PositionedOverlayProps} from './components/positioned-overlay/index.js';
+	import {getActiveDraggableContext} from '../dnd-context/dnd-context.svelte';
+	import {getDndContext} from '$core/store/context.js';
+	import {applyModifiers} from '$core/index.js';
+	import {useInitialValue} from '$core/hooks/utilities/index.js';
+	import {useDropAnimation} from './hooks/index.js';
+
+	export interface Props
+		extends Pick<PositionedOverlayProps, 'adjustScale' | 'children' | 'className' | 'style' | 'transition'> {
+		dropAnimation?: DropAnimation | null | undefined;
+		modifiers?: Modifiers;
+		wrapperElement?: keyof HTMLElementTagNameMap;
+		zIndex?: number;
+	}
 </script>
+
+<script lang="ts">
+	let {
+		adjustScale = false,
+		children,
+		dropAnimation: dropAnimationConfig,
+		style,
+		transition,
+		modifiers,
+		wrapperElement = 'div',
+		className,
+		zIndex = 999,
+	}: Props = $props();
+
+	const {
+		activatorEvent,
+		active,
+		activeNodeRect,
+		containerNodeRect,
+		draggableNodes,
+		droppableContainers,
+		dragOverlay,
+		over,
+		measuringConfiguration,
+		scrollableAncestors,
+		scrollableAncestorRects,
+		windowRect,
+	} = $derived(getDndContext().current);
+
+	const transform = $derived(getActiveDraggableContext().current);
+
+	const modifiedTransform = $derived(
+		applyModifiers(modifiers, {
+			activatorEvent,
+			active,
+			activeNodeRect,
+			containerNodeRect,
+			draggingNodeRect: dragOverlay.rect,
+			over,
+			overlayNodeRect: dragOverlay.rect,
+			scrollableAncestors,
+			scrollableAncestorRects,
+			transform,
+			windowRect,
+		})
+	);
+	const initialRect = useInitialValue(() => activeNodeRect);
+	const dropAnimation = $derived(
+		useDropAnimation({
+			config: dropAnimationConfig,
+			draggableNodes,
+			droppableContainers,
+			measuringConfiguration,
+		})
+	);
+
+	let ghostElement: HTMLElement | null = null;
+
+	function handleExit(node: HTMLElement) {
+		$effect(() => {
+			ghostElement = node.cloneNode(true) as HTMLElement;
+			const parent = node.parentNode!;
+			const nextSibling = node.nextSibling;
+
+			const cleanup = () => {
+				ghostElement?.remove();
+				ghostElement = null;
+			};
+
+			return () => {
+				if (!active?.id || !nextSibling) {
+					return cleanup();
+				}
+
+				if (nextSibling && ghostElement) {
+					parent.insertBefore(ghostElement as Node, nextSibling.nextSibling);
+
+					Promise.resolve(dropAnimation(active.id, ghostElement)).then(() => {
+						cleanup();
+					});
+				}
+			};
+		});
+	}
+</script>
+
+<NullifiedContextProvider>
+	{#if active}
+		{#key active.id}
+			<PositionedOverlay
+				id={active.id}
+				bind:ref={() => null,
+				(el) => {
+					// We need to wait for the active node to be measured before connecting the drag overlay ref
+					// otherwise collisions can be computed against a mispositioned drag overlay
+					if (initialRect.current) {
+						dragOverlay.setRef(el);
+					}
+				}}
+				as={wrapperElement}
+				{activatorEvent}
+				{adjustScale}
+				{className}
+				{transition}
+				rect={initialRect.current}
+				style={{
+					zIndex,
+					...style,
+				}}
+				transform={modifiedTransform}
+				{handleExit}
+			>
+				{@render children?.()}
+			</PositionedOverlay>
+		{/key}
+	{/if}
+</NullifiedContextProvider>

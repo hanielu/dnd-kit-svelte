@@ -58,7 +58,7 @@ export function useScrollOffsets(elementsFn: () => Element[]) {
 		}
 
 		function cleanup(elements: Element[]) {
-			elements.forEach((element) => {
+			elements?.forEach((element) => {
 				const scrollableElement = getScrollableElement(element);
 
 				scrollableElement?.removeEventListener('scroll', handleScroll);

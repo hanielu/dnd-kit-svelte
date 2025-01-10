@@ -30,7 +30,6 @@ export {
 	MeasuringStrategy,
 	TraversalOrder,
 	useDraggable,
-	useDndContext,
 	useDroppable,
 } from './hooks/index.js';
 export type {
@@ -38,7 +37,7 @@ export type {
 	DraggableAttributes,
 	DraggableSyntheticListeners,
 	DroppableMeasuring,
-	UseDndContextReturnValue,
+	// UseDndContextReturnValue,
 	UseDraggableArguments,
 	UseDroppableArguments,
 } from './hooks/index.js';
@@ -89,6 +88,7 @@ export type {
 	DroppableContainers,
 	DroppableContainer,
 	Over,
+	getDndContext,
 } from './store/index.js';
 
 export type {
@@ -114,5 +114,5 @@ export {
 	closestCorners,
 	rectIntersection,
 	pointerWithin,
-} from './utilities';
-export type {Collision, CollisionDescriptor, CollisionDetection} from './utilities';
+} from './utilities/index.js';
+export type {Collision, CollisionDescriptor, CollisionDetection} from './utilities/index.js';
