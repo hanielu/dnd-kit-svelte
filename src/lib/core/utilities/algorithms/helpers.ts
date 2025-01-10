@@ -1,4 +1,3 @@
-/* eslint-disable no-redeclare */
 import type {ClientRect} from '../../types/index.js';
 
 import type {Collision, CollisionDescriptor} from './types.js';

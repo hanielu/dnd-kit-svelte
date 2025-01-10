@@ -39,12 +39,12 @@ export class Rect {
 	public height: number;
 
 	// The below properties are set by the `Object.defineProperty` calls in the constructor
-	// @ts-ignore
+	// @ts-expect-error Property has no initializer and is not definitely assigned in the constructor
 	public top: number;
-	// @ts-ignore
+	// @ts-expect-error Property has no initializer and is not definitely assigned in the constructor
 	public bottom: number;
-	// @ts-ignore
+	// @ts-expect-error Property has no initializer and is not definitely assigned in the constructor
 	public right: number;
-	// @ts-ignore
+	// @ts-expect-error Property has no initializer and is not definitely assigned in the constructor
 	public left: number;
 }

@@ -1,4 +1,4 @@
-export function isWindow(element: Object): element is typeof window {
+export function isWindow(element: object): element is typeof window {
 	const elementString = Object.prototype.toString.call(element);
 	return (
 		elementString === '[object Window]' ||

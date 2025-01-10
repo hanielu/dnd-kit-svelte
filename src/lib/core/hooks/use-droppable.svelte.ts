@@ -35,9 +35,9 @@ export function useDroppable(argsFn: () => UseDroppableArguments) {
 	const {id, disabled = false, data, resizeObserverConfig} = $derived.by(argsFn);
 	const {active, dispatch, over, measureDroppableContainers} = $derived(getInternalContext().current);
 
-	let previous = {disabled};
+	const previous = {disabled};
 	let resizeObserverConnected = false;
-	let rect: ClientRect | null = null;
+	const rect: ClientRect | null = null;
 	let callbackId: NodeJS.Timeout | null = null;
 
 	const {

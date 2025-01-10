@@ -1,6 +1,6 @@
 type DependencyList = () => any[];
 
-export function useLatestValue<T extends any>(value: T, dependencies: DependencyList) {
+export function useLatestValue<T>(value: T, dependencies: DependencyList) {
 	let valueRef: T = $state(value);
 
 	$effect(() => {

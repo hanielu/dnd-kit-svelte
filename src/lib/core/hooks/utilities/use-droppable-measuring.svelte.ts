@@ -63,7 +63,7 @@ export function useDroppableMeasuring(options: DroppableMeasuringOptions) {
 		if (!previousValue || previousValue === defaultValue || containersRef !== containers || queue != null) {
 			const map: RectMap = new Map();
 
-			for (let container of containers) {
+			for (const container of containers) {
 				if (!container) {
 					continue;
 				}
@@ -95,7 +95,7 @@ export function useDroppableMeasuring(options: DroppableMeasuringOptions) {
 	});
 
 	$effect(() => {
-		dragging; // trigger re-run
+		void dragging; // trigger re-run
 		if (disabled) return;
 		untrack(measureDroppableContainers);
 	});

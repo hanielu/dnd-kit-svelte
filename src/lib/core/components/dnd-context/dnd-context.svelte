@@ -180,10 +180,12 @@
 		activeNode: activeNode.current,
 		collisionRect: null,
 		collisions: null,
-		droppableRects: droppableRects.current, // svelte-ignore state_referenced_locally
+		droppableRects: droppableRects.current,
+		// svelte-ignore state_referenced_locally
 		draggableNodes,
 		draggingNode: null,
-		draggingNodeRect: null, // svelte-ignore state_referenced_locally
+		draggingNodeRect: null,
+		// svelte-ignore state_referenced_locally
 		droppableContainers,
 		over: null,
 		scrollableAncestors: [],

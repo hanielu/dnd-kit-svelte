@@ -5,9 +5,8 @@ import {untrack} from 'svelte';
 export function useScrollOffsetsDelta(args: () => [scrollOffsets: Coordinates, dependencies?: any[]]) {
 	const [scrollOffsets, dependencies] = $derived.by(args);
 	let initialScrollOffsets = $state<Coordinates | null>(null);
-
 	$effect(() => {
-		dependencies; // trigger re-run
+		void dependencies; // trigger re-run
 		initialScrollOffsets = null;
 	});
 

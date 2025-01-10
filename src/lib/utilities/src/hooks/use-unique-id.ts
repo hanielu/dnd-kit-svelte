@@ -1,4 +1,4 @@
-let ids: Record<string, number> = {};
+const ids: Record<string, number> = {};
 
 export function useUniqueId(prefix: string, value?: string) {
 	if (value) {
