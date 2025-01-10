@@ -1,2 +1,2 @@
-export {TouchSensor} from './TouchSensor.js';
-export type {TouchSensorOptions, TouchSensorProps} from './TouchSensor.js';
+export {TouchSensor} from './touch-sensor.js';
+export type {TouchSensorOptions, TouchSensorProps} from './touch-sensor.js';

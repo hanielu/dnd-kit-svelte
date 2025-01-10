@@ -5,7 +5,7 @@ import {
 	AbstractPointerSensor,
 	type AbstractPointerSensorOptions,
 	type PointerEventHandlers,
-} from './AbstractPointerSensor.js';
+} from './abstract-pointer-sensor.js';
 
 const events: PointerEventHandlers = {
 	cancel: {name: 'pointercancel'},

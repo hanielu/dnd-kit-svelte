@@ -1,1 +1,1 @@
-export {findFirstFocusableNode} from './findFirstFocusableNode.js';
+export {findFirstFocusableNode} from './find-first-focusable-node.js';

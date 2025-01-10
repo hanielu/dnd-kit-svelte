@@ -1,6 +1,6 @@
-export {useSensor} from './useSensor.js';
+export {useSensor} from './use-sensor.js';
 
-export {useSensors} from './useSensors.js';
+export {useSensors} from './use-sensors.js';
 
 export {AbstractPointerSensor, PointerSensor} from './pointer/index.js';
 export type {

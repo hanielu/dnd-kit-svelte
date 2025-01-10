@@ -1,6 +1,6 @@
 import type {ClientRect} from '../../types/index.js';
 
-import {parseTransform} from './parseTransform.js';
+import {parseTransform} from './parse-transform.js';
 
 export function inverseTransform(rect: ClientRect, transform: string, transformOrigin: string): ClientRect {
 	const parsedTransform = parseTransform(transform);

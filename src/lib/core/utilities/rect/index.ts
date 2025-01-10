@@ -1,11 +1,11 @@
-export {adjustScale} from './adjustScale.js';
+export {adjustScale} from './adjust-scale.js';
 
-export {getRectDelta} from './getRectDelta.js';
+export {getRectDelta} from './get-rect-delta.js';
 
-export {getAdjustedRect} from './rectAdjustment.js';
+export {getAdjustedRect} from './rect-adjustment.js';
 
-export {getClientRect, getTransformAgnosticClientRect} from './getRect.js';
+export {getClientRect, getTransformAgnosticClientRect} from './get-rect.js';
 
-export {getWindowClientRect} from './getWindowClientRect.js';
+export {getWindowClientRect} from './get-window-client-rect.js';
 
-export {Rect} from './Rect.js';
+export {Rect} from './rect.js';

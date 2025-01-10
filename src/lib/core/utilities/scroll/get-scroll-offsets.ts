@@ -1,7 +1,7 @@
 import {add} from '$utilities';
 
 import type {Coordinates} from '../../types/index.js';
-import {getScrollCoordinates, getScrollXCoordinate, getScrollYCoordinate} from './getScrollCoordinates.js';
+import {getScrollCoordinates, getScrollXCoordinate, getScrollYCoordinate} from './get-scroll-coordinates.js';
 import {defaultCoordinates} from '../coordinates/index.js';
 
 export function getScrollOffsets(scrollableAncestors: Element[]): Coordinates {

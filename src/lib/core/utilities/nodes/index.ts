@@ -1,1 +1,1 @@
-export {getMeasurableNode} from './getMeasurableNode.js';
+export {getMeasurableNode} from './get-measurable-node.js';

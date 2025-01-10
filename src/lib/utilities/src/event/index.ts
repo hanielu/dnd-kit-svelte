@@ -1,3 +1,3 @@
-export {hasViewportRelativeCoordinates} from './hasViewportRelativeCoordinates.js';
-export {isKeyboardEvent} from './isKeyboardEvent.js';
-export {isTouchEvent} from './isTouchEvent.js';
+export {hasViewportRelativeCoordinates} from './has-viewport-relative-coordinates.js';
+export {isKeyboardEvent} from './is-keyboard-event.js';
+export {isTouchEvent} from './is-touch-event.js';

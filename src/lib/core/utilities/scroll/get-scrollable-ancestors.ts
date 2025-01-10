@@ -1,7 +1,7 @@
 import {getWindow, isDocument, isHTMLElement, isSVGElement} from '$utilities';
 
-import {isFixed} from './isFixed.js';
-import {isScrollable} from './isScrollable.js';
+import {isFixed} from './is-fixed.js';
+import {isScrollable} from './is-scrollable.js';
 
 export function getScrollableAncestors(element: Node | null, limit?: number): Element[] {
 	const scrollParents: Element[] = [];

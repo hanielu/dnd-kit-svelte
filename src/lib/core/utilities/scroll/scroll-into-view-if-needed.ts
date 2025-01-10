@@ -1,6 +1,6 @@
 import type {ClientRect} from '../../types/index.js';
-import {getClientRect} from '../rect/getRect.js';
-import {getFirstScrollableAncestor} from './getScrollableAncestors.js';
+import {getClientRect} from '../rect/get-rect.js';
+import {getFirstScrollableAncestor} from './get-scrollable-ancestors.js';
 
 export function scrollIntoViewIfNeeded(
 	element: HTMLElement | null | undefined,

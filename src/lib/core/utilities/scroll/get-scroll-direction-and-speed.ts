@@ -1,5 +1,5 @@
 import {Direction, type ClientRect} from '../../types/index.js';
-import {getScrollPosition} from './getScrollPosition.js';
+import {getScrollPosition} from './get-scroll-position.js';
 
 interface PositionalCoordinates extends Pick<ClientRect, 'top' | 'left' | 'right' | 'bottom'> {}
 
