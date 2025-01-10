@@ -9,7 +9,7 @@ import {add, type Coordinates} from '$utilities';
 type ScrollCoordinates = Map<HTMLElement | Window, Coordinates>;
 
 export function useScrollOffsets(elementsFn: () => Element[]) {
-	const elements = $derived.by(elementsFn);
+	const elements = $derived(elementsFn() ?? []);
 	let scrollCoordinates = $state<ScrollCoordinates | null>(null);
 	let prevElements = elements;
 

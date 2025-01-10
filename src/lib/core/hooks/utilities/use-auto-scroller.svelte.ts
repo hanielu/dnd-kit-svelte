@@ -60,8 +60,8 @@ export function useAutoScroller(argsFn: () => Arguments) {
 		interval = 5,
 		order = TraversalOrder.TreeOrder,
 		pointerCoordinates,
-		scrollableAncestors,
-		scrollableAncestorRects,
+		scrollableAncestors = [],
+		scrollableAncestorRects = [],
 		delta,
 		threshold,
 	} = $derived.by(argsFn);
