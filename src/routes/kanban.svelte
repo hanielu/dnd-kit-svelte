@@ -36,8 +36,8 @@
 
 	let todos = $state<Todo[]>(defaultTasks);
 	let activeId = $state<string | null>(null);
-	const activeTodo = $derived(todos.find((todo) => todo.id === activeId));
 
+	const activeTodo = $derived(todos.find((todo) => todo.id === activeId));
 	const done = $derived(todos.filter((task) => task.done));
 	const inProgress = $derived(todos.filter((task) => !task.done));
 
@@ -62,8 +62,6 @@
 
 		activeId = null;
 	}
-
-	// $inspect(todos);
 
 	function handleDragOver({active, over}: DragOverEvent) {
 		// console.log('over', over);

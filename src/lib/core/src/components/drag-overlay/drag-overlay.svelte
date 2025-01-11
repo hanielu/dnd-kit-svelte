@@ -89,10 +89,6 @@
 	function handleExit(overlayNode: HTMLElement) {
 		$effect(() => {
 			ghostElement = overlayNode.cloneNode(true) as HTMLElement;
-
-			const parent = overlayNode.parentNode!;
-			const nextSibling = overlayNode.nextSibling;
-
 			previousActiveId = active?.id;
 
 			onStylesUpdated = (styles) => {
@@ -100,14 +96,9 @@
 			};
 
 			return () => {
-				if (!nextSibling || !previousActiveId) {
-					return cleanup();
-				}
-
-				if (nextSibling && ghostElement) {
-					parent.insertBefore(ghostElement as Node, nextSibling.nextSibling);
-					Promise.resolve(dropAnimation(previousActiveId, ghostElement)).then(cleanup);
-				}
+				if (!ghostElement || !previousActiveId) return cleanup();
+				document.body.appendChild(ghostElement);
+				Promise.resolve(dropAnimation(previousActiveId, ghostElement)).then(cleanup);
 			};
 		});
 	}

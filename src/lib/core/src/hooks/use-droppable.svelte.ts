@@ -116,12 +116,13 @@ export function useDroppable(argsFn: () => UseDroppableArguments) {
 				},
 			});
 
-			return () =>
+			return () => {
 				dispatch({
 					type: Action.UnregisterDroppable,
 					key,
 					id,
 				});
+			};
 		}
 	);
 

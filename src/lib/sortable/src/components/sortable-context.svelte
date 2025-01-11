@@ -74,7 +74,7 @@
 	const activeIndex = $derived(active ? items.indexOf(active.id) : -1);
 	const overIndex = $derived(over ? items.indexOf(over.id) : -1);
 
-	let previousItemsRef = items;
+	let previousItemsRef = $state(items);
 
 	const itemsHaveChanged = $derived(!itemsEqual(items, previousItemsRef));
 	const disableTransforms = $derived((overIndex !== -1 && activeIndex === -1) || itemsHaveChanged);

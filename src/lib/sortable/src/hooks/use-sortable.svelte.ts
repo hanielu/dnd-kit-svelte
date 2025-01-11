@@ -150,7 +150,7 @@ export function useSortable(argsFn: () => Arguments) {
 		rect: rect.current,
 	}));
 
-	$effect(() => {
+	$effect.pre(() => {
 		if (isSorting && previous.newIndex !== newIndex) {
 			previous.newIndex = newIndex;
 		}
@@ -207,10 +207,10 @@ export function useSortable(argsFn: () => Arguments) {
 	};
 
 	function getTransition() {
-		// console.log('transition', transition);
 		if (
 			// Temporarily disable transitions for a single frame to set up derived transforms
 			derivedTransform.current ||
+			// TODO: this doesn't seem to work (not sure?), items may still jump to back to their "new" position when items change
 			// Or to prevent items jumping to back to their "new" position when items change
 			(itemsHaveChanged && previous.newIndex === index)
 		) {

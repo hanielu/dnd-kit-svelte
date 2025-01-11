@@ -1,8 +1,9 @@
 <script lang="ts">
-	import {useSortable} from '$sortable';
 	import type {UniqueIdentifier} from '$core/index.js';
 	import {CSS} from '$utilities';
 	import {styleObjectToString} from '$helpers';
+	import {untrack} from 'svelte';
+	import {useSortable} from '$sortable';
 
 	interface Task {
 		id: UniqueIdentifier;
@@ -12,7 +13,9 @@
 	let {task}: {task: Task} = $props();
 
 	const {attributes, listeners, nodeRef, transform, transition, isDragging, isSorting} = useSortable(() => ({
-		id: task?.id,
+		// this is so that task is not tracked when the component is unmounted
+		// and we don't get an error telling use task is not defined
+		id: untrack(() => task.id),
 	}));
 
 	const baseStyle = $derived(
