@@ -108,7 +108,7 @@
 	{#if active}
 		<PositionedOverlay
 			id={active.id}
-			bind:ref={() => dragOverlay.nodeRef,
+			bind:ref={() => null,
 			(el) => {
 				// We need to wait for the active node to be measured before connecting the drag overlay ref
 				// otherwise collisions can be computed against a mispositioned drag overlay

@@ -34,7 +34,8 @@ const defaultRole = 'button';
 
 const ID_PREFIX = 'Draggable';
 
-export function useDraggable(argsFn: () => UseDraggableArguments) {
+export function useDraggable(args: UseDraggableArguments | (() => UseDraggableArguments)) {
+	const argsFn = typeof args === 'function' ? args : () => args;
 	const key = useUniqueId(ID_PREFIX);
 	const {id, disabled = false, data, attributes} = $derived.by(argsFn);
 	const {activators, activatorEvent, active, activeNodeRect, ariaDescribedById, draggableNodes, over} =
@@ -48,8 +49,8 @@ export function useDraggable(argsFn: () => UseDraggableArguments) {
 	const listeners = useSyntheticListeners(() => [activators, id]);
 
 	watch(
-		() => [draggableNodes, id],
-		() => {
+		() => id,
+		(id) => {
 			draggableNodes.set(id, {id, key, node: node.current, activatorNode: activatorNode.current, data});
 
 			return () => {

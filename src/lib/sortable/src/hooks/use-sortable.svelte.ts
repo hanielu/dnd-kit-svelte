@@ -27,7 +27,8 @@ export interface Arguments
 	transition?: SortableTransition | null;
 }
 
-export function useSortable(argsFn: () => Arguments) {
+export function useSortable(args: Arguments | (() => Arguments)) {
+	const argsFn = typeof args === 'function' ? args : () => args;
 	const {
 		animateLayoutChanges = defaultAnimateLayoutChanges,
 		attributes: userDefinedAttributes,
@@ -150,7 +151,7 @@ export function useSortable(argsFn: () => Arguments) {
 		rect: rect.current,
 	}));
 
-	$effect.pre(() => {
+	$effect(() => {
 		if (isSorting && previous.newIndex !== newIndex) {
 			previous.newIndex = newIndex;
 		}

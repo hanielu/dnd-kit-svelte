@@ -30,7 +30,8 @@ const defaultResizeObserverConfig = {
 	timeout: 25,
 };
 
-export function useDroppable(argsFn: () => UseDroppableArguments) {
+export function useDroppable(args: UseDroppableArguments | (() => UseDroppableArguments)) {
+	const argsFn = typeof args === 'function' ? args : () => args;
 	const key = useUniqueId(ID_PREFIX);
 	const {id, disabled = false, data, resizeObserverConfig} = $derived.by(argsFn);
 	const {active, dispatch, over, measureDroppableContainers} = $derived.by(getInternalContext);
