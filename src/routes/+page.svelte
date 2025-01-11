@@ -1,13 +1,34 @@
 <script lang="ts">
-	import {DndContext, type UniqueIdentifier} from '$core/index.js';
+	import {
+		defaultDropAnimationSideEffects,
+		DndContext,
+		DragOverlay,
+		type DropAnimation,
+		type UniqueIdentifier,
+	} from '$core/index.js';
+	import {SortableContext, useSortable, rectSortingStrategy} from '$sortable';
+	import {Portal} from 'bits-ui';
 	import Draggable from './draggable.svelte';
 	import Droppable from './droppable.svelte';
+	import Kanban from './kanban.svelte';
 
 	const containers = ['A', 'B', 'C'];
 	let parent = $state<UniqueIdentifier | null>(null);
+
+	const dropAnimation: DropAnimation = {
+		sideEffects: defaultDropAnimationSideEffects({
+			styles: {
+				active: {
+					opacity: '0.5',
+				},
+			},
+		}),
+	};
 </script>
 
-<DndContext
+<Kanban />
+
+<!-- <DndContext
 	onDragEnd={(event) => {
 		parent = event.over?.id ?? null;
 	}}
@@ -18,7 +39,7 @@
 
 	<div class="flex-s-center s-400px gap-8 b b-black">
 		{#each containers as container}
-			<Droppable id={container}>
+			<Droppable id={container} class="flex-s-center s-150px">
 				{#if parent === container}
 					{@render draggableMarkup()}
 				{:else}
@@ -27,8 +48,16 @@
 			</Droppable>
 		{/each}
 	</div>
+
+	<Portal>
+		<DragOverlay {dropAnimation}>
+			{#if parent === null}
+				{@render draggableMarkup()}
+			{/if}
+		</DragOverlay>
+	</Portal>
 </DndContext>
 
 {#snippet draggableMarkup()}
 	<Draggable>Drag me</Draggable>
-{/snippet}
+{/snippet} -->

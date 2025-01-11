@@ -18,6 +18,7 @@ const config = {
 			$helpers: 'src/lib/helpers.js',
 			$utilities: 'src/lib/utilities/src/index.js',
 			$accessibility: 'src/lib/accessibility/src/index.js',
+			$sortable: 'src/lib/sortable/src/index.js',
 		},
 	},
 };

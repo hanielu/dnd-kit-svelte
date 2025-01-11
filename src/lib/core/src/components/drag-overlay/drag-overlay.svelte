@@ -4,7 +4,7 @@
 	import {NullifiedContextProvider} from './components/nullified-context-provider/index.js';
 	import {PositionedOverlay, type PositionedOverlayProps} from './components/positioned-overlay/index.js';
 	import {getActiveDraggableContext} from '../dnd-context/dnd-context.svelte';
-	import {getDndContext} from '$core/store/context.js';
+	import {getDndContext} from '$core/hooks/index.js';
 	import {applyModifiers} from '$core/index.js';
 	import {useInitialValue} from '$core/hooks/utilities/index.js';
 	import {useDropAnimation} from './hooks/index.js';
@@ -44,9 +44,9 @@
 		scrollableAncestors,
 		scrollableAncestorRects,
 		windowRect,
-	} = $derived(getDndContext().current);
+	} = $derived.by(getDndContext);
 
-	const transform = $derived(getActiveDraggableContext().current);
+	const transform = $derived.by(getActiveDraggableContext);
 
 	const modifiedTransform = $derived(
 		applyModifiers(modifiers, {
@@ -86,15 +86,17 @@
 				ghostElement = null;
 			};
 
+			let previousActiveId = active?.id!; // This is the id of the previous active item before the element was unmounted
+
 			return () => {
-				if (!active?.id || !nextSibling) {
+				if (!nextSibling) {
 					return cleanup();
 				}
 
 				if (nextSibling && ghostElement) {
 					parent.insertBefore(ghostElement as Node, nextSibling.nextSibling);
 
-					Promise.resolve(dropAnimation(active.id, ghostElement)).then(() => {
+					Promise.resolve(dropAnimation(previousActiveId, ghostElement)).then(() => {
 						cleanup();
 					});
 				}
@@ -105,32 +107,30 @@
 
 <NullifiedContextProvider>
 	{#if active}
-		{#key active.id}
-			<PositionedOverlay
-				id={active.id}
-				bind:ref={() => null,
-				(el) => {
-					// We need to wait for the active node to be measured before connecting the drag overlay ref
-					// otherwise collisions can be computed against a mispositioned drag overlay
-					if (initialRect.current) {
-						dragOverlay.setRef(el);
-					}
-				}}
-				as={wrapperElement}
-				{activatorEvent}
-				{adjustScale}
-				{className}
-				{transition}
-				rect={initialRect.current}
-				style={{
-					zIndex,
-					...style,
-				}}
-				transform={modifiedTransform}
-				{handleExit}
-			>
-				{@render children?.()}
-			</PositionedOverlay>
-		{/key}
+		<PositionedOverlay
+			id={active.id}
+			bind:ref={() => null,
+			(el) => {
+				// We need to wait for the active node to be measured before connecting the drag overlay ref
+				// otherwise collisions can be computed against a mispositioned drag overlay
+				if (initialRect.current) {
+					dragOverlay.setRef(el);
+				}
+			}}
+			as={wrapperElement}
+			{activatorEvent}
+			{adjustScale}
+			{className}
+			{transition}
+			rect={initialRect.current}
+			style={{
+				zIndex,
+				...style,
+			}}
+			transform={modifiedTransform}
+			{handleExit}
+		>
+			{@render children?.()}
+		</PositionedOverlay>
 	{/if}
 </NullifiedContextProvider>

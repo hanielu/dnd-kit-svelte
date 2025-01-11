@@ -1,3 +1,5 @@
+import {box} from 'svelte-toolbelt';
+
 export function useNodeRef(onChange?: (newElement: HTMLElement | null, previousElement: HTMLElement | null) => void) {
 	let node = $state<HTMLElement | null>(null);
 	const setNodeRef = (element: HTMLElement | null) => {
@@ -8,15 +10,5 @@ export function useNodeRef(onChange?: (newElement: HTMLElement | null, previousE
 		node = element;
 	};
 
-	return [
-		{
-			get current() {
-				return node;
-			},
-			set current(value) {
-				setNodeRef(value);
-			},
-		},
-		setNodeRef,
-	] as const;
+	return [box.with(() => node, setNodeRef), setNodeRef] as const;
 }

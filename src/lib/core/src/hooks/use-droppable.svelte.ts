@@ -33,7 +33,7 @@ const defaultResizeObserverConfig = {
 export function useDroppable(argsFn: () => UseDroppableArguments) {
 	const key = useUniqueId(ID_PREFIX);
 	const {id, disabled = false, data, resizeObserverConfig} = $derived.by(argsFn);
-	const {active, dispatch, over, measureDroppableContainers} = $derived(getInternalContext().current);
+	const {active, dispatch, over, measureDroppableContainers} = $derived.by(getInternalContext);
 
 	const previous = {disabled};
 	let resizeObserverConnected = false;
@@ -138,12 +138,12 @@ export function useDroppable(argsFn: () => UseDroppableArguments) {
 		}
 	});
 
-	return box.with(() => ({
-		active,
-		rect,
-		isOver: over?.id === id,
+	return {
+		active: box.with(() => active),
+		rect: box.with(() => rect),
+		isOver: box.with(() => over?.id === id),
 		node: nodeRef,
-		over,
+		over: box.with(() => over),
 		setNodeRef,
-	}));
+	};
 }

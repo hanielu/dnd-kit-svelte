@@ -167,7 +167,7 @@ const defaultScrollIntent: ScrollIntent = {
 
 function useScrollIntent(argsFn: () => [delta: Coordinates, disabled: boolean]) {
 	const [delta, disabled] = $derived.by(argsFn);
-	let previousDelta = delta;
+	let previousDelta = $state.snapshot(delta);
 
 	const intent = useLazyMemo<ScrollIntent>((previousIntent) => {
 		if (disabled || !previousDelta || !previousIntent) {

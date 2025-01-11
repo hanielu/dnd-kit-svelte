@@ -8,9 +8,7 @@
 
 	let {disabled}: Props = $props();
 
-	const {
-		current: {active, activatorEvent, draggableNodes},
-	} = $derived.by(getInternalContext);
+	const {active, activatorEvent, draggableNodes} = $derived(getInternalContext());
 
 	let previousActivatorEvent = activatorEvent;
 	let previousActiveId = active?.id;

@@ -37,12 +37,11 @@ const ID_PREFIX = 'Draggable';
 export function useDraggable(argsFn: () => UseDraggableArguments) {
 	const key = useUniqueId(ID_PREFIX);
 	const {id, disabled = false, data, attributes} = $derived.by(argsFn);
-	const {activators, activatorEvent, active, activeNodeRect, ariaDescribedById, draggableNodes, over} = $derived(
-		getInternalContext().current
-	);
+	const {activators, activatorEvent, active, activeNodeRect, ariaDescribedById, draggableNodes, over} =
+		$derived.by(getInternalContext);
 	const {role = defaultRole, roleDescription = 'draggable', tabIndex = 0} = $derived(attributes ?? {});
 	const isDragging = $derived(active?.id === id);
-	const transform: Transform | null = $derived(isDragging ? getActiveDraggableContext().current : null);
+	const transform: Transform | null = $derived(isDragging ? getActiveDraggableContext() : null);
 
 	const [node, setNodeRef] = useNodeRef();
 	const [activatorNode, setActivatorNodeRef] = useNodeRef();
@@ -72,17 +71,17 @@ export function useDraggable(argsFn: () => UseDraggableArguments) {
 		'aria-describedby': ariaDescribedById.draggable,
 	});
 
-	return box.with(() => ({
-		active,
-		activatorEvent,
-		activeNodeRect,
-		attributes: memoizedAttributes,
-		isDragging,
-		listeners: disabled ? undefined : listeners,
+	return {
+		active: box.with(() => active),
+		activatorEvent: box.with(() => activatorEvent),
+		activeNodeRect: box.with(() => activeNodeRect),
+		attributes: box.with(() => memoizedAttributes),
+		isDragging: box.with(() => isDragging),
+		listeners: box.with(() => (disabled ? undefined : listeners.current)),
 		node,
-		over,
+		over: box.with(() => over),
 		setNodeRef,
 		setActivatorNodeRef,
-		transform,
-	}));
+		transform: box.with(() => transform),
+	};
 }

@@ -1,4 +1,4 @@
-import {getContext} from 'svelte';
+import {getContext, hasContext} from 'svelte';
 import {defaultMeasuringConfiguration} from '../components/dnd-context/defaults.js';
 import {noop} from '../utilities/index.js';
 import {DroppableContainersMap} from './constructors.js';
@@ -46,9 +46,9 @@ export const InternalContextKey = Symbol('InternalContext');
 export const PublicContextKey = Symbol('PublicContext');
 
 export function getInternalContext() {
-	return getContext<{current: InternalContextDescriptor}>(InternalContextKey);
-}
+	if (!hasContext(InternalContextKey)) {
+		return defaultInternalContext;
+	}
 
-export function getDndContext() {
-	return getContext<{current: PublicContextDescriptor}>(PublicContextKey);
+	return getContext<{current: InternalContextDescriptor}>(InternalContextKey).current;
 }

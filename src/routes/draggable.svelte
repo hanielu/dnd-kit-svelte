@@ -5,12 +5,11 @@
 
 	let {children}: {children?: Snippet} = $props();
 
-	const draggable = useDraggable(() => ({
+	const {attributes, listeners, node, transform} = useDraggable(() => ({
 		id: 'draggable',
 	}));
 
-	const {attributes, listeners, node, transform} = $derived(draggable.current);
-	const style = $derived(transform ? `transform: ${CSS.Translate.toString(transform)};` : '');
+	const style = $derived(transform ? `transform: ${CSS.Translate.toString(transform.current)};` : '');
 	// $inspect(style);
 </script>
 
@@ -19,7 +18,7 @@
 	{style}
 	bind:this={node.current}
 	{...listeners?.current}
-	{...attributes}
+	{...attributes.current}
 >
 	{@render children?.()}
 </div>

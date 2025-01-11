@@ -31,13 +31,14 @@ export {
 	TraversalOrder,
 	useDraggable,
 	useDroppable,
+	getDndContext,
 } from './hooks/index.js';
 export type {
 	AutoScrollOptions,
 	DraggableAttributes,
 	DraggableSyntheticListeners,
 	DroppableMeasuring,
-	// UseDndContextReturnValue,
+	GetDndContextReturnValue,
 	UseDraggableArguments,
 	UseDroppableArguments,
 } from './hooks/index.js';
@@ -88,7 +89,6 @@ export type {
 	DroppableContainers,
 	DroppableContainer,
 	Over,
-	getDndContext,
 } from './store/index.js';
 
 export type {

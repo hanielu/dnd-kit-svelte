@@ -5,15 +5,14 @@
 	interface DroppableProps {
 		children?: Snippet;
 		id: string;
+		class?: string;
 	}
 
-	let {children, id}: DroppableProps = $props();
+	let {children, id, class: className}: DroppableProps = $props();
 
-	const droppable = useDroppable(() => ({id}));
-
-	const {isOver, node} = $derived(droppable.current);
+	const {isOver, node} = useDroppable(() => ({id}));
 </script>
 
-<div class={['flex-s-center s-150px b', isOver ? 'b-green' : 'b-gray']} bind:this={node.current}>
+<div class={['b', isOver.current ? 'b-green' : 'b-gray', className]} bind:this={node.current}>
 	{@render children?.()}
 </div>
