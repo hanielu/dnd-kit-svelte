@@ -82,13 +82,15 @@
 		};
 	});
 
+	const stylesString = $derived(styleObjectToString(styles));
+
 	$effect(() => {
-		onStylesUpdated(styleObjectToString(styles));
+		onStylesUpdated(stylesString);
 	});
 </script>
 
 {#if rect}
-	<svelte:element this={as} bind:this={ref} class={className} style={styleObjectToString(styles)} use:handleExit>
+	<svelte:element this={as} bind:this={ref} class={className} style={stylesString} use:handleExit>
 		{@render children?.()}
 	</svelte:element>
 {/if}
