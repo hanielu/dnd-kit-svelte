@@ -126,10 +126,10 @@
 		droppable: {containers: droppableContainers},
 	} = $derived(ctxState);
 	const node = $derived(activeId != null ? draggableNodes.get(activeId) : null);
-	let activeRects: Active['rect'] = {
+	const activeRects: Active['rect'] = $state({
 		initial: null,
 		translated: null,
-	};
+	});
 	const active = $derived<Active | null>(
 		activeId != null
 			? {
@@ -174,7 +174,7 @@
 	]);
 	const containerNodeRect = useRect(() => [activeNode.current ? activeNode.current.parentElement : null]);
 
-	let sensorContext: SensorContext = {
+	const sensorContext: SensorContext = $state({
 		activatorEvent: null,
 		active: null,
 		activeNode: activeNode.current,
@@ -190,7 +190,7 @@
 		over: null,
 		scrollableAncestors: [],
 		scrollAdjustedTranslate: null,
-	};
+	});
 	const overNode = $derived(droppableContainers.getNodeFor(sensorContext.over?.id));
 	const dragOverlay = useDragOverlayMeasuring({
 		measureFn: () => measuringConfiguration.dragOverlay.measure,
@@ -287,7 +287,7 @@
 			activeNode,
 			event: localActivatorEvent,
 			options,
-			// Sensors need to be instantiated with refs for arguments that change over time
+			// Sensors need to be instantiated with $state as a Proxy for arguments that change over time
 			// otherwise they are frozen in time with the stale arguments
 			context: sensorContext,
 			onAbort(id) {
@@ -518,7 +518,7 @@
 	);
 
 	$effect(() => {
-		sensorContext = {
+		Object.assign(sensorContext, {
 			activatorEvent: activatorEvent,
 			active: active,
 			activeNode: activeNode.current,
@@ -532,12 +532,12 @@
 			over: over,
 			scrollableAncestors: scrollableAncestors.current,
 			scrollAdjustedTranslate: scrollAdjustedTranslate,
-		};
+		});
 
-		activeRects = {
+		Object.assign(activeRects, {
 			initial: draggingNodeRect,
 			translated: collisionRect,
-		};
+		});
 	});
 
 	useAutoScroller(() => ({
