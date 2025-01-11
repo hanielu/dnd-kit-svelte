@@ -5,7 +5,7 @@
 	import {PositionedOverlay, type PositionedOverlayProps} from './components/positioned-overlay/index.js';
 	import {getActiveDraggableContext} from '../dnd-context/dnd-context.svelte';
 	import {getDndContext} from '$core/hooks/index.js';
-	import {applyModifiers} from '$core/index.js';
+	import {applyModifiers, type UniqueIdentifier} from '$core/index.js';
 	import {useInitialValue} from '$core/hooks/utilities/index.js';
 	import {useDropAnimation} from './hooks/index.js';
 
@@ -73,32 +73,40 @@
 		})
 	);
 
-	let ghostElement: HTMLElement | null = null;
+	let ghostElement: HTMLElement | undefined;
+	let previousActiveId: UniqueIdentifier | undefined;
+	// this is so that we can update the styles of the ghost element
+	// to match the overlay element
+	let onStylesUpdated = $state<(styles: string) => void>(() => {});
 
-	function handleExit(node: HTMLElement) {
+	function cleanup() {
+		ghostElement?.remove();
+		ghostElement = undefined;
+		previousActiveId = undefined;
+		onStylesUpdated = () => {};
+	}
+
+	function handleExit(overlayNode: HTMLElement) {
 		$effect(() => {
-			ghostElement = node.cloneNode(true) as HTMLElement;
-			const parent = node.parentNode!;
-			const nextSibling = node.nextSibling;
+			ghostElement = overlayNode.cloneNode(true) as HTMLElement;
 
-			const cleanup = () => {
-				ghostElement?.remove();
-				ghostElement = null;
+			const parent = overlayNode.parentNode!;
+			const nextSibling = overlayNode.nextSibling;
+
+			previousActiveId = active?.id;
+
+			onStylesUpdated = (styles) => {
+				ghostElement!.style.cssText = styles;
 			};
 
-			let previousActiveId = active?.id!; // This is the id of the previous active item before the element was unmounted
-
 			return () => {
-				if (!nextSibling) {
+				if (!nextSibling || !previousActiveId) {
 					return cleanup();
 				}
 
 				if (nextSibling && ghostElement) {
 					parent.insertBefore(ghostElement as Node, nextSibling.nextSibling);
-
-					Promise.resolve(dropAnimation(previousActiveId, ghostElement)).then(() => {
-						cleanup();
-					});
+					Promise.resolve(dropAnimation(previousActiveId, ghostElement)).then(cleanup);
 				}
 			};
 		});
@@ -109,7 +117,7 @@
 	{#if active}
 		<PositionedOverlay
 			id={active.id}
-			bind:ref={() => null,
+			bind:ref={() => dragOverlay.nodeRef,
 			(el) => {
 				// We need to wait for the active node to be measured before connecting the drag overlay ref
 				// otherwise collisions can be computed against a mispositioned drag overlay
@@ -129,6 +137,7 @@
 			}}
 			transform={modifiedTransform}
 			{handleExit}
+			{onStylesUpdated}
 		>
 			{@render children?.()}
 		</PositionedOverlay>

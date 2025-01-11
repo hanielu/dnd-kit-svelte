@@ -87,38 +87,40 @@
 </script>
 
 <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
-	<h1>In Progress</h1>
+	<div class="p-8">
+		<h1 class="text-2xl font-bold mb-4">In Progress</h1>
 
-	<Droppable id="in-progress">
-		<SortableContext items={inProgress}>
-			<div class="p-4 bg-blue-200 grid gap-4 grid-cols-2">
-				{#each inProgress as task (task.id)}
-					<Task {task} />
-				{/each}
-			</div>
-		</SortableContext>
-	</Droppable>
+		<Droppable id="in-progress">
+			<SortableContext items={inProgress}>
+				<div class="p-4 bg-blue-200 grid gap-4 grid-cols-2">
+					{#each inProgress as task (task.id)}
+						<Task {task} />
+					{/each}
+				</div>
+			</SortableContext>
+		</Droppable>
 
-	<br /><br />
+		<div class="my-8"></div>
 
-	<h1>Done</h1>
+		<h1 class="text-2xl font-bold mb-4">Done</h1>
 
-	<Droppable id="done">
-		<SortableContext items={done}>
-			<div class="p-4 bg-green-200 grid gap-4 grid-cols-2">
-				{#each done as task (task.id)}
-					<Task {task} />
-				{/each}
-			</div>
-		</SortableContext>
-	</Droppable>
+		<Droppable id="done">
+			<SortableContext items={done}>
+				<div class="p-4 bg-green-200 grid gap-4 grid-cols-2">
+					{#each done as task (task.id)}
+						<Task {task} />
+					{/each}
+				</div>
+			</SortableContext>
+		</Droppable>
 
-	<Portal>
-		<DragOverlay {dropAnimation}>
-			<!-- Hello hguys -->
-			{#if activeTodo && activeId}
-				<Task task={activeTodo} />
-			{/if}
-		</DragOverlay>
-	</Portal>
+		<Portal>
+			<DragOverlay {dropAnimation}>
+				<!-- Hello hguys -->
+				{#if activeTodo && activeId}
+					<Task task={activeTodo} />
+				{/if}
+			</DragOverlay>
+		</Portal>
+	</div>
 </DndContext>

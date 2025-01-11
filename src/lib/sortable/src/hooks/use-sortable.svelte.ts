@@ -77,7 +77,6 @@ export function useSortable(argsFn: () => Arguments) {
 		activatorEvent,
 		activeNodeRect,
 		attributes,
-		node: draggableNode,
 		setNodeRef: setDraggableNodeRef,
 		listeners,
 		isDragging,
@@ -208,12 +207,14 @@ export function useSortable(argsFn: () => Arguments) {
 	};
 
 	function getTransition() {
+		// console.log('transition', transition);
 		if (
 			// Temporarily disable transitions for a single frame to set up derived transforms
-			derivedTransform ||
+			derivedTransform.current ||
 			// Or to prevent items jumping to back to their "new" position when items change
 			(itemsHaveChanged && previous.newIndex === index)
 		) {
+			// console.log('disabledTransition');
 			return disabledTransition;
 		}
 

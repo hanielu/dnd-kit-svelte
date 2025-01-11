@@ -20,6 +20,8 @@
 		transform: Transform;
 		handleExit: (node: HTMLElement) => void;
 		ref: HTMLElement | null;
+
+		onStylesUpdated: (styles: string) => void;
 	}
 
 	const baseStyles: Record<string, string> = {
@@ -46,6 +48,7 @@
 		transition = defaultTransition,
 		handleExit,
 		ref = $bindable(),
+		onStylesUpdated,
 	}: Props = $props();
 
 	let scaleAdjustedTransform = $derived(
@@ -77,6 +80,10 @@
 			transition: typeof transition === 'function' ? transition(activatorEvent) : transition,
 			...style,
 		};
+	});
+
+	$effect(() => {
+		onStylesUpdated(styleObjectToString(styles));
 	});
 </script>
 

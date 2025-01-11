@@ -13,6 +13,6 @@
 	const {isOver, node} = useDroppable(() => ({id}));
 </script>
 
-<div class={['b', isOver.current ? 'b-green' : 'b-gray', className]} bind:this={node.current}>
+<div class={['b-2', isOver.current ? 'b-green' : 'b-gray', className]} bind:this={node.current}>
 	{@render children?.()}
 </div>

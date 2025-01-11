@@ -1,9 +1,8 @@
-import {SvelteSet} from 'svelte/reactivity';
 import type {DndMonitorEvent, DndMonitorListener} from './types.js';
 
 export function useDndMonitorProvider() {
 	// TODO: maybe make this a regular set
-	const listeners = new SvelteSet<DndMonitorListener>();
+	const listeners = new Set<DndMonitorListener>();
 
 	const registerListener = (listener: DndMonitorListener) => {
 		listeners.add(listener);
