@@ -22,7 +22,7 @@
 	);
 </script>
 
-<div class="relative" bind:this={node.current} {style} {...listeners.current} {...attributes.current}>
+<div class="relative select-none" bind:this={node.current} {style} {...listeners.current} {...attributes.current}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
 	<div class="p-4 bg-white rounded-lg shadow cursor-pointer" class:hidden={isDragging.current}>
 		{task.content}

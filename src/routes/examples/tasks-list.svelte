@@ -7,6 +7,10 @@
 		type DragOverEvent,
 		type DragStartEvent,
 		type DropAnimation,
+		TouchSensor,
+		KeyboardSensor,
+		useSensor,
+		useSensors,
 	} from 'svelte-dnd-kit';
 	import {SortableContext, arrayMove} from 'svelte-dnd-kit';
 	import {Portal} from 'svelte-dnd-kit';
@@ -82,9 +86,11 @@
 			},
 		}),
 	};
+
+	const sensors = useSensors(useSensor(TouchSensor), useSensor(KeyboardSensor));
 </script>
 
-<DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
+<DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
 	<div class="p-8">
 		<h1 class="text-2xl font-bold mb-4">In Progress</h1>
 
