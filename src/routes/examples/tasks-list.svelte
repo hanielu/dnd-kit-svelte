@@ -11,6 +11,7 @@
 		KeyboardSensor,
 		useSensor,
 		useSensors,
+		MouseSensor,
 	} from 'svelte-dnd-kit';
 	import {SortableContext, arrayMove} from 'svelte-dnd-kit';
 	import {Portal} from 'svelte-dnd-kit';
@@ -87,7 +88,7 @@
 		}),
 	};
 
-	const sensors = useSensors(useSensor(TouchSensor), useSensor(KeyboardSensor));
+	const sensors = useSensors(useSensor(TouchSensor), useSensor(KeyboardSensor), useSensor(MouseSensor));
 </script>
 
 <DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
