@@ -60,7 +60,7 @@
 	"devDependencies": {
 		"@eslint/compat": "^1.2.3",
 		"@iconify/json": "^2.2.293",
-		"@sveltejs/adapter-auto": "^3.0.0",
+		"@sveltejs/adapter-vercel": "^5.5.2",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/package": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
