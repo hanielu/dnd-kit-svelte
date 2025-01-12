@@ -1,4 +1,4 @@
-# @adroyt/svelte-dnd-kit
+# svelte-dnd-kit
 
 A Svelte port of the powerful [@dnd-kit][dnd-kit] library - the modern, lightweight, performant, accessible and extensible drag & drop toolkit.
 
@@ -39,8 +39,8 @@ Here's a real-world example of implementing a List board with drag and drop func
 ```html
 <!-- Task.svelte -->
 <script lang="ts">
-	import {useSortable} from '@adroyt/svelte-dnd-kit';
-	import {CSS, styleObjectToString} from '@adroyt/svelte-dnd-kit/utilities';
+	import {useSortable} from 'svelte-dnd-kit';
+	import {CSS, styleObjectToString} from 'svelte-dnd-kit/utilities';
 
 	let {task} = $props();
 
@@ -59,16 +59,16 @@ Here's a real-world example of implementing a List board with drag and drop func
 	);
 </script>
 
-<div bind:this={node.current} {style} {...listeners.current} {...attributes.current}>
-	<div class="task-content" class:dragging={isDragging.current}>{task.content}</div>
+<div bind:this="{node.current}" {style} {...listeners.current} {...attributes.current}>
+	<div class="task-content" class:dragging="{isDragging.current}">{task.content}</div>
 </div>
 ```
 
 ```html
 <!-- List.svelte -->
 <script lang="ts">
-	import {DndContext, DragOverlay} from '@adroyt/svelte-dnd-kit';
-	import {SortableContext, arrayMove} from '@adroyt/svelte-dnd-kit/sortable';
+	import {DndContext, DragOverlay} from 'svelte-dnd-kit';
+	import {SortableContext, arrayMove} from 'svelte-dnd-kit/sortable';
 
 	// State management
 	let todos = $state([
@@ -141,9 +141,9 @@ For detailed documentation on these concepts, please refer to the [original dnd-
 ## Installation
 
 ```bash
-npm install @adroyt/svelte-dnd-kit
+npm install svelte-dnd-kit
 # or
-yarn add @adroyt/svelte-dnd-kit
+yarn add svelte-dnd-kit
 ```
 
 ## License
