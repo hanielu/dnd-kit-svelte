@@ -4,7 +4,7 @@ A Svelte port of the powerful [@dnd-kit](https://github.com/clauderic/dnd-kit) l
 
 ## Overview
 
-This library provides a complete port of dnd-kit to Svelte, maintaining feature parity with the original React implementation while adapting to Svelte's reactivity system. All documentation and APIs from the original dnd-kit library apply here, with some Svelte-specific adaptations.
+This library provides a complete port of dnd-kit to Svelte, maintaining feature parity with the original React implementation while adapting to Svelte's reactivity system. All documentation and APIs from the [original dnd-kit][dnd-kit-docs] library apply here, with some Svelte-specific adaptations.
 
 ## Key Differences from React Implementation
 
@@ -136,7 +136,7 @@ All core concepts from dnd-kit remain the same:
 - Modifiers
 - Collision detection
 
-For detailed documentation on these concepts, please refer to the [original dnd-kit documentation](https://docs.dndkit.com/).
+For detailed documentation on these concepts, please refer to the [original dnd-kit documentation][dnd-kit-docs].
 
 ## Installation
 
@@ -149,3 +149,5 @@ yarn add @adroyt/svelte-dnd-kit
 ## License
 
 MIT © [Adroyt](https://github.com/adroyt)
+[dnd-kit](https://github.com/clauderic/dnd-kit)
+[dnd-kit-docs](https://docs.dndkit.com/)
