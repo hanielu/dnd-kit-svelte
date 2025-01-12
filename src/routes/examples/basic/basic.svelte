@@ -5,6 +5,11 @@
 		DragOverlay,
 		type DropAnimation,
 		type UniqueIdentifier,
+		TouchSensor,
+		KeyboardSensor,
+		useSensor,
+		useSensors,
+		MouseSensor,
 	} from 'svelte-dnd-kit';
 	import {Portal} from 'svelte-dnd-kit';
 	import Droppable from './droppable.svelte';
@@ -22,9 +27,12 @@
 			},
 		}),
 	};
+
+	const sensors = useSensors(useSensor(TouchSensor), useSensor(KeyboardSensor), useSensor(MouseSensor));
 </script>
 
 <DndContext
+	{sensors}
 	onDragEnd={(event) => {
 		parent = event.over?.id ?? null;
 	}}
