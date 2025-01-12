@@ -8,9 +8,9 @@ importers:
 
   .:
     dependencies:
-      bits-ui:
-        specifier: 1.0.0-next.77
-        version: 1.0.0-next.77(svelte@5.17.1)
+      esm-env:
+        specifier: ^1.2.2
+        version: 1.2.2
       runed:
         specifier: ^0.23.0
         version: 0.23.0(svelte@5.17.1)
@@ -451,15 +451,6 @@ packages:
     resolution: {integrity: sha512-zSkKow6H5Kdm0ZUQUB2kV5JIXqoG0+uH5YADhaEHswm664N9Db8dXSi0nMJpacpMf+MyyglF1vnZohpEg5yUtg==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@floating-ui/core@1.6.9':
-    resolution: {integrity: sha512-uMXCuQ3BItDUbAMhIXw7UPXRfAlOAvZzdK9BWpE60MCn+Svt3aLn9jsPTi/WNGlRUu2uI0v5S7JiIUsbsvh3fw==}
-
-  '@floating-ui/dom@1.6.13':
-    resolution: {integrity: sha512-umqzocjDgNRGTuO7Q8CU32dkHkECqI8ZdMZ5Swb6QAM0t5rnlrN3lGo1hdpscRd3WS8T6DKYK4ephgIH9iRh3w==}
-
-  '@floating-ui/utils@0.2.9':
-    resolution: {integrity: sha512-MDWhGtE+eHw5JW7lq4qhc5yRLS11ERl1c7Z6Xd0a58DozHES6EnNNwUWbMiG4J9Cgj053Bhk8zvlhFYKVhULwg==}
-
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
     engines: {node: '>=18.18.0'}
@@ -488,9 +479,6 @@ packages:
 
   '@iconify/utils@2.2.1':
     resolution: {integrity: sha512-0/7J7hk4PqXmxo5PDBDxmnecw5PxklZJfNjIVG9FM0mEfVrvfudS22rYWsqVk6gR3UJ/mSYS90X4R3znXnqfNA==}
-
-  '@internationalized/date@3.6.0':
-    resolution: {integrity: sha512-+z6ti+CcJnRlLHok/emGEsWQhe7kfSmEW+/6qCzvKY67YPh7YOBfvc7+/+NXq+zJlbArg30tYpqLjNgcAYv2YQ==}
 
   '@jridgewell/gen-mapping@0.3.8':
     resolution: {integrity: sha512-imAbBGkb+ebQyxKgzv5Hu2nmROxoDOXHh80evxdoXNOrvAnVx7zimzc1Oo5h9RlfV4vPXaE2iM5pOFbvOCClWA==}
@@ -664,9 +652,6 @@ packages:
     peerDependencies:
       svelte: ^5.0.0-next.96 || ^5.0.0
       vite: ^5.0.0
-
-  '@swc/helpers@0.5.15':
-    resolution: {integrity: sha512-JQ5TuMi45Owi4/BIMAJBoSQoOJu12oOk/gADqlcUL9JEdHB8vyjUSsxqeNXnmXHjYKMi2WcYtezGEEhqUI/E2g==}
 
   '@types/cookie@0.6.0':
     resolution: {integrity: sha512-4Kh9a6B2bQciAhf7FSuMRRkUWecJgJu9nPnx3yzpsfXX/c50REIqpHY4C82bXP90qrLtXtkDxTZosYO3UpOwlA==}
@@ -912,12 +897,6 @@ packages:
   binary-extensions@2.3.0:
     resolution: {integrity: sha512-Ceh+7ox5qe7LJuLHoY0feh3pHuUDHAcRUeyL2VYghZwfpkNIy/+8Ocg0a3UuSoYzavmylwuLWQOf3hl0jjMMIw==}
     engines: {node: '>=8'}
-
-  bits-ui@1.0.0-next.77:
-    resolution: {integrity: sha512-IV0AyVEvsRkXv4s/fl4iea5E9W2b9EBf98s9mRMKMc1xHxM9MmtM2r6MZMqftHQ/c+gHTIt3A9EKuTlh7uay8w==}
-    engines: {node: '>=18', pnpm: '>=8.7.0'}
-    peerDependencies:
-      svelte: ^5.11.0
 
   brace-expansion@1.1.11:
     resolution: {integrity: sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA==}
@@ -1580,11 +1559,6 @@ packages:
     peerDependencies:
       svelte: ^5.7.0
 
-  runed@0.22.0:
-    resolution: {integrity: sha512-ZWVXWhOr0P5xdNgtviz6D1ivLUDWKLCbeC5SUEJ3zBkqLReVqWHenFxMNFeFaiC5bfxhFxyxzyzB+98uYFtwdA==}
-    peerDependencies:
-      svelte: ^5.7.0
-
   runed@0.23.0:
     resolution: {integrity: sha512-WrZcFneb3CkFvujgss6WIvKmlSUvX2z8nYsH+zrd8eo55zO6nkEJ6fRL2QZW+2lAD4DVvAK/8x0dotIRVrnPJQ==}
     peerDependencies:
@@ -2125,17 +2099,6 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@floating-ui/core@1.6.9':
-    dependencies:
-      '@floating-ui/utils': 0.2.9
-
-  '@floating-ui/dom@1.6.13':
-    dependencies:
-      '@floating-ui/core': 1.6.9
-      '@floating-ui/utils': 0.2.9
-
-  '@floating-ui/utils@0.2.9': {}
-
   '@humanfs/core@0.19.1': {}
 
   '@humanfs/node@0.16.6':
@@ -2168,10 +2131,6 @@ snapshots:
       mlly: 1.7.3
     transitivePeerDependencies:
       - supports-color
-
-  '@internationalized/date@3.6.0':
-    dependencies:
-      '@swc/helpers': 0.5.15
 
   '@jridgewell/gen-mapping@0.3.8':
     dependencies:
@@ -2324,10 +2283,6 @@ snapshots:
       vitefu: 1.0.5(vite@5.4.11(@types/node@22.10.5))
     transitivePeerDependencies:
       - supports-color
-
-  '@swc/helpers@0.5.15':
-    dependencies:
-      tslib: 2.8.1
 
   '@types/cookie@0.6.0': {}
 
@@ -2699,16 +2654,6 @@ snapshots:
   balanced-match@1.0.2: {}
 
   binary-extensions@2.3.0: {}
-
-  bits-ui@1.0.0-next.77(svelte@5.17.1):
-    dependencies:
-      '@floating-ui/core': 1.6.9
-      '@floating-ui/dom': 1.6.13
-      '@internationalized/date': 3.6.0
-      esm-env: 1.2.2
-      runed: 0.22.0(svelte@5.17.1)
-      svelte: 5.17.1
-      svelte-toolbelt: 0.7.0(svelte@5.17.1)
 
   brace-expansion@1.1.11:
     dependencies:
@@ -3393,11 +3338,6 @@ snapshots:
       queue-microtask: 1.2.3
 
   runed@0.20.0(svelte@5.17.1):
-    dependencies:
-      esm-env: 1.2.2
-      svelte: 5.17.1
-
-  runed@0.22.0(svelte@5.17.1):
     dependencies:
       esm-env: 1.2.2
       svelte: 5.17.1

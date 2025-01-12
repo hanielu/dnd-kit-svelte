@@ -1,7 +1,6 @@
 <script lang="ts">
-	import {HiddenText, LiveRegion, useAnnouncement} from '$accessibility';
+	import {HiddenText, LiveRegion, Portal, useAnnouncement} from '$accessibility';
 	import {useUniqueId} from '$utilities';
-	import {Portal} from 'bits-ui';
 	import {useDndMonitor} from '../dnd-monitor/index.js';
 	import {defaultAnnouncements, defaultScreenReaderInstructions} from './defaults.js';
 	import type {Announcements, ScreenReaderInstructions} from './types.js';
