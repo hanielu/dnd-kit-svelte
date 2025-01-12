@@ -34,7 +34,7 @@ useSortable({
 
 ## Practical Example: List Board
 
-Here's an [example](src/routes/examples/tasks-list.svelte)
+Here's an [example](../routes/examples/tasks-list.svelte)
 
 ## Core Concepts
 
