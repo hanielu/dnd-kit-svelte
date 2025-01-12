@@ -19,6 +19,7 @@ const config = {
 			$utilities: 'src/lib/utilities/src/index.js',
 			$accessibility: 'src/lib/accessibility/src/index.js',
 			$sortable: 'src/lib/sortable/src/index.js',
+			'svelte-dnd-kit': 'src/lib',
 		},
 	},
 };
