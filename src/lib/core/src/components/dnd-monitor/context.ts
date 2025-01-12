@@ -3,7 +3,7 @@ import type {RegisterListener} from './types.js';
 
 export const DndMonitorContextKey = Symbol('DndMonitorContext');
 
-export function getDndMonitorContext() {
+export function useDndMonitorContext() {
 	if (!hasContext(DndMonitorContextKey)) {
 		return null;
 	}

@@ -1,8 +1,8 @@
-import {getDndMonitorContext} from './context.js';
+import {useDndMonitorContext} from './context.js';
 import type {DndMonitorListener} from './types.js';
 
 export function useDndMonitor(listener: DndMonitorListener) {
-	const registerListener = getDndMonitorContext();
+	const registerListener = useDndMonitorContext();
 
 	$effect(() => {
 		if (!registerListener) {

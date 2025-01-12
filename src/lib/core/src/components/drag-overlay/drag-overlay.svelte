@@ -4,7 +4,7 @@
 	import {NullifiedContextProvider} from './components/nullified-context-provider/index.js';
 	import {PositionedOverlay, type PositionedOverlayProps} from './components/positioned-overlay/index.js';
 	import {getActiveDraggableContext} from '../dnd-context/dnd-context.svelte';
-	import {getDndContext} from '$core/hooks/index.js';
+	import {useDndContext} from '$core/hooks/index.js';
 	import {applyModifiers, type UniqueIdentifier} from '$core/index.js';
 	import {useInitialValue} from '$core/hooks/utilities/index.js';
 	import {useDropAnimation} from './hooks/index.js';
@@ -44,7 +44,7 @@
 		scrollableAncestors,
 		scrollableAncestorRects,
 		windowRect,
-	} = $derived(getDndContext());
+	} = $derived(useDndContext());
 
 	const transform = $derived(getActiveDraggableContext());
 

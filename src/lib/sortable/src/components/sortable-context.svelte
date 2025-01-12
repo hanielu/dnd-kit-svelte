@@ -2,7 +2,7 @@
 	import type {Disabled} from '../types/disabled.js';
 	import type {SortingStrategy} from '../types/strategies.js';
 	import {getContext, hasContext, setContext, type Snippet} from 'svelte';
-	import {getDndContext, type UniqueIdentifier, type ClientRect} from '$core/index.js';
+	import {useDndContext, type UniqueIdentifier, type ClientRect} from '$core/index.js';
 	import {getSortedRects, itemsEqual, normalizeDisabled} from '../utilities/index.js';
 	import {rectSortingStrategy} from '../strategies/index.js';
 	import {useUniqueId} from '$utilities';
@@ -66,7 +66,7 @@
 		disabled: disabledProp = false,
 	}: Props = $props();
 
-	const {active, dragOverlay, droppableRects, over, measureDroppableContainers} = $derived(getDndContext());
+	const {active, dragOverlay, droppableRects, over, measureDroppableContainers} = $derived(useDndContext());
 	const containerId = $derived(useUniqueId(ID_PREFIX, id));
 	const useDragOverlay = $derived(Boolean(dragOverlay.rect !== null));
 	const items = $derived(userDefinedItems.map((item) => (typeof item === 'object' && 'id' in item ? item.id : item)));

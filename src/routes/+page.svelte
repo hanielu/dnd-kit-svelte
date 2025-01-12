@@ -1,63 +1,16 @@
 <script lang="ts">
-	import {
-		defaultDropAnimationSideEffects,
-		DndContext,
-		DragOverlay,
-		type DropAnimation,
-		type UniqueIdentifier,
-	} from '$core/index.js';
-	import {SortableContext, useSortable, rectSortingStrategy} from '$sortable';
-	import {Portal} from 'bits-ui';
-	import Draggable from './draggable.svelte';
-	import Droppable from './droppable.svelte';
-	import Kanban from './kanban.svelte';
-
-	const containers = ['A', 'B', 'C'];
-	let parent = $state<UniqueIdentifier | null>(null);
-
-	const dropAnimation: DropAnimation = {
-		sideEffects: defaultDropAnimationSideEffects({
-			styles: {
-				active: {
-					opacity: '0.5',
-				},
-			},
-		}),
-	};
+	import Basic from './examples/basic/basic.svelte';
+	import TasksList from './examples/tasks-list.svelte';
 </script>
 
-<Kanban />
-
-<!-- <DndContext
-	onDragEnd={(event) => {
-		parent = event.over?.id ?? null;
-	}}
->
-	{#if parent === null}
-		{@render draggableMarkup()}
-	{/if}
-
-	<div class="flex-s-center s-400px gap-8 b b-black">
-		{#each containers as container}
-			<Droppable id={container} class="flex-s-center s-150px">
-				{#if parent === container}
-					{@render draggableMarkup()}
-				{:else}
-					Drop here
-				{/if}
-			</Droppable>
-		{/each}
+<div class="p-8">
+	<div class="flex-s-center|col gap-2">
+		<h1 class="text-2xl font-bold bg-black text-(white center) w-full p-4">Tasks List (Sortable)</h1>
+		<TasksList />
 	</div>
 
-	<Portal>
-		<DragOverlay {dropAnimation}>
-			{#if parent === null}
-				{@render draggableMarkup()}
-			{/if}
-		</DragOverlay>
-	</Portal>
-</DndContext>
-
-{#snippet draggableMarkup()}
-	<Draggable>Drag me</Draggable>
-{/snippet} -->
+	<div class="flex-s-center|col gap-2">
+		<h1 class="text-2xl font-bold bg-black text-(white center) w-full p-4">Basic (Draggable)</h1>
+		<Basic />
+	</div>
+</div>

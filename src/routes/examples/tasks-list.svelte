@@ -10,8 +10,8 @@
 	} from '$core/index.js';
 	import {SortableContext, arrayMove} from '$sortable';
 	import {Portal} from 'bits-ui';
-	import Droppable from './droppable.svelte';
-	import Task from './Task.svelte';
+	import Droppable from './basic/droppable.svelte';
+	import Task from './task.svelte';
 
 	class Todo {
 		id = $state<string>('');

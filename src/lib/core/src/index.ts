@@ -31,14 +31,14 @@ export {
 	TraversalOrder,
 	useDraggable,
 	useDroppable,
-	getDndContext,
+	useDndContext,
 } from './hooks/index.js';
 export type {
 	AutoScrollOptions,
 	DraggableAttributes,
 	DraggableSyntheticListeners,
 	DroppableMeasuring,
-	GetDndContextReturnValue,
+	UseDndContextReturnValue,
 	UseDraggableArguments,
 	UseDroppableArguments,
 } from './hooks/index.js';
