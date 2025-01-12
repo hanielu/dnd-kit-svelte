@@ -1,7 +1,7 @@
 <script lang="ts">
-	import {useDraggable} from '$core/index.js';
+	import {useDraggable} from 'svelte-dnd-kit';
 	import type {Snippet} from 'svelte';
-	import {CSS} from '$utilities';
+	import {CSS} from 'svelte-dnd-kit';
 
 	let {children}: {children?: Snippet} = $props();
 

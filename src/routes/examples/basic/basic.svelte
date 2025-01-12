@@ -5,8 +5,8 @@
 		DragOverlay,
 		type DropAnimation,
 		type UniqueIdentifier,
-	} from '$core/index.js';
-	import {Portal} from 'bits-ui';
+	} from 'svelte-dnd-kit';
+	import {Portal} from 'svelte-dnd-kit';
 	import Droppable from './droppable.svelte';
 	import Draggable from './draggable.svelte';
 

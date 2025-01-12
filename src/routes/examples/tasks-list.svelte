@@ -7,9 +7,9 @@
 		type DragOverEvent,
 		type DragStartEvent,
 		type DropAnimation,
-	} from '$core/index.js';
-	import {SortableContext, arrayMove} from '$sortable';
-	import {Portal} from 'bits-ui';
+	} from 'svelte-dnd-kit';
+	import {SortableContext, arrayMove} from 'svelte-dnd-kit';
+	import {Portal} from 'svelte-dnd-kit';
 	import Droppable from './basic/droppable.svelte';
 	import Task from './task.svelte';
 

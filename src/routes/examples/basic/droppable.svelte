@@ -1,5 +1,5 @@
 <script lang="ts">
-	import {useDroppable} from '$core/index.js';
+	import {useDroppable} from 'svelte-dnd-kit';
 	import type {Snippet} from 'svelte';
 
 	interface DroppableProps {
