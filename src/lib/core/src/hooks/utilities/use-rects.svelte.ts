@@ -7,7 +7,7 @@ import {useWindowRect} from './use-window-rect.svelte.js';
 const defaultValue: Rect[] = [];
 
 export function useRects(args: () => [elements: Element[], measure?: (element: Element) => ClientRect]) {
-	const [elements = [], measure = getClientRect] = $derived.by(args);
+	const [elements = [], measure = getClientRect] = $derived(args());
 	const [firstElement] = $derived(elements);
 	const windowRect = useWindowRect(() => (firstElement ? getWindow(firstElement) : null));
 	let rects = $state<ClientRect[]>(defaultValue);

@@ -8,7 +8,7 @@ interface Arguments {
  * If `MutationObserver` is undefined in the execution environment, returns `undefined`.
  */
 export function useMutationObserver(args: () => Arguments) {
-	const {callback: handleMutations, disabled} = $derived.by(args);
+	const {callback: handleMutations, disabled} = $derived(args());
 	const mutationObserver = $derived.by(() => {
 		if (disabled || typeof window === 'undefined' || typeof window.MutationObserver === 'undefined') {
 			return undefined;

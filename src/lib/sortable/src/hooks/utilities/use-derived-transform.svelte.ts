@@ -12,10 +12,11 @@ interface Arguments {
  * When the index of an item changes while sorting,
  * we need to temporarily disable the transforms
  *
+ * TODO: revisit this this situation
  * I don't think this works in svelte - haniel
  */
 export function useDerivedTransform(argsFn: () => Arguments) {
-	const {rect, disabled, index, node} = $derived.by(argsFn);
+	const {rect, disabled, index, node} = $derived(argsFn());
 	let derivedTransform = $state<Transform | null>(null);
 
 	let previousIndex = index;

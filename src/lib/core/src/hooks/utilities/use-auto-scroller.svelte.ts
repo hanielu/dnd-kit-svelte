@@ -64,7 +64,7 @@ export function useAutoScroller(argsFn: () => Arguments) {
 		scrollableAncestorRects = [],
 		delta,
 		threshold,
-	} = $derived.by(argsFn);
+	} = $derived(argsFn());
 
 	const scrollIntent = useScrollIntent(() => [delta, !enabled]);
 	const [setAutoScrollInterval, clearAutoScrollInterval] = useInterval();
@@ -166,7 +166,7 @@ const defaultScrollIntent: ScrollIntent = {
 };
 
 function useScrollIntent(argsFn: () => [delta: Coordinates, disabled: boolean]) {
-	const [delta, disabled] = $derived.by(argsFn);
+	const [delta, disabled] = $derived(argsFn());
 	let previousDelta = $state.snapshot(delta);
 
 	const intent = useLazyMemo<ScrollIntent>((previousIntent) => {

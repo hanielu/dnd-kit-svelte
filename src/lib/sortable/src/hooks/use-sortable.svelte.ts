@@ -57,7 +57,7 @@ export function useSortable(args: Arguments) {
 		overIndex,
 		useDragOverlay,
 		strategy: globalStrategy,
-	} = $derived.by(getSortableContext);
+	} = $derived(getSortableContext());
 
 	const disabled: Disabled = $derived(normalizeLocalDisabled(localDisabled, globalDisabled));
 	const index = $derived(items.indexOf(id));

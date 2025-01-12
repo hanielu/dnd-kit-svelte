@@ -45,10 +45,10 @@ export function useDroppableMeasuring(options: DroppableMeasuringOptions) {
 		dragging,
 		dependencies,
 		config: {measure, strategy, frequency},
-	} = $derived.by(options);
+	} = $derived(options());
 	let queue = $state<UniqueIdentifier[] | null>(null);
 	let containersRef = containers;
-	const disabled = $derived.by(isDisabled);
+	const disabled = $derived(isDisabled());
 
 	const measureDroppableContainers = (ids: UniqueIdentifier[] = []) => {
 		if (disabled) return;

@@ -14,7 +14,7 @@ export function useRect(
 	]
 ) {
 	let rect = $state<ClientRect | null>(null);
-	const [element, measure = defaultMeasure, fallbackRect] = $derived.by(args);
+	const [element, measure = defaultMeasure, fallbackRect] = $derived(args());
 
 	function measureRect() {
 		if (!element) {

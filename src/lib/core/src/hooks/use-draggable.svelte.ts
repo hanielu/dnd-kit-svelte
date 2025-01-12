@@ -38,7 +38,7 @@ export function useDraggable(args: UseDraggableArguments) {
 	const key = useUniqueId(ID_PREFIX);
 	const {id, disabled = false, data, attributes} = $derived(unwrapResolvableObject(args));
 	const {activators, activatorEvent, active, activeNodeRect, ariaDescribedById, draggableNodes, over} =
-		$derived.by(getInternalContext);
+		$derived(getInternalContext());
 	const {role = defaultRole, roleDescription = 'draggable', tabIndex = 0} = $derived(attributes ?? {});
 	const isDragging = $derived(active?.id === id);
 	const transform: Transform | null = $derived(isDragging ? getActiveDraggableContext() : null);

@@ -12,7 +12,7 @@ interface Options {
 
 export function useLayoutShiftScrollCompensation(optionsFn: () => Options) {
 	let initialized = false;
-	const {activeNode, measure, initialRect, config = true} = $derived.by(optionsFn);
+	const {activeNode, measure, initialRect, config = true} = $derived(optionsFn());
 	const {x, y} = $derived(typeof config === 'boolean' ? {x: config, y: config} : config);
 
 	$effect(() => {

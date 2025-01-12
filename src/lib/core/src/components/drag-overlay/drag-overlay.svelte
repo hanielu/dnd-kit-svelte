@@ -44,9 +44,9 @@
 		scrollableAncestors,
 		scrollableAncestorRects,
 		windowRect,
-	} = $derived.by(getDndContext);
+	} = $derived(getDndContext());
 
-	const transform = $derived.by(getActiveDraggableContext);
+	const transform = $derived(getActiveDraggableContext());
 
 	const modifiedTransform = $derived(
 		applyModifiers(modifiers, {

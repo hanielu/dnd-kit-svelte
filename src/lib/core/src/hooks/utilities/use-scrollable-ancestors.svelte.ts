@@ -4,7 +4,7 @@ import {useLazyMemo} from '$utilities';
 const defaultValue: Element[] = [];
 
 export function useScrollableAncestors(nodeFn: () => HTMLElement | null) {
-	const node = $derived.by(nodeFn);
+	const node = $derived(nodeFn());
 	let previousNode = node;
 
 	const ancestors = useLazyMemo<Element[]>((previousValue) => {

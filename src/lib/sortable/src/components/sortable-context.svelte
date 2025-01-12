@@ -66,7 +66,7 @@
 		disabled: disabledProp = false,
 	}: Props = $props();
 
-	const {active, dragOverlay, droppableRects, over, measureDroppableContainers} = $derived.by(getDndContext);
+	const {active, dragOverlay, droppableRects, over, measureDroppableContainers} = $derived(getDndContext());
 	const containerId = $derived(useUniqueId(ID_PREFIX, id));
 	const useDragOverlay = $derived(Boolean(dragOverlay.rect !== null));
 	const items = $derived(userDefinedItems.map((item) => (typeof item === 'object' && 'id' in item ? item.id : item)));

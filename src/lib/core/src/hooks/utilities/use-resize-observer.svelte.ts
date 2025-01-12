@@ -8,7 +8,7 @@ interface Arguments {
  * If `ResizeObserver` is undefined in the execution environment, returns `undefined`.
  */
 export function useResizeObserver(args: () => Arguments) {
-	const {callback: handleResize, disabled} = $derived.by(args);
+	const {callback: handleResize, disabled} = $derived(args());
 	const resizeObserver = $derived.by(() => {
 		if (disabled || typeof window === 'undefined' || typeof window.ResizeObserver === 'undefined') {
 			return undefined;

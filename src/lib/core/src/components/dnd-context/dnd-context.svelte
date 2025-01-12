@@ -154,7 +154,7 @@
 	}));
 	const activeNode = useCachedNode(() => [draggableNodes, activeId]);
 	const activationCoordinates = $derived(activatorEvent ? getEventCoordinates(activatorEvent) : null);
-	const autoScrollOptions = $derived.by(getAutoScrollerOptions);
+	const autoScrollOptions = $derived(getAutoScrollerOptions());
 	const initialActiveNodeRect = useInitialRect(
 		() => activeNode.current,
 		() => measuringConfiguration.draggable.measure

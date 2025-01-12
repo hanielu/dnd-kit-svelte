@@ -8,7 +8,7 @@ interface Arguments {
 }
 
 export function useDragOverlayMeasuring({measureFn}: Arguments) {
-	const measure = $derived.by(measureFn);
+	const measure = $derived(measureFn());
 	let rect = $state<ClientRect | null>(null);
 	const handleResize = (entries: ResizeObserverEntry[]) => {
 		for (const {target} of entries) {

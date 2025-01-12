@@ -33,7 +33,7 @@ const defaultResizeObserverConfig = {
 export function useDroppable(args: UseDroppableArguments) {
 	const key = useUniqueId(ID_PREFIX);
 	const {id, disabled = false, data, resizeObserverConfig} = $derived(unwrapResolvableObject(args));
-	const {active, dispatch, over, measureDroppableContainers} = $derived.by(getInternalContext);
+	const {active, dispatch, over, measureDroppableContainers} = $derived(getInternalContext());
 
 	const previous = {disabled};
 	let resizeObserverConnected = false;

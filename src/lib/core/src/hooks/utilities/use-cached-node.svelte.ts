@@ -3,7 +3,7 @@ import type {UniqueIdentifier} from '$core/types/other.js';
 import {useLazyMemo} from '$utilities';
 
 export function useCachedNode(args: () => [draggableNodes: DraggableNodes, id: UniqueIdentifier | null]) {
-	const [draggableNodes, id] = $derived.by(args);
+	const [draggableNodes, id] = $derived(args());
 	const draggableNode = $derived(id != null ? draggableNodes.get(id) : undefined);
 	const node = $derived(draggableNode ? draggableNode.node : null);
 
