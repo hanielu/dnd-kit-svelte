@@ -1,6 +1,13 @@
 import {useDraggable, useDroppable, type UseDraggableArguments, type UseDroppableArguments} from '$core/index.js';
 import type {Data} from '$core/index.js';
-import {CSS, isKeyboardEvent, useCombinedRefs} from '$utilities';
+import {
+	CSS,
+	isKeyboardEvent,
+	unwrapResolvableObject,
+	useCombinedRefs,
+	type ResolvableObject,
+	type UnwrapResolvable,
+} from '$utilities';
 import {box} from 'svelte-toolbelt';
 
 import {getSortableContext} from '../components/index.js';
@@ -17,18 +24,17 @@ import {
 import type {AnimateLayoutChanges, NewIndexGetter, SortableTransition} from './types.js';
 import {useDerivedTransform} from './utilities/index.js';
 
-export interface Arguments
-	extends Omit<UseDraggableArguments, 'disabled'>,
-		Pick<UseDroppableArguments, 'resizeObserverConfig'> {
-	animateLayoutChanges?: AnimateLayoutChanges;
-	disabled?: boolean | Disabled;
-	getNewIndex?: NewIndexGetter;
-	strategy?: SortingStrategy;
-	transition?: SortableTransition | null;
-}
+export type Arguments = Omit<UseDraggableArguments, 'disabled'> &
+	Pick<UseDroppableArguments, 'resizeObserverConfig'> &
+	ResolvableObject<{
+		animateLayoutChanges?: AnimateLayoutChanges;
+		disabled?: boolean | Disabled;
+		getNewIndex?: NewIndexGetter;
+		strategy?: SortingStrategy;
+		transition?: SortableTransition | null;
+	}>;
 
-export function useSortable(args: Arguments | (() => Arguments)) {
-	const argsFn = typeof args === 'function' ? args : () => args;
+export function useSortable(args: Arguments) {
 	const {
 		animateLayoutChanges = defaultAnimateLayoutChanges,
 		attributes: userDefinedAttributes,
@@ -39,7 +45,7 @@ export function useSortable(args: Arguments | (() => Arguments)) {
 		strategy: localStrategy,
 		resizeObserverConfig,
 		transition = defaultTransition,
-	} = $derived.by(argsFn);
+	} = $derived(unwrapResolvableObject(args));
 
 	const {
 		items,
@@ -63,15 +69,15 @@ export function useSortable(args: Arguments | (() => Arguments)) {
 		node,
 		isOver,
 		setNodeRef: setDroppableNodeRef,
-	} = useDroppable(() => ({
-		id,
-		data,
-		disabled: disabled.droppable,
-		resizeObserverConfig: {
+	} = useDroppable({
+		id: () => id,
+		data: () => data,
+		disabled: () => disabled.droppable,
+		resizeObserverConfig: () => ({
 			updateMeasurementsFor: itemsAfterCurrentSortable,
 			...resizeObserverConfig,
-		},
-	}));
+		}),
+	});
 
 	const {
 		active,
@@ -84,15 +90,15 @@ export function useSortable(args: Arguments | (() => Arguments)) {
 		over,
 		setActivatorNodeRef,
 		transform,
-	} = useDraggable(() => ({
-		id,
-		data,
-		attributes: {
+	} = useDraggable({
+		id: () => id,
+		data: () => data,
+		attributes: () => ({
 			...defaultAttributes,
 			...userDefinedAttributes,
-		},
-		disabled: disabled.draggable,
-	}));
+		}),
+		disabled: () => disabled.draggable,
+	});
 
 	const setNodeRef = $derived(useCombinedRefs(setDroppableNodeRef, setDraggableNodeRef));
 	const isSorting = $derived(Boolean(active.current));
@@ -195,10 +201,9 @@ export function useSortable(args: Arguments | (() => Arguments)) {
 		isSorting: box.with(() => isSorting),
 		isDragging,
 		listeners,
-		node,
+		node: box.with(() => node.current, setNodeRef),
 		overIndex: box.with(() => overIndex),
 		over,
-		nodeRef: box.with(() => null as typeof node.current, setNodeRef),
 		setNodeRef,
 		setActivatorNodeRef,
 		setDroppableNodeRef,
@@ -215,7 +220,6 @@ export function useSortable(args: Arguments | (() => Arguments)) {
 			// Or to prevent items jumping to back to their "new" position when items change
 			(itemsHaveChanged && previous.newIndex === index)
 		) {
-			// console.log('disabledTransition');
 			return disabledTransition;
 		}
 
@@ -234,7 +238,7 @@ export function useSortable(args: Arguments | (() => Arguments)) {
 	}
 }
 
-function normalizeLocalDisabled(localDisabled: Arguments['disabled'], globalDisabled: Disabled) {
+function normalizeLocalDisabled(localDisabled: UnwrapResolvable<Arguments['disabled']>, globalDisabled: Disabled) {
 	if (typeof localDisabled === 'boolean') {
 		return {
 			draggable: localDisabled,

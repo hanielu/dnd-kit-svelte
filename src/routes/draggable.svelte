@@ -10,7 +10,6 @@
 	}));
 
 	const style = $derived(transform ? `transform: ${CSS.Translate.toString(transform.current)};` : '');
-	// $inspect(style);
 </script>
 
 <div

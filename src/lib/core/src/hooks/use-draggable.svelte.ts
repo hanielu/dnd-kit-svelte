@@ -1,12 +1,12 @@
 import {getInternalContext, type Data} from '$core/store/index.js';
 import type {UniqueIdentifier} from '$core/types/index.js';
-import {useNodeRef, useUniqueId, type Transform} from '$utilities';
+import {unwrapResolvableObject, useNodeRef, useUniqueId, type ResolvableObject, type Transform} from '$utilities';
 import {watch} from 'runed';
 import {useSyntheticListeners, type SyntheticListenerMap} from './utilities/index.js';
 import {box} from 'svelte-toolbelt';
 import {getActiveDraggableContext} from '$core/components/dnd-context/dnd-context.svelte';
 
-export interface UseDraggableArguments {
+export type UseDraggableArguments = ResolvableObject<{
 	id: UniqueIdentifier;
 	data?: Data;
 	disabled?: boolean;
@@ -15,7 +15,7 @@ export interface UseDraggableArguments {
 		roleDescription?: string;
 		tabIndex?: number;
 	};
-}
+}>;
 
 export interface DraggableAttributes {
 	role: string;
@@ -34,10 +34,9 @@ const defaultRole = 'button';
 
 const ID_PREFIX = 'Draggable';
 
-export function useDraggable(args: UseDraggableArguments | (() => UseDraggableArguments)) {
-	const argsFn = typeof args === 'function' ? args : () => args;
+export function useDraggable(args: UseDraggableArguments) {
 	const key = useUniqueId(ID_PREFIX);
-	const {id, disabled = false, data, attributes} = $derived.by(argsFn);
+	const {id, disabled = false, data, attributes} = $derived(unwrapResolvableObject(args));
 	const {activators, activatorEvent, active, activeNodeRect, ariaDescribedById, draggableNodes, over} =
 		$derived.by(getInternalContext);
 	const {role = defaultRole, roleDescription = 'draggable', tabIndex = 0} = $derived(attributes ?? {});

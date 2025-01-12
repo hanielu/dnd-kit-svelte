@@ -1,9 +1,8 @@
 <script lang="ts" module>
 	import type {ClientRect, UniqueIdentifier} from '$core/types/index.js';
 	import type {Snippet} from 'svelte';
-	import {CSS, isKeyboardEvent, type Transform} from '$utilities';
+	import {CSS, isKeyboardEvent, type Transform, styleObjectToString} from '$utilities';
 	import {getRelativeTransformOrigin} from '$core/utilities/index.js';
-	import {styleObjectToString} from '$helpers';
 
 	type TransitionGetter = (activatorEvent: Event | null) => string | undefined;
 

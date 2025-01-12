@@ -10,7 +10,7 @@
 
 	let {children, id, class: className}: DroppableProps = $props();
 
-	const {isOver, node} = useDroppable(() => ({id}));
+	const {isOver, node} = useDroppable({id});
 </script>
 
 <div class={['b-2', isOver.current ? 'b-green' : 'b-gray', className]} bind:this={node.current}>

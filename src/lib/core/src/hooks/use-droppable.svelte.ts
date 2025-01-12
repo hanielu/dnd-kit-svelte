@@ -1,6 +1,6 @@
 import {Action, getInternalContext, type Data} from '$core/store/index.js';
 import type {ClientRect, UniqueIdentifier} from '$core/types/index.js';
-import {useNodeRef, useUniqueId} from '$utilities';
+import {unwrapResolvableObject, useNodeRef, useUniqueId, type ResolvableObject} from '$utilities';
 import {watch} from 'runed';
 import {useResizeObserver} from './utilities/index.js';
 import {box} from 'svelte-toolbelt';
@@ -17,12 +17,12 @@ interface ResizeObserverConfig {
 	timeout?: number;
 }
 
-export interface UseDroppableArguments {
+export type UseDroppableArguments = ResolvableObject<{
 	id: UniqueIdentifier;
 	disabled?: boolean;
 	data?: Data;
 	resizeObserverConfig?: ResizeObserverConfig;
-}
+}>;
 
 const ID_PREFIX = 'Droppable';
 
@@ -30,10 +30,9 @@ const defaultResizeObserverConfig = {
 	timeout: 25,
 };
 
-export function useDroppable(args: UseDroppableArguments | (() => UseDroppableArguments)) {
-	const argsFn = typeof args === 'function' ? args : () => args;
+export function useDroppable(args: UseDroppableArguments) {
 	const key = useUniqueId(ID_PREFIX);
-	const {id, disabled = false, data, resizeObserverConfig} = $derived.by(argsFn);
+	const {id, disabled = false, data, resizeObserverConfig} = $derived(unwrapResolvableObject(args));
 	const {active, dispatch, over, measureDroppableContainers} = $derived.by(getInternalContext);
 
 	const previous = {disabled};

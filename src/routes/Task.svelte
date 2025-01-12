@@ -1,7 +1,6 @@
 <script lang="ts">
 	import type {UniqueIdentifier} from '$core/index.js';
-	import {CSS} from '$utilities';
-	import {styleObjectToString} from '$helpers';
+	import {CSS, styleObjectToString} from '$utilities';
 	import {useSortable} from '$sortable';
 
 	interface Task {
@@ -10,7 +9,7 @@
 	}
 
 	let {task}: {task: Task} = $props();
-	const {attributes, listeners, nodeRef, transform, transition, isDragging, isSorting} = useSortable({
+	const {attributes, listeners, node, transform, transition, isDragging, isSorting} = useSortable({
 		id: task.id,
 	});
 
@@ -23,7 +22,7 @@
 	);
 </script>
 
-<div class="relative" bind:this={nodeRef.current} {style} {...listeners.current} {...attributes.current}>
+<div class="relative" bind:this={node.current} {style} {...listeners.current} {...attributes.current}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
 	<div class="p-4 bg-white rounded-lg shadow cursor-pointer" class:hidden={isDragging.current}>
 		{task.content}

@@ -7,7 +7,7 @@
 </script>
 
 <script lang="ts">
-	import {styleObjectToString} from '$helpers';
+	import {styleObjectToString} from '$utilities';
 
 	let {id, announcement, ariaLiveType = 'assertive'}: Props = $props();
 
