@@ -1,6 +1,9 @@
 {
 	"name": "svelte-dnd-kit",
 	"version": "0.0.1",
+	"license": "MIT",
+	"repository": "github:HanielU/svelte-dnd-kit",
+	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
