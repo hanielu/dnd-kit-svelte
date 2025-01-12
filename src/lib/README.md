@@ -59,8 +59,8 @@ Here's a real-world example of implementing a List board with drag and drop func
 	);
 </script>
 
-<div bind:this="{node.current}" {style} {...listeners.current} {...attributes.current}>
-	<div class="task-content" class:dragging="{isDragging.current}">{task.content}</div>
+<div bind:this={node.current} {style} {...listeners.current} {...attributes.current}>
+	<div class="task-content" class:dragging={isDragging.current}>{task.content}</div>
 </div>
 ```
 
