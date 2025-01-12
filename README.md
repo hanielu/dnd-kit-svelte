@@ -149,5 +149,6 @@ yarn add @adroyt/svelte-dnd-kit
 ## License
 
 MIT © [Adroyt](https://github.com/adroyt)
-[dnd-kit](https://github.com/clauderic/dnd-kit)
-[dnd-kit-docs](https://docs.dndkit.com/)
+
+[dnd-kit]: (https://github.com/clauderic/dnd-kit)
+[dnd-kit-docs]: (https://docs.dndkit.com/)
