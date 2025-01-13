@@ -12,7 +12,7 @@
 		MouseSensor,
 	} from 'svelte-dnd-kit';
 	import {Portal} from 'svelte-dnd-kit';
-	import Droppable from './droppable.svelte';
+	import Droppable from '$components/droppable.svelte';
 	import Draggable from './draggable.svelte';
 
 	const containers = ['A', 'B', 'C'];

@@ -20,6 +20,7 @@ const config = {
 			$accessibility: 'src/lib/accessibility/src/index.js',
 			$sortable: 'src/lib/sortable/src/index.js',
 			'svelte-dnd-kit': 'src/lib/index.js',
+			$components: 'src/routes/components',
 		},
 	},
 };

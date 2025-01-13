@@ -14,9 +14,9 @@
 		MouseSensor,
 	} from 'svelte-dnd-kit';
 	import {SortableContext, arrayMove} from 'svelte-dnd-kit';
-	import {Portal} from 'svelte-dnd-kit';
-	import Droppable from './basic/droppable.svelte';
+	import Droppable from '$components/droppable.svelte';
 	import Task from './task.svelte';
+	import {dropAnimation, sensors} from '$components/index.js';
 
 	class Todo {
 		id = $state<string>('');
@@ -77,55 +77,47 @@
 			return;
 		}
 	}
-
-	const dropAnimation: DropAnimation = {
-		sideEffects: defaultDropAnimationSideEffects({
-			styles: {
-				active: {
-					opacity: '0.5',
-				},
-			},
-		}),
-	};
-
-	const sensors = useSensors(useSensor(TouchSensor), useSensor(KeyboardSensor), useSensor(MouseSensor));
 </script>
 
 <DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
 	<div class="p-8">
 		<h1 class="text-2xl font-bold mb-4">In Progress</h1>
 
-		<Droppable id="in-progress">
-			<SortableContext items={inProgress}>
+		<SortableContext items={inProgress}>
+			<Droppable id="in-progress">
 				<div class="p-4 bg-blue-200 grid gap-4 grid-cols-2">
 					{#each inProgress as task (task.id)}
 						<Task {task} />
+
+						<!-- <div animate:flip>
+							<Task {task} />
+						</div> -->
 					{/each}
 				</div>
-			</SortableContext>
-		</Droppable>
+			</Droppable>
+		</SortableContext>
 
 		<div class="my-8"></div>
 
 		<h1 class="text-2xl font-bold mb-4">Done</h1>
 
-		<Droppable id="done">
-			<SortableContext items={done}>
+		<SortableContext items={done}>
+			<Droppable id="done">
 				<div class="p-4 bg-green-200 grid gap-4 grid-cols-2">
 					{#each done as task (task.id)}
 						<Task {task} />
 					{/each}
 				</div>
-			</SortableContext>
-		</Droppable>
+			</Droppable>
+		</SortableContext>
 
-		<Portal>
-			<DragOverlay {dropAnimation}>
-				<!-- Hello hguys -->
-				{#if activeTodo && activeId}
-					<Task task={activeTodo} />
-				{/if}
-			</DragOverlay>
-		</Portal>
+		<!-- <Portal> -->
+		<DragOverlay {dropAnimation}>
+			<!-- Hello hguys -->
+			{#if activeTodo && activeId}
+				<Task task={activeTodo} />
+			{/if}
+		</DragOverlay>
+		<!-- </Portal> -->
 	</div>
 </DndContext>
