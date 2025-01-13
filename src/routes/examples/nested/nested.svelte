@@ -55,6 +55,7 @@
 	let items = $state<INestedItem[]>(defaultItems);
 	let activeId = $state<string | null>(null);
 	let activeItem = $state<IData | null>(null);
+	let activeType = $state<'container' | 'item' | null>(null);
 
 	const findContainer = (id: string) => {
 		for (const container of items) {
@@ -111,9 +112,11 @@
 	const handleDragOver = ({active, over}: DragOverEvent) => {
 		if (!over) return;
 
-		const {activeType, overType, acceptsItem} = getTypeAndAccepts(active, over);
+		const {activeType: _activeType, overType, acceptsItem} = getTypeAndAccepts(active, over);
 		const activeContainer = findContainer(active.id as string);
 		const overContainer = findContainer(over.id as string);
+
+		activeType = _activeType;
 
 		if (activeType === 'item') {
 			activeItem = activeContainer?.nesteds.find((item) => item.id === active.id)!;
@@ -152,7 +155,7 @@
 
 	<DragOverlay {dropAnimation}>
 		{#if activeItem && activeId}
-			<NestedItem data={activeItem} type="container" />
+			<NestedItem data={activeItem} type={activeType ?? 'item'} />
 		{/if}
 	</DragOverlay>
 </DndContext>
