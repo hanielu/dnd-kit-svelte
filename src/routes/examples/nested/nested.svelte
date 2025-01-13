@@ -17,37 +17,17 @@
 
 	const defaultItems: INestedItem[] = [
 		{
-			data: {
-				id: 'development-tasks',
-				title: 'Development Tasks',
-				description: 'Technical implementation tasks',
-			},
+			data: {id: 'development-tasks', title: 'Development Tasks', description: 'Technical implementation tasks'},
 			nesteds: [
-				{
-					id: 'setup-project',
-					title: 'Setup Project',
-					description: 'Initialize repository and configure tools',
-				},
-				{
-					id: 'create-components',
-					title: 'Create Components',
-					description: 'Build reusable UI components',
-				},
+				{id: 'setup-project', title: 'Setup Project', description: 'Initialize repository and configure tools'},
+				{id: 'create-components', title: 'Create Components', description: 'Build reusable UI components'},
 			],
 		},
 		{
 			data: {id: 'design-tasks', title: 'Design Tasks', description: 'UI/UX design related tasks'},
 			nesteds: [
-				{
-					id: 'color-palette',
-					title: 'Color Palette',
-					description: 'Define brand colors and variants',
-				},
-				{
-					id: 'typography',
-					title: 'Typography',
-					description: 'Select and implement fonts',
-				},
+				{id: 'color-palette', title: 'Color Palette', description: 'Define brand colors and variants'},
+				{id: 'typography', title: 'Typography', description: 'Select and implement fonts'},
 			],
 		},
 	];
@@ -57,24 +37,31 @@
 	let activeItem = $state<IData | null>(null);
 	let activeType = $state<'container' | 'item' | null>(null);
 
-	const findContainer = (id: string) => {
-		for (const container of items) {
-			if (container.data.id === id) return container;
-			if (container.nesteds.find((item) => item.id === id)) return container;
-		}
-		return null;
+	const findContainer = (id: string): INestedItem | null => {
+		const containerIndex = items.findIndex(
+			(container) => container.data.id === id || container.nesteds.some((item) => item.id === id)
+		);
+		return containerIndex !== -1 ? items[containerIndex] : null;
 	};
 
 	function getTypeAndAccepts(active: Active, over: Over) {
-		const activeType = active.data?.type;
-		const overType = over?.data?.type;
-		const acceptsItem = over?.data?.accepts?.includes('item');
-		const acceptsContainer = over?.data?.accepts?.includes('container');
+		const activeType = active.data?.type as 'container' | 'item';
+		const overType = over?.data?.type as 'container' | 'item' | undefined;
+		const acceptsItem = over?.data?.accepts?.includes('item') ?? false;
+		const acceptsContainer = over?.data?.accepts?.includes('container') ?? false;
 		return {activeType, overType, acceptsItem, acceptsContainer};
 	}
 
 	const handleDragStart = ({active}: DragStartEvent) => {
 		activeId = active.id as string;
+		const container = findContainer(active.id as string);
+		activeType = active.data?.type as 'container' | 'item';
+
+		if (active.data?.type === 'container') {
+			activeItem = container?.data ?? null;
+		} else {
+			activeItem = container?.nesteds.find((item) => item.id === active.id) ?? null;
+		}
 	};
 
 	const handleDragEnd = ({active, over}: DragEndEvent) => {
@@ -93,18 +80,20 @@
 			const activeContainer = findContainer(active.id as string);
 			const overContainer = findContainer(over.id as string);
 
-			const isSameContainer = activeContainer?.data.id === overContainer?.data.id;
+			if (!activeContainer || !overContainer) return;
 
-			if (activeContainer && overContainer) {
-				if (isSameContainer) {
-					const oldIndex = activeContainer.nesteds.findIndex((item) => item.id === active.id);
-					const newIndex = overContainer.nesteds.findIndex((item) => item.id === over.id);
-					activeContainer.nesteds = arrayMove(activeContainer.nesteds, oldIndex, newIndex);
-				} else {
-					const oldIndex = activeContainer.nesteds.findIndex((item) => item.id === active.id);
-					const newIndex = activeContainer.nesteds.findIndex((item) => item.id === over.id);
-					activeContainer.nesteds = arrayMove(activeContainer.nesteds, oldIndex, newIndex);
-				}
+			if (activeContainer === overContainer) {
+				// Same container reorder
+				const oldIndex = activeContainer.nesteds.findIndex((item) => item.id === active.id);
+				const newIndex = activeContainer.nesteds.findIndex((item) => item.id === over.id);
+				activeContainer.nesteds = arrayMove(activeContainer.nesteds, oldIndex, newIndex);
+			} else {
+				// Move between containers
+				const item = activeContainer.nesteds.find((item) => item.id === active.id)!;
+				activeContainer.nesteds = activeContainer.nesteds.filter((nested) => nested.id !== active.id);
+
+				const insertIndex = overContainer.nesteds.findIndex((nested) => nested.id === over.id);
+				overContainer.nesteds.splice(insertIndex, 0, item);
 			}
 		}
 	};
@@ -113,27 +102,20 @@
 		if (!over) return;
 
 		const {activeType: _activeType, overType, acceptsItem} = getTypeAndAccepts(active, over);
+		activeType = _activeType;
+
+		if (activeType !== 'item' || (!overType && !acceptsItem)) return;
+
 		const activeContainer = findContainer(active.id as string);
 		const overContainer = findContainer(over.id as string);
 
-		activeType = _activeType;
+		if (!activeContainer || !overContainer || activeContainer === overContainer) return;
 
-		if (activeType === 'item') {
-			activeItem = activeContainer?.nesteds.find((item) => item.id === active.id)!;
-		} else if (activeType === 'container') {
-			activeItem = activeContainer?.data!;
-		}
+		const item = activeContainer.nesteds.find((item) => item.id === active.id);
+		if (!item) return;
 
-		if (activeType === 'item' && (overType === 'item' || acceptsItem)) {
-			const isSameContainer = activeContainer?.data.id === overContainer?.data.id;
-
-			if (activeContainer && overContainer) {
-				if (!isSameContainer) {
-					activeContainer.nesteds = activeContainer.nesteds.filter((item) => item.id !== active.id);
-					overContainer.nesteds.push(activeItem!);
-				}
-			}
-		}
+		activeContainer.nesteds = activeContainer.nesteds.filter((nested) => nested.id !== active.id);
+		overContainer.nesteds.push(item);
 	};
 </script>
 
