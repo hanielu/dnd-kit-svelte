@@ -28,7 +28,7 @@
 		{task.content}
 	</div>
 
-	<!-- Drag placeholder - absolutely positioned to match original dimensions -->
+	<!-- Drag placeholder - set to match original dimensions -->
 	{#if isDragging.current}
 		<div class="flex items-center justify-center h-56px">
 			<!-- You can put any content here for the dragging state -->

@@ -1,38 +1,17 @@
 <script lang="ts">
-	import {
-		defaultDropAnimationSideEffects,
-		DndContext,
-		DragOverlay,
-		type DragEndEvent,
-		type DragOverEvent,
-		type DragStartEvent,
-		type DropAnimation,
-		TouchSensor,
-		KeyboardSensor,
-		useSensor,
-		useSensors,
-		MouseSensor,
-	} from 'svelte-dnd-kit';
-	import {SortableContext, arrayMove} from 'svelte-dnd-kit';
 	import Droppable from '$components/droppable.svelte';
 	import Task from './task.svelte';
+	import {DndContext, DragOverlay, type DragEndEvent, type DragOverEvent, type DragStartEvent} from 'svelte-dnd-kit';
+	import {SortableContext, arrayMove} from 'svelte-dnd-kit';
 	import {dropAnimation, sensors} from '$components/index.js';
 
-	class Todo {
-		id = $state<string>('');
-		content = $state<string>('');
-		done = $state<boolean>(false);
-
-		constructor(id: string, content: string, done: boolean) {
-			this.id = id;
-			this.content = content;
-			this.done = done;
-		}
+	interface Todo {
+		id: string;
+		content: string;
+		done: boolean;
 	}
 
 	const defaultTasks: Todo[] = [
-		// new Todo('task-1', 'Learn Svelte', false),
-		// new Todo('task-2', 'Build a Kanban board', false),
 		{id: 'task-1', content: 'Learn Svelte', done: false},
 		{id: 'task-2', content: 'Build a Kanban board', done: false},
 		{id: 'task-3', content: 'Review code', done: false},
@@ -69,7 +48,6 @@
 	}
 
 	function handleDragOver({active, over}: DragOverEvent) {
-		// console.log('over', over);
 		if (!over) return;
 
 		if (over.id === 'done' || over.id === 'in-progress') {
@@ -88,10 +66,6 @@
 				<div class="p-4 bg-blue-200 grid gap-4 grid-cols-2">
 					{#each inProgress as task (task.id)}
 						<Task {task} />
-
-						<!-- <div animate:flip>
-							<Task {task} />
-						</div> -->
 					{/each}
 				</div>
 			</Droppable>
@@ -113,7 +87,6 @@
 
 		<!-- <Portal> -->
 		<DragOverlay {dropAnimation}>
-			<!-- Hello hguys -->
 			{#if activeTodo && activeId}
 				<Task task={activeTodo} />
 			{/if}
