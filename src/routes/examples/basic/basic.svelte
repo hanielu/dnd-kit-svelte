@@ -1,16 +1,5 @@
 <script lang="ts">
-	import {
-		defaultDropAnimationSideEffects,
-		DndContext,
-		DragOverlay,
-		type DropAnimation,
-		type UniqueIdentifier,
-		TouchSensor,
-		KeyboardSensor,
-		useSensor,
-		useSensors,
-		MouseSensor,
-	} from 'svelte-dnd-kit';
+	import {DndContext, type UniqueIdentifier} from 'svelte-dnd-kit';
 	import {Portal} from 'svelte-dnd-kit';
 	import Droppable from '$components/droppable.svelte';
 	import Draggable from './draggable.svelte';
