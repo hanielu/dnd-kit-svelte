@@ -18,6 +18,12 @@ pnpm add svelte-dnd-kit
 
 This library provides a complete port of dnd-kit to Svelte, maintaining feature parity with the original React implementation while adapting to Svelte's reactivity system. All documentation and APIs from the [original dnd-kit][dnd-kit-docs] library apply here, with some Svelte-specific adaptations.
 
+## Examples
+
+- [Sortable Tasks List](src/routes/examples/tasks-list/tasks-list.svelte)
+- [Nested Sortable List](src/routes/examples/nested/nested.svelte)
+- [Basic Drag & Drop](src/routes/examples/basic/basic.svelte)
+
 ## Key Differences from React Implementation
 
 The main difference lies in how reactive values are handled. Since Svelte components don't rerender the same way React components do, we've adapted the API to work with Svelte's reactivity system.
@@ -44,9 +50,40 @@ useSortable({
 });
 ```
 
-## Practical Example: List Board
+### Data returned from hooks
 
-Here's an [example](src/routes/examples/tasks-list/tasks-list.svelte)
+In React, components re-render when their state changes, so hooks can return values directly. However, since Svelte components don't re-render, all non-function properties returned from hooks use a `.current` getter to ensure you always access the latest value.
+
+Example:
+
+```ts
+// React dnd-kit
+const { attributes, listeners, isDragging } = useSortable({ id });
+
+<div {...attributes} {...listeners}>
+  {isDragging ? 'Dragging' : 'Not dragging'}
+</div>
+
+// Svelte dnd-kit
+const { attributes, listeners, isDragging } = useSortable({ id });
+
+<div {...attributes.current} {...listeners.current}>
+  {isDragging.current ? 'Dragging' : 'Not dragging'}
+</div>
+```
+
+This pattern is used consistently across all hooks:
+
+- `useDraggable`
+- `useDroppable`
+- `useSortable`
+
+Properties that use `.current` include:
+
+- State values (`isDragging`, `isOver`, etc.)
+- DOM attributes (`attributes`, `listeners`)
+- Transform and transition values
+- Node references
 
 ## Core Concepts
 
