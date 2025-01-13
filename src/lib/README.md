@@ -46,7 +46,7 @@ useSortable({
 
 ## Practical Example: List Board
 
-Here's an [example](../routes/examples/tasks-list.svelte)
+Here's an [example](../routes/examples/tasks-list/tasks-list.svelte)
 
 ## Core Concepts
 
