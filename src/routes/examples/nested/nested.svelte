@@ -14,6 +14,7 @@
 	} from 'svelte-dnd-kit';
 
 	import NestedItem, {type INestedItem, type IData} from './nested-item.svelte';
+	import GithubLink from '$components/GithubLink.svelte';
 
 	const defaultItems: INestedItem[] = [
 		{
@@ -121,7 +122,10 @@
 
 <DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
 	<Droppable class="p-4 bg-blue-200 grid gap-4" id="container" data={{accepts: ['container']}}>
-		<h2 class="text-2xl font-bold">Draggable Containers</h2>
+		<div class="flex-s-between">
+			<h2 class="text-2xl font-bold">Draggable Containers</h2>
+			<GithubLink href="https://github.com/HanielU/svelte-dnd-kit/blob/main/src/routes/examples/nested/nested.svelte" />
+		</div>
 		<SortableContext items={items.map((item) => item.data.id)}>
 			{#each items as { data, nesteds } (data.id)}
 				<NestedItem {data} type="container" accepts={['item']}>

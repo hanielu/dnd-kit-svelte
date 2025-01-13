@@ -58,39 +58,37 @@
 </script>
 
 <DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
-	<div class="p-8">
-		<h1 class="text-2xl font-bold mb-4">In Progress</h1>
+	<h1 class="text-2xl font-bold mb-4">In Progress</h1>
 
-		<SortableContext items={inProgress}>
-			<Droppable id="in-progress">
-				<div class="p-4 bg-blue-200 grid gap-4 grid-cols-2">
-					{#each inProgress as task (task.id)}
-						<Task {task} />
-					{/each}
-				</div>
-			</Droppable>
-		</SortableContext>
+	<SortableContext items={inProgress}>
+		<Droppable id="in-progress">
+			<div class="p-4 bg-blue-200 grid gap-4 grid-cols-2">
+				{#each inProgress as task (task.id)}
+					<Task {task} />
+				{/each}
+			</div>
+		</Droppable>
+	</SortableContext>
 
-		<div class="my-8"></div>
+	<div class="my-8"></div>
 
-		<h1 class="text-2xl font-bold mb-4">Done</h1>
+	<h1 class="text-2xl font-bold mb-4">Done</h1>
 
-		<SortableContext items={done}>
-			<Droppable id="done">
-				<div class="p-4 bg-green-200 grid gap-4 grid-cols-2">
-					{#each done as task (task.id)}
-						<Task {task} />
-					{/each}
-				</div>
-			</Droppable>
-		</SortableContext>
+	<SortableContext items={done}>
+		<Droppable id="done">
+			<div class="p-4 bg-green-200 grid gap-4 grid-cols-2">
+				{#each done as task (task.id)}
+					<Task {task} />
+				{/each}
+			</div>
+		</Droppable>
+	</SortableContext>
 
-		<!-- <Portal> -->
-		<DragOverlay {dropAnimation}>
-			{#if activeTodo && activeId}
-				<Task task={activeTodo} />
-			{/if}
-		</DragOverlay>
-		<!-- </Portal> -->
-	</div>
+	<!-- <Portal> -->
+	<DragOverlay {dropAnimation}>
+		{#if activeTodo && activeId}
+			<Task task={activeTodo} />
+		{/if}
+	</DragOverlay>
+	<!-- </Portal> -->
 </DndContext>
