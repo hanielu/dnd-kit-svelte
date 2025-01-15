@@ -46,9 +46,6 @@ export const InternalContextKey = Symbol('InternalContext');
 export const PublicContextKey = Symbol('PublicContext');
 
 export function getInternalContext() {
-	if (!hasContext(InternalContextKey)) {
-		return defaultInternalContext;
-	}
-
-	return getContext<{current: InternalContextDescriptor}>(InternalContextKey).current;
+	if (!hasContext(InternalContextKey)) return defaultInternalContext;
+	return getContext<() => InternalContextDescriptor>(InternalContextKey)();
 }

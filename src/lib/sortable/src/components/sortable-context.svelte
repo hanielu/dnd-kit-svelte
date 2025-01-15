@@ -49,14 +49,12 @@
 	};
 
 	export function getSortableContext() {
-		if (hasContext(SortableContextKey)) {
-			return getContext<{current: ContextDescriptor}>(SortableContextKey).current;
-		}
-
-		return defaultSortableContextValue;
+		if (!hasContext(SortableContextKey)) return defaultSortableContextValue;
+		return getContext<() => ContextDescriptor>(SortableContextKey)();
 	}
 </script>
 
+<!-- svelte-ignore state_referenced_locally -->
 <script lang="ts">
 	let {
 		children,
@@ -105,11 +103,7 @@
 		strategy,
 	});
 
-	setContext(SortableContextKey, {
-		get current() {
-			return contextValue;
-		},
-	});
+	setContext(SortableContextKey, () => contextValue);
 </script>
 
 {@render children()}

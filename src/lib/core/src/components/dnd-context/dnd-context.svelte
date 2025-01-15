@@ -93,7 +93,7 @@
 
 	export const ActiveDraggableContextKey = Symbol('ActiveDraggableContext');
 	export function getActiveDraggableContext() {
-		return getContext<{current: Transform}>(ActiveDraggableContextKey).current;
+		return getContext<() => Transform>(ActiveDraggableContextKey)();
 	}
 
 	enum Status {
@@ -600,21 +600,9 @@
 	}
 
 	setContext(DndMonitorContextKey, registerMonitorListener);
-	setContext(InternalContextKey, {
-		get current() {
-			return internalContext;
-		},
-	});
-	setContext(PublicContextKey, {
-		get current() {
-			return publicContext;
-		},
-	});
-	setContext(ActiveDraggableContextKey, {
-		get current() {
-			return transform;
-		},
-	});
+	setContext(InternalContextKey, () => internalContext);
+	setContext(PublicContextKey, () => publicContext);
+	setContext(ActiveDraggableContextKey, () => transform);
 </script>
 
 {@render children?.()}

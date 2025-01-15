@@ -13,16 +13,8 @@
 		scaleY: 1,
 	};
 
-	setContext(InternalContextKey, {
-		get current() {
-			return defaultInternalContext;
-		},
-	});
-	setContext(ActiveDraggableContextKey, {
-		get current() {
-			return defaultTransform;
-		},
-	});
+	setContext(InternalContextKey, () => defaultInternalContext);
+	setContext(ActiveDraggableContextKey, () => defaultTransform);
 </script>
 
 {@render children()}
