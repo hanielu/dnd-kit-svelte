@@ -2,6 +2,7 @@
 	import '../app.css';
 	import '@unocss/reset/tailwind.css';
 	import 'uno.css';
+	import Header from './header.svelte';
 
 	let {children} = $props();
 </script>
@@ -17,3 +18,9 @@
 </svelte:head>
 
 {@render children()}
+<div class="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200">
+	<Header />
+	<main class="container mx-auto px-4 py-8">
+		{@render children()}
+	</main>
+</div>
