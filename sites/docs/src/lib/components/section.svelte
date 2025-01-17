@@ -16,7 +16,7 @@
 		<h2 class="text-2xl fw-bold tracking--3%">{title}</h2>
 		<div>
 			<a
-				href="https://github.com/HanielU/svelte-dnd-kit/tree/main/src/lib/components/examples{link}"
+				href="https://github.com/HanielU/svelte-dnd-kit/tree/main/sites/docs/src/lib/components/examples{link}"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="bg-#1E1E1E inline-flex p-1.5 pr-3.5 rd-3 items-center gap-2"
