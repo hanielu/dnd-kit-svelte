@@ -20,8 +20,8 @@ This library provides a complete port of dnd-kit to Svelte, maintaining feature 
 
 ## Examples
 
-- [Sortable Tasks List](sites/docs/src/lib/components/examples/tasks-list/tasks-list.svelte)
-- [Nested Sortable List](sites/docs/src/lib/components/examples/nested/nested.svelte)
+- [Sortable Tasks List](sites/docs/src/lib/components/examples/sortable/sortable-list.svelte)
+- [Nested Sortable List](sites/docs/src/lib/components/examples/nested/draggable-containers.svelte)
 - [Basic Drag & Drop](sites/docs/src/lib/components/examples/basic/basic.svelte)
 
 ## Key Differences from React Implementation

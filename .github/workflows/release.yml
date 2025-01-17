@@ -1,9 +1,8 @@
 name: Publish Packages
 
 on:
-  push:
-    branches:
-      - main
+  release:
+    types: [created]
 
 jobs:
   release:
@@ -20,6 +19,8 @@ jobs:
         with:
           node-version: 20.x
           registry-url: 'https://registry.npmjs.org'
+          scope: '@dnd-kit-svelte'
+          always-auth: true
 
       - name: Setup PNPM
         uses: pnpm/action-setup@v2
@@ -51,4 +52,5 @@ jobs:
           title: 'chore: version packages'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
