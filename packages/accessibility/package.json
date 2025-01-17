@@ -1,11 +1,11 @@
 {
 	"name": "@dnd-kit-svelte/accessibility",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/HanielU/svelte-dnd-kit",
+		"url": "git+https://github.com/HanielU/dnd-kit-svelte.git",
 		"directory": "packages/accessibility"
 	},
 	"scripts": {
@@ -38,7 +38,7 @@
 		}
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/utilities": "workspace:*",
+		"@dnd-kit-svelte/utilities": "^0.0.5",
 		"esm-env": "^1.2.2",
 		"runed": "^0.23.0"
 	},

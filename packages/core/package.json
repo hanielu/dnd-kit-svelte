@@ -1,11 +1,11 @@
 {
 	"name": "@dnd-kit-svelte/core",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/HanielU/svelte-dnd-kit",
+		"url": "git+https://github.com/HanielU/dnd-kit-svelte.git",
 		"directory": "packages/core"
 	},
 	"scripts": {
@@ -38,8 +38,8 @@
 		}
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/accessibility": "workspace:*",
-		"@dnd-kit-svelte/utilities": "workspace:*",
+		"@dnd-kit-svelte/accessibility": "^0.0.5",
+		"@dnd-kit-svelte/utilities": "^0.0.5",
 		"runed": "^0.23.0",
 		"svelte-toolbelt": "^0.7.0"
 	},

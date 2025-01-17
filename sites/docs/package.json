@@ -1,0 +1,36 @@
+{
+	"name": "docs",
+	"private": true,
+	"version": "0.0.1",
+	"type": "module",
+	"scripts": {
+		"dev": "vite dev",
+		"build": "vite build",
+		"preview": "vite preview",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"devDependencies": {
+		"@iconify/json": "^2.2.293",
+		"@sveltejs/adapter-vercel": "^5.5.2",
+		"@sveltejs/kit": "^2.0.0",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@unocss/preset-mini": "^0.65.4",
+		"@unocss/reset": "^0.65.4",
+		"svelte": "^5.0.0",
+		"svelte-check": "^4.0.0",
+		"typescript": "^5.0.0",
+		"unocss": "^0.65.4",
+		"unocss-preset-animations": "^1.1.0",
+		"unplugin-icons": "^22.0.0",
+		"vite": "^5.4.11"
+	},
+	"dependencies": {
+		"@dnd-kit-svelte/accessibility": "workspace:*",
+		"@dnd-kit-svelte/core": "workspace:*",
+		"@dnd-kit-svelte/modifiers": "workspace:*",
+		"@dnd-kit-svelte/sortable": "workspace:*",
+		"@dnd-kit-svelte/utilities": "workspace:*",
+		"clsx": "^2.1.1"
+	}
+}
