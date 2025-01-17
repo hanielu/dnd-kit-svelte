@@ -42,7 +42,7 @@
 
 <div class="relative" bind:this={node.current} {style}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
-	<div class={['p-5 pt-6 bg-#F9F9F9 rd-3xl overflow-hidden', className, {invisible: isDragging.current}]}>
+	<div class={['p-5 pt-6 bg-#F9F9F9 rd-3xl', className, {invisible: isDragging.current}]}>
 		<div class="flex-s-between text-#9E9E9E">
 			<div class="pl-5.5">
 				<p class="text-(lg dark) fw-bold relative flex-s-start">

@@ -13,6 +13,7 @@
 	import {SortableContext, arrayMove} from '@dnd-kit-svelte/sortable';
 	import TasksContainer, {type IData, type INestedItem} from './tasks-container.svelte';
 	import TaskItem from './task-item.svelte';
+	import {crossfade} from 'svelte/transition';
 
 	const defaultItems: INestedItem[] = [
 		{
@@ -122,6 +123,8 @@
 		activeContainer.nesteds = activeContainer.nesteds.filter((nested) => nested.id !== active.id);
 		overContainer.nesteds.push(item);
 	}
+
+	const [send, recieve] = crossfade({duration: 250});
 </script>
 
 <DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
@@ -152,7 +155,9 @@
 	<TasksContainer {data} type="container" accepts={['item']} class={className}>
 		<SortableContext items={nesteds.map((item) => item.id)}>
 			{#each nesteds as nested (nested.id)}
-				<TaskItem data={nested} type="item" />
+				<div class="" in:recieve={{key: nested.id}} out:send={{key: nested.id}}>
+					<TaskItem data={nested} type="item" />
+				</div>
 			{:else}
 				<p class="text-(sm center #9E9E9E) fw-medium pt">No tasks</p>
 			{/each}

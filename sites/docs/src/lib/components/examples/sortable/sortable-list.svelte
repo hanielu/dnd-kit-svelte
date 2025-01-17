@@ -10,6 +10,7 @@
 	} from '@dnd-kit-svelte/core';
 	import {SortableContext, arrayMove} from '@dnd-kit-svelte/sortable';
 	import {dropAnimation, sensors} from '$lib';
+	import {crossfade} from 'svelte/transition';
 
 	interface Todo {
 		id: string;
@@ -72,6 +73,8 @@
 		// Update the active task's done status to match the container it's being dragged over
 		activeTask.done = overTask.done;
 	}
+
+	const [send, recieve] = crossfade({duration: 100});
 </script>
 
 <DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
@@ -94,7 +97,9 @@
 
 			<div class="grid gap-2">
 				{#each tasks as task (task.id)}
-					<SortableItem {task} />
+					<div class="" in:recieve={{key: task.id}} out:send={{key: task.id}}>
+						<SortableItem {task} />
+					</div>
 				{/each}
 			</div>
 		</Droppable>
