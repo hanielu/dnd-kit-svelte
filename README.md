@@ -1,4 +1,4 @@
-# svelte-dnd-kit
+# dnd-kit-svelte
 
 A Svelte port of the powerful [@dnd-kit][dnd-kit] library - the modern, lightweight, performant, accessible and extensible drag & drop toolkit.
 
@@ -7,11 +7,11 @@ A Svelte port of the powerful [@dnd-kit][dnd-kit] library - the modern, lightwei
 Install it:
 
 ```bash
-npm i svelte-dnd-kit
+npm i @dnd-kit-svelte/core
 # or
-yarn add svelte-dnd-kit
+yarn add @dnd-kit-svelte/core
 # or
-pnpm add svelte-dnd-kit
+pnpm add @dnd-kit-svelte/core
 ```
 
 ## Overview
@@ -36,12 +36,16 @@ Example:
 
 ```ts
 // React dnd-kit
+import {useSortable} from '@dnd-kit/sortable';
+
 useSortable({
 	id: item.id,
 	data: item,
 });
 
 // Svelte dnd-kit
+import {useSortable} from '@dnd-kit-svelte/sortable';
+
 useSortable({
 	// Static value
 	id: item.id,
