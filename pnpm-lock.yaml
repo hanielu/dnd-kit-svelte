@@ -260,20 +260,20 @@ importers:
   sites/docs:
     dependencies:
       '@dnd-kit-svelte/accessibility':
-        specifier: workspace:*
-        version: link:../../packages/accessibility
+        specifier: 0.0.5
+        version: 0.0.5(svelte@5.17.1)
       '@dnd-kit-svelte/core':
-        specifier: workspace:*
-        version: link:../../packages/core
+        specifier: 0.0.5
+        version: 0.0.5(svelte@5.17.1)
       '@dnd-kit-svelte/modifiers':
-        specifier: workspace:*
-        version: link:../../packages/modifiers
+        specifier: 0.0.5
+        version: 0.0.5(svelte@5.17.1)
       '@dnd-kit-svelte/sortable':
-        specifier: workspace:*
-        version: link:../../packages/sortable
+        specifier: 0.0.5
+        version: 0.0.5(svelte@5.17.1)
       '@dnd-kit-svelte/utilities':
-        specifier: workspace:*
-        version: link:../../packages/utilities
+        specifier: 0.0.5
+        version: 0.0.5(svelte@5.17.1)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -416,6 +416,16 @@ packages:
 
   '@dnd-kit-svelte/core@0.0.5':
     resolution: {integrity: sha512-6vXi31OfdixLt2giSLxOeCjo1jR1/WxXtWRxFsWSmpIfrndHZbLTd4hvsOEuiLk40jLOhBwrCBssfbkAUqe/OA==}
+    peerDependencies:
+      svelte: ^5.0.0
+
+  '@dnd-kit-svelte/modifiers@0.0.5':
+    resolution: {integrity: sha512-v5HIN5y7rVK3cXZpcIkqB5NxfTtjmlpkhhycBlGmDpyXhWru9y9gtc1DtzcRBgZaG2vaOMGwHmpnlnFwpYM8yQ==}
+    peerDependencies:
+      svelte: ^5.0.0
+
+  '@dnd-kit-svelte/sortable@0.0.5':
+    resolution: {integrity: sha512-bR7P8rUsza8Q6ZwPvzjcLt57RfICPLM18SVZeRSlHxSVASjMNNedeeqOOYGdA44RqBJ5FXbmHXVMUyZ8B8c4kg==}
     peerDependencies:
       svelte: ^5.0.0
 
@@ -2895,6 +2905,20 @@ snapshots:
   '@dnd-kit-svelte/core@0.0.5(svelte@5.17.1)':
     dependencies:
       '@dnd-kit-svelte/accessibility': 0.0.5(svelte@5.17.1)
+      '@dnd-kit-svelte/utilities': 0.0.5(svelte@5.17.1)
+      runed: 0.23.0(svelte@5.17.1)
+      svelte: 5.17.1
+      svelte-toolbelt: 0.7.0(svelte@5.17.1)
+
+  '@dnd-kit-svelte/modifiers@0.0.5(svelte@5.17.1)':
+    dependencies:
+      '@dnd-kit-svelte/core': 0.0.5(svelte@5.17.1)
+      '@dnd-kit-svelte/utilities': 0.0.5(svelte@5.17.1)
+      svelte: 5.17.1
+
+  '@dnd-kit-svelte/sortable@0.0.5(svelte@5.17.1)':
+    dependencies:
+      '@dnd-kit-svelte/core': 0.0.5(svelte@5.17.1)
       '@dnd-kit-svelte/utilities': 0.0.5(svelte@5.17.1)
       runed: 0.23.0(svelte@5.17.1)
       svelte: 5.17.1
