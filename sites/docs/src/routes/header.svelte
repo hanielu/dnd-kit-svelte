@@ -10,9 +10,8 @@
 			<p class="text-#4A4A55 fw-semibold">dnd kit</p>
 		</div>
 		<div class="flex-s-start gap-3 underline text-(sm #4F4F4F) fw-medium lg:text-base">
-			<a href="/#example-1">Draggable Containers</a>
-			<a href="/#example-2">Task List</a>
-			<a href="/#example-3">Basic</a>
+			<a href="https://github.com/HanielU/dnd-kit-svelte">Github</a>
+			<a href="https://github.com/HanielU/dnd-kit-svelte">Documentation</a>
 		</div>
 	</nav>
 </header>

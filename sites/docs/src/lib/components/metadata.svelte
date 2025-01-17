@@ -9,7 +9,7 @@
 	<title>{title}</title>
 	<meta name="description" content={siteConfig.description} />
 	<meta name="keywords" content={siteConfig.keywords} />
-	<meta name="author" content="hyprsonic_dev" />
+	<meta name="author" content="Haniel Ubogu" />
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:site" content={siteConfig.url} />
 	<meta name="twitter:title" content={title} />
