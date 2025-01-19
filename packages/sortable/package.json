@@ -38,8 +38,8 @@
 		}
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/core": "^latest",
-		"@dnd-kit-svelte/utilities": "^latest",
+		"@dnd-kit-svelte/core": "latest",
+		"@dnd-kit-svelte/utilities": "latest",
 		"runed": "^0.23.0",
 		"svelte-toolbelt": "^0.7.0"
 	},

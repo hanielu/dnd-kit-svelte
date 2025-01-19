@@ -38,7 +38,7 @@
 		}
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/utilities": "^latest",
+		"@dnd-kit-svelte/utilities": "latest",
 		"esm-env": "^1.2.2",
 		"runed": "^0.23.0"
 	},
