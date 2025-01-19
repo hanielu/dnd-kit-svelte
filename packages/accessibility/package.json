@@ -1,6 +1,6 @@
 {
 	"name": "@dnd-kit-svelte/accessibility",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
@@ -38,7 +38,7 @@
 		}
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/utilities": "^0.0.5",
+		"@dnd-kit-svelte/utilities": "^latest",
 		"esm-env": "^1.2.2",
 		"runed": "^0.23.0"
 	},

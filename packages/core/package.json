@@ -1,6 +1,6 @@
 {
 	"name": "@dnd-kit-svelte/core",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
@@ -38,8 +38,8 @@
 		}
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/accessibility": "^0.0.5",
-		"@dnd-kit-svelte/utilities": "^0.0.5",
+		"@dnd-kit-svelte/accessibility": "^latest",
+		"@dnd-kit-svelte/utilities": "^latest",
 		"runed": "^0.23.0",
 		"svelte-toolbelt": "^0.7.0"
 	},

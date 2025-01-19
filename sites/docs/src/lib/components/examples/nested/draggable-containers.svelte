@@ -13,7 +13,6 @@
 	import {SortableContext, arrayMove} from '@dnd-kit-svelte/sortable';
 	import TasksContainer, {type IData, type INestedItem} from './tasks-container.svelte';
 	import TaskItem from './task-item.svelte';
-	import {crossfade} from 'svelte/transition';
 
 	const defaultItems: INestedItem[] = [
 		{
