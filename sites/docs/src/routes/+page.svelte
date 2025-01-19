@@ -9,7 +9,7 @@
 	<DraggableContainers />
 </Section>
 
-<Section id="example-2" title="Task List" link="/sortable/task-list.svelte">
+<Section id="example-2" title="Task List" link="/sortable/sortable-list.svelte">
 	<SortableList />
 </Section>
 
