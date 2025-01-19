@@ -26,11 +26,11 @@
 		"vite": "^5.4.11"
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/accessibility": "latest",
-		"@dnd-kit-svelte/core": "latest",
-		"@dnd-kit-svelte/modifiers": "latest",
-		"@dnd-kit-svelte/sortable": "latest",
-		"@dnd-kit-svelte/utilities": "latest",
+		"@dnd-kit-svelte/accessibility": "^0.0.7",
+		"@dnd-kit-svelte/core": "^0.0.7",
+		"@dnd-kit-svelte/modifiers": "^0.0.7",
+		"@dnd-kit-svelte/sortable": "^0.0.7",
+		"@dnd-kit-svelte/utilities": "^0.0.7",
 		"clsx": "^2.1.1"
 	}
 }
