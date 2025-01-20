@@ -138,12 +138,10 @@
 	</SortableContext>
 
 	<DragOverlay>
-		{#if activeItem}
-			{#if isData(activeItem)}
-				<TaskItem data={activeItem} type="item" />
-			{:else if isNestedItem(activeItem)}
-				{@render tasksContainer(activeItem.data, activeItem.nesteds, 'shadow-(gray-2 xl)')}
-			{/if}
+		{#if isData(activeItem)}
+			<TaskItem data={activeItem} type="item" />
+		{:else if isNestedItem(activeItem)}
+			{@render tasksContainer(activeItem.data, activeItem.nesteds, 'shadow-(gray-2 xl)')}
 		{/if}
 	</DragOverlay>
 </DndContext>
