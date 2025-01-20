@@ -1,18 +1,18 @@
 <script lang="ts" module>
-	export type IData = {
+	export type NestedItem = {
 		id: string;
 		title: string;
 		description: string;
 	};
 
-	export type INestedItem = {
-		data: IData;
-		nesteds: IData[];
+	export type ContainerItem = {
+		data: NestedItem;
+		nesteds: NestedItem[];
 	};
 
 	interface ItemProps {
 		children: Snippet<[isDragging: boolean]>;
-		data: IData;
+		data: NestedItem;
 		type: 'item' | 'container';
 		class?: string;
 		accepts: string[];

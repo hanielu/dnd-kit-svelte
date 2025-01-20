@@ -11,10 +11,10 @@
 		type Active,
 	} from '@dnd-kit-svelte/core';
 	import {SortableContext, arrayMove} from '@dnd-kit-svelte/sortable';
-	import TasksContainer, {type IData, type INestedItem} from './tasks-container.svelte';
+	import TasksContainer, {type NestedItem, type ContainerItem} from './tasks-container.svelte';
 	import TaskItem from './task-item.svelte';
 
-	const defaultItems: INestedItem[] = [
+	const defaultItems: ContainerItem[] = [
 		{
 			data: {id: 'development-tasks', title: 'Development Tasks', description: 'Technical implementation tasks'},
 			nesteds: [
@@ -31,19 +31,19 @@
 		},
 	];
 
-	let items = $state<INestedItem[]>(defaultItems);
-	let activeItem = $state<IData | INestedItem | null>(null);
+	let items = $state<ContainerItem[]>(defaultItems);
+	let activeItem = $state<NestedItem | ContainerItem | null>(null);
 	let activeType = $state<'container' | 'item' | null>(null);
 
-	function isNestedItem(item: IData | INestedItem | null): item is INestedItem {
+	function isContainerItem(item: NestedItem | ContainerItem | null): item is ContainerItem {
 		return item !== null && 'nesteds' in item;
 	}
 
-	function isData(item: IData | INestedItem | null): item is IData {
+	function isNestedItem(item: NestedItem | ContainerItem | null): item is NestedItem {
 		return item !== null && !('nesteds' in item);
 	}
 
-	function findContainer(id: string): INestedItem | null {
+	function findContainer(id: string): ContainerItem | null {
 		const containerIndex = items.findIndex(
 			(container) => container.data.id === id || container.nesteds.some((item) => item.id === id)
 		);
@@ -138,15 +138,15 @@
 	</SortableContext>
 
 	<DragOverlay>
-		{#if isData(activeItem)}
+		{#if isNestedItem(activeItem)}
 			<TaskItem data={activeItem} type="item" />
-		{:else if isNestedItem(activeItem)}
+		{:else if isContainerItem(activeItem)}
 			{@render tasksContainer(activeItem.data, activeItem.nesteds, 'shadow-(gray-2 xl)')}
 		{/if}
 	</DragOverlay>
 </DndContext>
 
-{#snippet tasksContainer(data: IData, nesteds: INestedItem['nesteds'], className?: string)}
+{#snippet tasksContainer(data: NestedItem, nesteds: ContainerItem['nesteds'], className?: string)}
 	<TasksContainer {data} type="container" accepts={['item']} class={className}>
 		<SortableContext items={nesteds.map((item) => item.id)}>
 			{#each nesteds as nested (nested.id)}
