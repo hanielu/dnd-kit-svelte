@@ -59,7 +59,7 @@
 	let {
 		children,
 		id,
-		items: userDefinedItems,
+		items: userDefinedItems = [], // is required
 		strategy = rectSortingStrategy,
 		disabled: disabledProp = false,
 	}: Props = $props();
