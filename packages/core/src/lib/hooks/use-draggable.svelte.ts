@@ -53,7 +53,7 @@ export function useDraggable(args: UseDraggableArguments) {
 	const [activatorNode, setActivatorNodeRef] = useNodeRef();
 	const listeners = useSyntheticListeners(() => [activators, id]);
 
-	watch(
+	watch.pre(
 		() => id,
 		(id) => {
 			draggableNodes.set(id, {id, key, node: node.current, activatorNode: activatorNode.current, data});

@@ -21,7 +21,7 @@ export function useDerivedTransform(argsFn: () => Arguments) {
 
 	let previousIndex = index;
 
-	$effect(() => {
+	$effect.pre(() => {
 		if (!disabled && index !== previousIndex && node) {
 			const initial = rect;
 

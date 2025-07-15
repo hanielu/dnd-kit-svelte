@@ -10,7 +10,7 @@ type ScrollCoordinates = Map<HTMLElement | Window, Coordinates>;
 
 export function useScrollOffsets(elementsFn: () => Element[]) {
 	const elements = $derived(elementsFn() ?? []);
-	let scrollCoordinates = $state<ScrollCoordinates | null>(null);
+	let scrollCoordinates = $state.raw<ScrollCoordinates | null>(null);
 	let prevElements = elements;
 
 	// To-do: Throttle the handleScroll callback

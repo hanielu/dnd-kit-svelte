@@ -1,6 +1,6 @@
 {
 	"name": "@dnd-kit-svelte/core",
-	"version": "0.0.8",
+	"version": "0.0.9",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
@@ -40,22 +40,22 @@
 	"dependencies": {
 		"@dnd-kit-svelte/accessibility": "latest",
 		"@dnd-kit-svelte/utilities": "latest",
-		"runed": "^0.23.0",
-		"svelte-toolbelt": "^0.7.0"
+		"runed": "^0.28.0",
+		"svelte-toolbelt": "^0.9.1"
 	},
 	"peerDependencies": {
 		"svelte": "^5.0.0"
 	},
 	"devDependencies": {
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/package": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"@types/node": "^22.10.7",
-		"publint": "^0.2.0",
-		"svelte": "^5.0.0",
-		"svelte-check": "^4.0.0",
+		"@sveltejs/kit": "^2.21.5",
+		"@sveltejs/package": "^2.3.11",
+		"@sveltejs/vite-plugin-svelte": "^5.1.0",
+		"@types/node": "^24.0.1",
+		"publint": "^0.3.12",
+		"svelte": "^5.34.3",
+		"svelte-check": "^4.2.1",
 		"typescript": "^5.0.0",
-		"vite": "^5.4.11",
-		"vitest": "^2.0.4"
+		"vite": "^6.3.5",
+		"vitest": "^3.2.3"
 	}
 }

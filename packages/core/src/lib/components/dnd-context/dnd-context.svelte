@@ -448,7 +448,7 @@
 
 	useSensorSetup(() => sensors);
 
-	$effect(() => {
+	$effect.pre(() => {
 		if (activeNodeRect.current && status === Status.Initializing) {
 			status = Status.Initialized;
 		}
@@ -517,7 +517,7 @@
 		}
 	);
 
-	$effect(() => {
+	$effect.pre(() => {
 		Object.assign(sensorContext, {
 			activatorEvent: activatorEvent,
 			active: active,

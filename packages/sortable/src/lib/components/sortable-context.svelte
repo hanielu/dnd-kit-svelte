@@ -78,7 +78,7 @@
 	const disableTransforms = $derived((overIndex !== -1 && activeIndex === -1) || itemsHaveChanged);
 	const disabled = normalizeDisabled(disabledProp);
 
-	watch(
+	watch.pre(
 		() => [itemsHaveChanged, items, isDragging] as const,
 		([itemsHaveChanged, items, isDragging]) => {
 			if (itemsHaveChanged && isDragging) {
