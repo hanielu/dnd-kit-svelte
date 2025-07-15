@@ -109,16 +109,14 @@
 		{#key active.id}
 			<PositionedOverlay
 				id={active.id}
-				bind:ref={
-					() => null,
-					(el) => {
-						// We need to wait for the active node to be measured before connecting the drag overlay ref
-						// otherwise collisions can be computed against a mispositioned drag overlay
-						if (initialRect.current) {
-							dragOverlay.setRef(el);
-						}
+				bind:ref={() => null,
+				(el) => {
+					// We need to wait for the active node to be measured before connecting the drag overlay ref
+					// otherwise collisions can be computed against a mispositioned drag overlay
+					if (initialRect.current) {
+						dragOverlay.setRef(el);
 					}
-				}
+				}}
 				as={wrapperElement}
 				{activatorEvent}
 				{adjustScale}

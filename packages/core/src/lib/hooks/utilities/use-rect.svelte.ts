@@ -13,7 +13,7 @@ export function useRect(
 		fallbackRect?: ClientRect | null,
 	]
 ) {
-	let rect = $state.raw<ClientRect | null>(null);
+	let rect = $state<ClientRect | null>(null);
 	const [element, measure = defaultMeasure, fallbackRect] = $derived(args());
 
 	function measureRect() {
@@ -57,7 +57,7 @@ export function useRect(
 
 	const resizeObserver = useResizeObserver(() => ({callback: measureRect}));
 
-	$effect.pre(() => {
+	$effect(() => {
 		measureRect();
 
 		if (element) {

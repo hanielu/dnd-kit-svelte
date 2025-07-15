@@ -15,7 +15,7 @@ export function useLayoutShiftScrollCompensation(optionsFn: () => Options) {
 	const {activeNode, measure, initialRect, config = true} = $derived(optionsFn());
 	const {x, y} = $derived(typeof config === 'boolean' ? {x: config, y: config} : config);
 
-	$effect.pre(() => {
+	$effect(() => {
 		const disabled = !x && !y;
 
 		if (disabled || !activeNode) {

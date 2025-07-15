@@ -10,7 +10,7 @@ export function useRects(args: () => [elements: Element[], measure?: (element: E
 	const [elements = [], measure = getClientRect] = $derived(args());
 	const [firstElement] = $derived(elements);
 	const windowRect = useWindowRect(() => (firstElement ? getWindow(firstElement) : null));
-	let rects = $state.raw<ClientRect[]>(defaultValue);
+	let rects = $state<ClientRect[]>(defaultValue);
 
 	function measureRects() {
 		if (!elements.length) {
@@ -25,7 +25,7 @@ export function useRects(args: () => [elements: Element[], measure?: (element: E
 
 	const resizeObserver = useResizeObserver(() => ({callback: measureRects}));
 
-	$effect.pre(() => {
+	$effect(() => {
 		resizeObserver.current?.disconnect();
 		measureRects();
 		elements.forEach((element) => resizeObserver.current?.observe(element));

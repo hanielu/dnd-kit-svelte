@@ -1,6 +1,6 @@
 {
 	"name": "@dnd-kit-svelte/sortable",
-	"version": "0.0.9",
+	"version": "0.0.8",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
