@@ -1,6 +1,6 @@
 {
 	"name": "@dnd-kit-svelte/core",
-	"version": "0.0.8",
+	"version": "0.0.10",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
