@@ -5,6 +5,7 @@ export type {
 	DropAnimation,
 	DropAnimationFunction,
 	DropAnimationFunctionArguments,
+	DropAnimationOptions,
 	DropAnimationKeyframeResolver,
 	DropAnimationSideEffects,
 } from './hooks/index.js';
