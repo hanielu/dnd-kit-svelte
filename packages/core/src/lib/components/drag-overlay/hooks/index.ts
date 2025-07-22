@@ -7,6 +7,7 @@ export type {
 	DropAnimation,
 	DropAnimationFunction,
 	DropAnimationFunctionArguments,
+	DropAnimationOptions,
 	KeyframeResolver as DropAnimationKeyframeResolver,
 	DropAnimationSideEffects,
 } from './use-drop-animation.js';

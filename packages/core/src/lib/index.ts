@@ -17,6 +17,7 @@ export type {
 	DropAnimation,
 	DropAnimationFunction,
 	DropAnimationFunctionArguments,
+	DropAnimationOptions,
 	DropAnimationKeyframeResolver,
 	DropAnimationSideEffects,
 	DraggableMeasuring,
