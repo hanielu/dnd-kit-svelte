@@ -1,0 +1,17 @@
+dnd-kit-svelte
+=================
+The following is a list of sources from which code was used/modified in this codebase.
+
+-------------------------------------------------------------------------------
+
+This codebase contains a modified portion of code from Dnd Kit which can be obtained at:
+  * SOURCE:
+    * https://www.npmjs.com/package/@dnd-kit/core
+    * https://www.npmjs.com/package/@dnd-kit/sortable
+    * https://www.npmjs.com/package/@dnd-kit/utilities
+    * https://www.npmjs.com/package/@dnd-kit/accessibility
+    * https://www.npmjs.com/package/@dnd-kit/modifiers
+  * LICENSE (MIT):
+    * https://github.com/clauderic/dnd-kit/blob/master/LICENSE
+
+-------------------------------------------------------------------------------
