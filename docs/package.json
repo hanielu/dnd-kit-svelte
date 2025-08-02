@@ -12,7 +12,7 @@
 	},
 	"devDependencies": {
 		"@iconify/json": "^2.2.293",
-		"@sveltejs/adapter-vercel": "^5.5.2",
+		"@sveltejs/adapter-static": "^3.0.8",
 		"@sveltejs/kit": "^2.0.0",
 		"@sveltejs/vite-plugin-svelte": "^4.0.0",
 		"@unocss/preset-mini": "^0.65.4",
@@ -26,11 +26,11 @@
 		"vite": "^5.4.11"
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/accessibility": "^0.0.10",
-		"@dnd-kit-svelte/core": "^0.0.10",
-		"@dnd-kit-svelte/modifiers": "^0.0.10",
-		"@dnd-kit-svelte/sortable": "^0.0.10",
-		"@dnd-kit-svelte/utilities": "^0.0.10",
+		"@dnd-kit-svelte/accessibility": "^0.0.11",
+		"@dnd-kit-svelte/core": "^0.0.11",
+		"@dnd-kit-svelte/modifiers": "^0.0.11",
+		"@dnd-kit-svelte/sortable": "^0.0.11",
+		"@dnd-kit-svelte/utilities": "^0.0.11",
 		"clsx": "^2.1.1"
 	}
 }

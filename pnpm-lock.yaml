@@ -57,11 +57,72 @@ importers:
         specifier: ^5.4.11
         version: 5.4.19(@types/node@22.10.7)
 
+  docs:
+    dependencies:
+      '@dnd-kit-svelte/accessibility':
+        specifier: ^0.0.11
+        version: 0.0.11(svelte@5.19.0)
+      '@dnd-kit-svelte/core':
+        specifier: ^0.0.11
+        version: 0.0.11(svelte@5.19.0)
+      '@dnd-kit-svelte/modifiers':
+        specifier: ^0.0.11
+        version: 0.0.11(svelte@5.19.0)
+      '@dnd-kit-svelte/sortable':
+        specifier: ^0.0.11
+        version: 0.0.11(svelte@5.19.0)
+      '@dnd-kit-svelte/utilities':
+        specifier: ^0.0.11
+        version: 0.0.11(svelte@5.19.0)
+      clsx:
+        specifier: ^2.1.1
+        version: 2.1.1
+    devDependencies:
+      '@iconify/json':
+        specifier: ^2.2.293
+        version: 2.2.297
+      '@sveltejs/adapter-static':
+        specifier: ^3.0.8
+        version: 3.0.8(@sveltejs/kit@2.16.0(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))
+      '@sveltejs/kit':
+        specifier: ^2.0.0
+        version: 2.16.0(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7))
+      '@sveltejs/vite-plugin-svelte':
+        specifier: ^4.0.0
+        version: 4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7))
+      '@unocss/preset-mini':
+        specifier: ^0.65.4
+        version: 0.65.4
+      '@unocss/reset':
+        specifier: ^0.65.4
+        version: 0.65.4
+      svelte:
+        specifier: ^5.0.0
+        version: 5.19.0
+      svelte-check:
+        specifier: ^4.0.0
+        version: 4.1.4(picomatch@4.0.2)(svelte@5.19.0)(typescript@5.7.3)
+      typescript:
+        specifier: ^5.0.0
+        version: 5.7.3
+      unocss:
+        specifier: ^0.65.4
+        version: 0.65.4(postcss@8.4.49)(rollup@4.30.1)(vite@5.4.19(@types/node@22.10.7))(vue@3.5.13(typescript@5.7.3))
+      unocss-preset-animations:
+        specifier: ^1.1.0
+        version: 1.1.1(@unocss/preset-wind@65.4.2)(unocss@0.65.4(postcss@8.4.49)(rollup@4.30.1)(vite@5.4.19(@types/node@22.10.7))(vue@3.5.13(typescript@5.7.3)))
+      unplugin-icons:
+        specifier: ^22.0.0
+        version: 22.0.0(@vue/compiler-sfc@3.5.13)(svelte@5.19.0)
+      vite:
+        specifier: ^5.4.11
+        version: 5.4.19(@types/node@22.10.7)
+
   packages/accessibility:
     dependencies:
       '@dnd-kit-svelte/utilities':
         specifier: latest
-        version: 0.0.7(svelte@5.19.0)
+        version: 0.0.11(svelte@5.19.0)
       esm-env:
         specifier: ^1.2.2
         version: 1.2.2
@@ -101,10 +162,10 @@ importers:
     dependencies:
       '@dnd-kit-svelte/accessibility':
         specifier: latest
-        version: 0.0.7(svelte@5.19.0)
+        version: 0.0.11(svelte@5.19.0)
       '@dnd-kit-svelte/utilities':
         specifier: latest
-        version: 0.0.7(svelte@5.19.0)
+        version: 0.0.11(svelte@5.19.0)
       runed:
         specifier: ^0.23.0
         version: 0.23.1(svelte@5.19.0)
@@ -147,10 +208,10 @@ importers:
     dependencies:
       '@dnd-kit-svelte/core':
         specifier: latest
-        version: 0.0.7(svelte@5.19.0)
+        version: 0.0.11(svelte@5.19.0)
       '@dnd-kit-svelte/utilities':
         specifier: latest
-        version: 0.0.7(svelte@5.19.0)
+        version: 0.0.11(svelte@5.19.0)
     devDependencies:
       '@sveltejs/kit':
         specifier: ^2.0.0
@@ -184,10 +245,10 @@ importers:
     dependencies:
       '@dnd-kit-svelte/core':
         specifier: latest
-        version: 0.0.7(svelte@5.19.0)
+        version: 0.0.11(svelte@5.19.0)
       '@dnd-kit-svelte/utilities':
         specifier: latest
-        version: 0.0.7(svelte@5.19.0)
+        version: 0.0.11(svelte@5.19.0)
       runed:
         specifier: ^0.23.0
         version: 0.23.1(svelte@5.19.0)
@@ -256,67 +317,6 @@ importers:
       vitest:
         specifier: ^2.0.4
         version: 2.1.9(@types/node@22.10.7)
-
-  sites/docs:
-    dependencies:
-      '@dnd-kit-svelte/accessibility':
-        specifier: ^0.0.10
-        version: 0.0.10(svelte@5.19.0)
-      '@dnd-kit-svelte/core':
-        specifier: ^0.0.10
-        version: 0.0.10(svelte@5.19.0)
-      '@dnd-kit-svelte/modifiers':
-        specifier: ^0.0.10
-        version: 0.0.10(svelte@5.19.0)
-      '@dnd-kit-svelte/sortable':
-        specifier: ^0.0.10
-        version: 0.0.10(svelte@5.19.0)
-      '@dnd-kit-svelte/utilities':
-        specifier: ^0.0.10
-        version: 0.0.10(svelte@5.19.0)
-      clsx:
-        specifier: ^2.1.1
-        version: 2.1.1
-    devDependencies:
-      '@iconify/json':
-        specifier: ^2.2.293
-        version: 2.2.297
-      '@sveltejs/adapter-vercel':
-        specifier: ^5.5.2
-        version: 5.5.3(@sveltejs/kit@2.16.0(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(rollup@4.30.1)
-      '@sveltejs/kit':
-        specifier: ^2.0.0
-        version: 2.16.0(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7))
-      '@sveltejs/vite-plugin-svelte':
-        specifier: ^4.0.0
-        version: 4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7))
-      '@unocss/preset-mini':
-        specifier: ^0.65.4
-        version: 0.65.4
-      '@unocss/reset':
-        specifier: ^0.65.4
-        version: 0.65.4
-      svelte:
-        specifier: ^5.0.0
-        version: 5.19.0
-      svelte-check:
-        specifier: ^4.0.0
-        version: 4.1.4(picomatch@4.0.2)(svelte@5.19.0)(typescript@5.7.3)
-      typescript:
-        specifier: ^5.0.0
-        version: 5.7.3
-      unocss:
-        specifier: ^0.65.4
-        version: 0.65.4(postcss@8.4.49)(rollup@4.30.1)(vite@5.4.19(@types/node@22.10.7))(vue@3.5.13(typescript@5.7.3))
-      unocss-preset-animations:
-        specifier: ^1.1.0
-        version: 1.1.1(@unocss/preset-wind@65.4.2)(unocss@0.65.4(postcss@8.4.49)(rollup@4.30.1)(vite@5.4.19(@types/node@22.10.7))(vue@3.5.13(typescript@5.7.3)))
-      unplugin-icons:
-        specifier: ^22.0.0
-        version: 22.0.0(@vue/compiler-sfc@3.5.13)(svelte@5.19.0)
-      vite:
-        specifier: ^5.4.11
-        version: 5.4.19(@types/node@22.10.7)
 
 packages:
 
@@ -412,43 +412,28 @@ packages:
   '@changesets/write@0.3.2':
     resolution: {integrity: sha512-kDxDrPNpUgsjDbWBvUo27PzKX4gqeKOlhibaOXDJA6kuBisGqNHv/HwGJrAu8U/dSf8ZEFIeHIPtvSlZI1kULw==}
 
-  '@dnd-kit-svelte/accessibility@0.0.10':
-    resolution: {integrity: sha512-Ao0HwXjISe8Bb224/40s5dQ+fLh7IpPO+VxnokbuVahge1pbWE3WxPpS0SNHVW/Ip/xqATS4SlxODVDMKuyD7Q==}
+  '@dnd-kit-svelte/accessibility@0.0.11':
+    resolution: {integrity: sha512-YkMjzabpnwELyeOSC2COV6EIGWZM8m4kgi/wIMwG0g/ZO3WWuzkMiLRLhYZqRkrEdpoz5tZnVclw+x/kcUjQHw==}
     peerDependencies:
       svelte: ^5.0.0
 
-  '@dnd-kit-svelte/accessibility@0.0.7':
-    resolution: {integrity: sha512-dkv0et2BPr8EEon/XrYeBW01hJbCZign0iztAsRsg2gg5L+9fOvt998Cs+kuAAa8ci+Sw2Me1OGGLkdApaYxZQ==}
+  '@dnd-kit-svelte/core@0.0.11':
+    resolution: {integrity: sha512-bVqutZhSOk3nQsjwJ0SveUrPeBgUO/wajfon1AiKA8mxfQhaUG97CfoQLs7tLW3YxSkHkLPhYRw9WQat7OMB7g==}
     peerDependencies:
       svelte: ^5.0.0
 
-  '@dnd-kit-svelte/core@0.0.10':
-    resolution: {integrity: sha512-nO4eU3jaC+YBFNnAK56rVhKoR2HtiMhdMZbhBkfrZIwHeBk7KQHBhFpBhWXlHlRH2Vux5HfwA3k4PHzrMHedHQ==}
+  '@dnd-kit-svelte/modifiers@0.0.11':
+    resolution: {integrity: sha512-H0+uGQi8M0GAKMjEGZzC8suwj4hyqf77kp5ozyBgr2+//YZT1uvsydl1DB7dEcj2Qiz1HOz01rQsLF1nEchQaQ==}
     peerDependencies:
       svelte: ^5.0.0
 
-  '@dnd-kit-svelte/core@0.0.7':
-    resolution: {integrity: sha512-h9DxKtaLmjT3UF4kxnh4QR9H25Yle5ZeTkBPkdJUBMBYWU6ANhpo5TKDo+nzD5R2m7nNaYYw/x8eqKIRFo4+xg==}
+  '@dnd-kit-svelte/sortable@0.0.11':
+    resolution: {integrity: sha512-QeFvpjR9KAIVFs0/S4kGtzSNZzEmIp+d8DiNCRUeVC2E4Z5P4INzdzJl7m1EM7UjvdNayfLWcMhLpyTIHqHxQQ==}
     peerDependencies:
       svelte: ^5.0.0
 
-  '@dnd-kit-svelte/modifiers@0.0.10':
-    resolution: {integrity: sha512-YV0CmWgz6xKz+jqich3r2erH+jw+Yc6ILbojDzk2bbRshzi0Lbbk4LM3ZO/BJL8PgNmdsp7ideXMF5xWNlg3Dg==}
-    peerDependencies:
-      svelte: ^5.0.0
-
-  '@dnd-kit-svelte/sortable@0.0.10':
-    resolution: {integrity: sha512-5pT/6jU80FAANSIjfgB+1BnBf6oVjjFCfrYunHayx/jOkdVa35rTvJzEog4f6OvyS9Rj2DCmMK4pPMYjURKsFw==}
-    peerDependencies:
-      svelte: ^5.0.0
-
-  '@dnd-kit-svelte/utilities@0.0.10':
-    resolution: {integrity: sha512-MPi6wReVhIv00U1wCcXVpRi2LR4iSWc8oXWAw6oiAySKUGiJ+4nvWC+yXXkJhaAXXY7mqYy8vpfq4ycdk1WEJg==}
-    peerDependencies:
-      svelte: ^5.0.0
-
-  '@dnd-kit-svelte/utilities@0.0.7':
-    resolution: {integrity: sha512-ZKma6g9CwFYVKxvkh0zNXk2ZyaKlDyMYsC8aMd0uiWtKZrW6e8ixvbGhHPwh4vyc4nt+Timr1kg1M6c6SrN9Nw==}
+  '@dnd-kit-svelte/utilities@0.0.11':
+    resolution: {integrity: sha512-Y9Z016gLdieHiAVoteSBa1tvrgug1/Rl5wdKw/2g1Fd4G0q9HWIyPe2evKrv8H5ePfcNegA1jN7fneDVmHd3pQ==}
     peerDependencies:
       svelte: ^5.0.0
 
@@ -1115,6 +1100,11 @@ packages:
     resolution: {integrity: sha512-D6qjsXGcvhTjv0kI4fU8tUuBDF/Ueee4SVX79VfNDXZa64TfCW1Slkb6Z7O1p7vflqZjcmOVdZlqf8gvJxc6og==}
     cpu: [x64]
     os: [win32]
+
+  '@sveltejs/adapter-static@3.0.8':
+    resolution: {integrity: sha512-YaDrquRpZwfcXbnlDsSrBQNCChVOT9MGuSg+dMAyfsAa1SmiAhrA5jUYUiIMC59G92kIbY/AaQOWcBdq+lh+zg==}
+    peerDependencies:
+      '@sveltejs/kit': ^2.0.0
 
   '@sveltejs/adapter-vercel@5.5.3':
     resolution: {integrity: sha512-yvHkduNTVK5UMz9/N4EDPLWw+ndlZfTG2uz6kqYXyoQMuSMjqMqJcjdlFnLP3L/S3B6eMOtwEnUcwFYp+o7How==}
@@ -2930,56 +2920,36 @@ snapshots:
       human-id: 1.0.2
       prettier: 2.8.8
 
-  '@dnd-kit-svelte/accessibility@0.0.10(svelte@5.19.0)':
+  '@dnd-kit-svelte/accessibility@0.0.11(svelte@5.19.0)':
     dependencies:
-      '@dnd-kit-svelte/utilities': 0.0.10(svelte@5.19.0)
+      '@dnd-kit-svelte/utilities': 0.0.11(svelte@5.19.0)
       esm-env: 1.2.2
       runed: 0.23.1(svelte@5.19.0)
       svelte: 5.19.0
 
-  '@dnd-kit-svelte/accessibility@0.0.7(svelte@5.19.0)':
+  '@dnd-kit-svelte/core@0.0.11(svelte@5.19.0)':
     dependencies:
-      '@dnd-kit-svelte/utilities': 0.0.7(svelte@5.19.0)
-      esm-env: 1.2.2
-      runed: 0.23.1(svelte@5.19.0)
-      svelte: 5.19.0
-
-  '@dnd-kit-svelte/core@0.0.10(svelte@5.19.0)':
-    dependencies:
-      '@dnd-kit-svelte/accessibility': 0.0.10(svelte@5.19.0)
-      '@dnd-kit-svelte/utilities': 0.0.10(svelte@5.19.0)
+      '@dnd-kit-svelte/accessibility': 0.0.11(svelte@5.19.0)
+      '@dnd-kit-svelte/utilities': 0.0.11(svelte@5.19.0)
       runed: 0.23.1(svelte@5.19.0)
       svelte: 5.19.0
       svelte-toolbelt: 0.7.0(svelte@5.19.0)
 
-  '@dnd-kit-svelte/core@0.0.7(svelte@5.19.0)':
+  '@dnd-kit-svelte/modifiers@0.0.11(svelte@5.19.0)':
     dependencies:
-      '@dnd-kit-svelte/accessibility': 0.0.7(svelte@5.19.0)
-      '@dnd-kit-svelte/utilities': 0.0.7(svelte@5.19.0)
+      '@dnd-kit-svelte/core': 0.0.11(svelte@5.19.0)
+      '@dnd-kit-svelte/utilities': 0.0.11(svelte@5.19.0)
+      svelte: 5.19.0
+
+  '@dnd-kit-svelte/sortable@0.0.11(svelte@5.19.0)':
+    dependencies:
+      '@dnd-kit-svelte/core': 0.0.11(svelte@5.19.0)
+      '@dnd-kit-svelte/utilities': 0.0.11(svelte@5.19.0)
       runed: 0.23.1(svelte@5.19.0)
       svelte: 5.19.0
       svelte-toolbelt: 0.7.0(svelte@5.19.0)
 
-  '@dnd-kit-svelte/modifiers@0.0.10(svelte@5.19.0)':
-    dependencies:
-      '@dnd-kit-svelte/core': 0.0.10(svelte@5.19.0)
-      '@dnd-kit-svelte/utilities': 0.0.10(svelte@5.19.0)
-      svelte: 5.19.0
-
-  '@dnd-kit-svelte/sortable@0.0.10(svelte@5.19.0)':
-    dependencies:
-      '@dnd-kit-svelte/core': 0.0.10(svelte@5.19.0)
-      '@dnd-kit-svelte/utilities': 0.0.10(svelte@5.19.0)
-      runed: 0.23.1(svelte@5.19.0)
-      svelte: 5.19.0
-      svelte-toolbelt: 0.7.0(svelte@5.19.0)
-
-  '@dnd-kit-svelte/utilities@0.0.10(svelte@5.19.0)':
-    dependencies:
-      svelte: 5.19.0
-      svelte-toolbelt: 0.7.0(svelte@5.19.0)
-
-  '@dnd-kit-svelte/utilities@0.0.7(svelte@5.19.0)':
+  '@dnd-kit-svelte/utilities@0.0.11(svelte@5.19.0)':
     dependencies:
       svelte: 5.19.0
       svelte-toolbelt: 0.7.0(svelte@5.19.0)
@@ -3419,6 +3389,10 @@ snapshots:
 
   '@rollup/rollup-win32-x64-msvc@4.30.1':
     optional: true
+
+  '@sveltejs/adapter-static@3.0.8(@sveltejs/kit@2.16.0(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))':
+    dependencies:
+      '@sveltejs/kit': 2.16.0(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7))
 
   '@sveltejs/adapter-vercel@5.5.3(@sveltejs/kit@2.16.0(@sveltejs/vite-plugin-svelte@4.0.4(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(svelte@5.19.0)(vite@5.4.19(@types/node@22.10.7)))(rollup@4.30.1)':
     dependencies:
