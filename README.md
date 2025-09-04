@@ -7,11 +7,11 @@ A Svelte port of the powerful [@dnd-kit][dnd-kit] library - the modern, lightwei
 Install it:
 
 ```bash
-npm i @dnd-kit-svelte/core
+npm i @dnd-kit-svelte/svelte
 # or
-yarn add @dnd-kit-svelte/core
+yarn add @dnd-kit-svelte/svelte
 # or
-pnpm add @dnd-kit-svelte/core
+pnpm add @dnd-kit-svelte/svelte
 ```
 
 ## Overview
@@ -62,16 +62,16 @@ Example:
 
 ```ts
 // React dnd-kit
-const { attributes, listeners, isDragging } = useSortable({ id });
+const { ref, isDragging } = useSortable({ id });
 
-<div {...attributes} {...listeners}>
+<div ref={ref}>
   {isDragging ? 'Dragging' : 'Not dragging'}
 </div>
 
 // Svelte dnd-kit
-const { attributes, listeners, isDragging } = useSortable({ id });
+const { ref, isDragging } = useSortable({ id });
 
-<div {...attributes.current} {...listeners.current}>
+<div {@attach ref}>
   {isDragging.current ? 'Dragging' : 'Not dragging'}
 </div>
 ```
@@ -106,5 +106,5 @@ For detailed documentation on these concepts, please refer to the [original dnd-
 
 MIT © [Haniel Ubogu](https://github.com/HanielU)
 
-[dnd-kit]: https://github.com/clauderic/dnd-kit
-[dnd-kit-docs]: https://docs.dndkit.com/
+[dnd-kit]: https://github.com/clauderic/dnd-kit/tree/experimental
+[dnd-kit-docs]: https://next.dndkit.com/
