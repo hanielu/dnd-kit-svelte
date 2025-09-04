@@ -51,6 +51,7 @@
 	],
 	"dependencies": {
 		"@dnd-kit/abstract": "^0.1.21",
+		"@dnd-kit/collision": "^0.1.21",
 		"@dnd-kit/dom": "^0.1.21",
 		"@dnd-kit/state": "^0.1.21"
 	}

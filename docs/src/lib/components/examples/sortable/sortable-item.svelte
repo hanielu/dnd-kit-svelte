@@ -1,36 +1,29 @@
 <script lang="ts">
-	import type {UniqueIdentifier} from '@dnd-kit-svelte/core';
-	import {CSS, styleObjectToString} from '@dnd-kit-svelte/utilities';
-	import {useSortable} from '@dnd-kit-svelte/sortable';
+	import {useSortable, type UseSortableInput} from '@dnd-kit-svelte/svelte/sortable';
 
 	interface Task {
-		id: UniqueIdentifier;
+		id: string | number;
 		content: string;
 	}
 
-	let {task}: {task: Task} = $props();
+	interface Props extends UseSortableInput {
+		task: Task;
+		isOverlay?: boolean;
+	}
 
-	const {attributes, listeners, node, transform, transition, isDragging, isSorting} = useSortable({
-		id: task.id,
-	});
+	let {task, isOverlay = false, ...rest}: Props = $props();
 
-	const style = $derived(
-		styleObjectToString({
-			transform: CSS.Transform.toString(transform.current),
-			transition: isSorting.current ? transition.current : undefined,
-			zIndex: isDragging.current ? 1 : undefined,
-		})
-	);
+	const {ref, isDragging} = useSortable(rest);
 </script>
 
-<div class="relative select-none" bind:this={node.current} {style} {...listeners.current} {...attributes.current}>
+<div class="relative select-none" {@attach ref}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
-	<div class={['p-4 bg-white rd-18px', {invisible: isDragging.current}]}>
+	<div class={['p-4 bg-white rd-18px', {invisible: isDragging.current && !isOverlay}]}>
 		{task.content}
 	</div>
 
 	<!-- Drag placeholder - set to match original dimensions -->
-	{#if isDragging.current}
+	{#if !isOverlay && isDragging.current}
 		<div class="flex items-center justify-center abs inset-0">
 			<!-- You can put any content here for the dragging state -->
 			<div class="w-full h-full bg-orange/10 rd-18px b-2 b-orange b-dashed flex items-center justify-center">
@@ -39,3 +32,12 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.select-none {
+		/* transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+		transform: scale(1); */
+	}
+</style>

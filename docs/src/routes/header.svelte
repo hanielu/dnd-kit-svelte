@@ -1,5 +1,4 @@
 <script lang="ts">
-	import LogosSvelte from '~icons/logos/svelte';
 	import LogosSvelteIcon from '~icons/logos/svelte-icon';
 </script>
 

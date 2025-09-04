@@ -1,107 +1,63 @@
 <script lang="ts">
 	import Droppable from '$lib/components/droppable.svelte';
 	import SortableItem from './sortable-item.svelte';
-	import {
-		DndContext,
-		DragOverlay,
-		type DragEndEvent,
-		type DragOverEvent,
-		type DragStartEvent,
-	} from '@dnd-kit-svelte/core';
-	import {SortableContext, arrayMove} from '@dnd-kit-svelte/sortable';
-	import {dropAnimation, sensors} from '$lib';
-	import {crossfade} from 'svelte/transition';
+	import {CollisionPriority} from '@dnd-kit/abstract';
+	import {DragDropProvider, DragOverlay} from '@dnd-kit-svelte/svelte';
+	import {move} from '@dnd-kit/helpers';
+	import {sensors} from '$lib';
 
 	interface Todo {
 		id: string;
 		content: string;
-		done: boolean;
 	}
 
-	const defaultTasks: Todo[] = [
-		{id: 'task-1', content: 'Learn Svelte', done: false},
-		{id: 'task-2', content: 'Build a Kanban board', done: false},
-		{id: 'task-3', content: 'Review code', done: false},
-		{id: 'task-4', content: 'Setup project', done: false},
-	];
+	const items = {
+		'in-progress': [
+			{id: 'task-1', content: 'Learn Svelte'},
+			{id: 'task-2', content: 'Build a Kanban board'},
+			{id: 'task-3', content: 'Review code'},
+			{id: 'task-4', content: 'Setup project'},
+		],
+		done: [],
+	};
 
-	let todos = $state<Todo[]>(defaultTasks);
-	let activeId = $state<string | null>(null);
-
-	const activeTodo = $derived(todos.find((todo) => todo.id === activeId));
-	const done = $derived(todos.filter((task) => task.done));
-	const inProgress = $derived(todos.filter((task) => !task.done));
-
-	function handleDragStart(event: DragStartEvent) {
-		activeId = event.active.id as string;
-	}
-
-	function handleDragEnd({active, over}: DragEndEvent) {
-		if (!over) return;
-
-		if (over.id === 'done' || over.id === 'in-progress') {
-			todos.find((todo) => todo.id === active.id)!.done = over.id === 'done';
-			return;
-		}
-
-		const overTodo = $state.snapshot(todos.find((todo) => todo.id === over?.id));
-		if (!overTodo || activeId === overTodo.id) return;
-
-		const oldIndex = todos.findIndex((todo) => todo.id === active.id);
-		const newIndex = todos.findIndex((todo) => todo.id === over.id);
-		todos = arrayMove(todos, oldIndex, newIndex);
-
-		activeId = null;
-	}
-
-	function handleDragOver({active, over}: DragOverEvent) {
-		if (!over) return;
-
-		const activeTask = todos.find((todo) => todo.id === active.id);
-		if (!activeTask) return;
-
-		// Handle container drag-over
-		if (over.id === 'done' || over.id === 'in-progress') {
-			activeTask.done = over.id === 'done';
-			return;
-		}
-
-		// Handle item drag-over
-		const overTask = todos.find((todo) => todo.id === over.id);
-		if (!overTask) return;
-
-		// Update the active task's done status to match the container it's being dragged over
-		activeTask.done = overTask.done;
-	}
-
-	const [send, recieve] = crossfade({duration: 100});
+	type Todos = Record<string, Todo[]>;
+	let todos = $state<Todos>(items);
 </script>
 
-<DndContext {sensors} onDragStart={handleDragStart} onDragEnd={handleDragEnd} onDragOver={handleDragOver}>
+<DragDropProvider
+	{sensors}
+	onDragOver={(event) => {
+		todos = move(todos, event);
+	}}
+>
 	<div class="grid gap-4 md:grid-cols-2">
-		{@render taskList('in-progress', 'In Progress', inProgress)}
-		{@render taskList('done', 'Done', done)}
+		{@render taskList('in-progress', 'In Progress', todos['in-progress'])}
+		{@render taskList('done', 'Done', todos['done'])}
 	</div>
 
-	<DragOverlay {dropAnimation}>
-		{#if activeTodo && activeId}
-			<SortableItem task={activeTodo} />
-		{/if}
+	<DragOverlay>
+		{#snippet children(source)}
+			{@const task = todos[source.data.group].find((todo) => todo.id === source.id)!}
+			<SortableItem id={task.id} {task} index={0} isOverlay />
+		{/snippet}
 	</DragOverlay>
-</DndContext>
+</DragDropProvider>
 
 {#snippet taskList(id: string, title: string, tasks: Todo[])}
-	<SortableContext items={tasks}>
-		<Droppable class="bg-#F9F9F9 rd-3xl p-3 pt-6" {id}>
-			<p class="text-lg fw-bold pb-3">{title}</p>
+	<Droppable
+		class="bg-#F9F9F9 rd-3xl p-3 pt-6"
+		{id}
+		type="column"
+		accept="item"
+		collisionPriority={CollisionPriority.Low}
+	>
+		<p class="text-lg fw-bold pb-3">{title}</p>
 
-			<div class="grid gap-2">
-				{#each tasks as task (task.id)}
-					<div class="" in:recieve={{key: task.id}} out:send={{key: task.id}}>
-						<SortableItem {task} />
-					</div>
-				{/each}
-			</div>
-		</Droppable>
-	</SortableContext>
+		<div class="grid gap-2">
+			{#each tasks as task, index (task.id)}
+				<SortableItem {task} id={task.id} index={() => index} group={id} data={{group: id}} type="item" />
+			{/each}
+		</div>
+	</Droppable>
 {/snippet}

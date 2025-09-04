@@ -1,0 +1,44 @@
+.Root {
+	display: flex;
+	flex-direction: row;
+	gap: 20px;
+	flex-wrap: wrap;
+}
+
+.Column {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	padding: 20px;
+	min-width: 175px;
+	min-height: 200px;
+	background-color: rgba(0, 0, 0, 0.1);
+	border: 1px solid rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
+
+.Item {
+	appearance: none;
+	background: #fff;
+	color: #666;
+	padding: 12px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: grab;
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
+	transform: scale(1);
+	box-shadow:
+		inset 0px 0px 1px rgba(0, 0, 0, 0.4),
+		0 0 0 calc(1px / var(--scale-x, 1)) rgba(63, 63, 68, 0.05),
+		0px 1px calc(2px / var(--scale-x, 1)) 0 rgba(34, 33, 81, 0.05);
+}
+
+.Item[data-dragging='true'] {
+	transform: scale(1.02);
+	box-shadow:
+		inset 0px 0px 1px rgba(0, 0, 0, 0.5),
+		-1px 0 15px 0 rgba(34, 33, 81, 0.01),
+		0px 15px 15px 0 rgba(34, 33, 81, 0.25);
+}

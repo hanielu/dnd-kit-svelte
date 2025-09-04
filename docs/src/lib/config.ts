@@ -4,7 +4,7 @@ export const siteConfig = {
 	description: 'dnd-kit-svelte is a modern drag and drop toolkit for svelte based on dnd-kit for react.',
 	ogImage: 'https://svelte-dnd-kit.vercel.app/og.png',
 	links: {
-		twitter: 'https://twitter.com/hyprsonic_dev',
+		twitter: 'https://twitter.com/hvniel_',
 		github: 'https://github.com/HanielU/dnd-kit-svelte',
 	},
 	keywords: `svelte,dnd,dnd-kit,drag and drop,Drag and Drop,Toolkit`,

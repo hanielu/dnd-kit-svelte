@@ -17,6 +17,7 @@ const config = {
 
 		alias: {
 			runed: 'src/lib/_runed/index.js',
+			$hooks: 'src/lib/hooks/index.js',
 		},
 	},
 };

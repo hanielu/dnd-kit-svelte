@@ -1,80 +1,131 @@
-import {DragDropManager} from '@dnd-kit/dom';
-import {Sortable, type SortableInput} from '@dnd-kit/dom/sortable';
-
-import {useDragDropManager} from '../context/use-drag-drop-manager.js';
-
 import type {Data} from '@dnd-kit/abstract';
-import {computed, ref} from 'runed';
+import {batch, deepEqual} from '@dnd-kit/state';
+import {defaultSortableTransition, Sortable, type SortableInput} from '@dnd-kit/dom/sortable';
+import {resolveObj, type MaybeGetterObject, resolve, lens, watch, toFnObject, toFn} from 'runed';
+import {makeRef} from '$lib/utilities/index.js';
+import {useDeepSignal, useOnElementChange, useOnValueChange} from '$hooks';
+import {useInstance} from '../core/hooks/use-instance.svelte.js';
 
-export interface UseSortableInput<T extends Data = Data> extends Omit<SortableInput<T>, 'source'> {
-	manager?: DragDropManager;
-	source?: Element;
-}
+export type UseSortableInput<T extends Data = Data> = MaybeGetterObject<SortableInput<T>>;
 
 export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
-	const elementRef = ref<Element | undefined>(input.element);
-	const handleRef = ref<Element | undefined>(input.handle);
-	const targetRef = ref<Element | undefined>(input.target);
-	const sourceRef = ref<Element | undefined>(input.source);
+	const {
+		accept,
+		collisionDetector,
+		collisionPriority,
+		id,
+		data,
+		element,
+		handle,
+		index,
+		group,
+		disabled,
+		feedback,
+		modifiers,
+		sensors,
+		target,
+		type,
+	} = toFnObject(input);
 
-	const manager = input.manager ?? useDragDropManager() ?? new DragDropManager();
-	const sortable = new Sortable(
-		{
-			...input,
-			transition: input.transition ?? null,
+	const transition = $derived({
+		...defaultSortableTransition,
+		...resolve(input.transition),
+	});
+
+	const sortable = useInstance((manager) => {
+		return new Sortable(
+			{
+				...resolveObj(input),
+				transition,
+				register: false,
+				handle: handle?.(),
+				element: element?.(),
+				target: target?.(),
+				feedback: feedback?.(),
+			},
+			manager
+		);
+	});
+
+	const trackedSortable = useDeepSignal(sortable);
+
+	useOnValueChange(id, (id) => (sortable.id = id));
+
+	// group could be undefined when dragging
+	watch.pre([toFn(group), index], ([group, index]) => {
+		batch(() => {
+			sortable.group = group;
+			sortable.index = index;
+		});
+	});
+
+	useOnValueChange(type, (type) => (sortable.type = type));
+	useOnValueChange(accept, (accept) => (sortable.accept = accept), undefined, deepEqual);
+	useOnValueChange(data, (data) => {
+		if (data) sortable.data = data;
+	});
+	useOnValueChange(
+		index,
+		() => {
+			if (sortable.manager?.dragOperation.status.idle && transition?.idle) {
+				sortable.refreshShape();
+			}
 		},
-		manager
+		watch.pre
 	);
-
-	$effect(() => {
-		if (handleRef.current) {
-			sortable.handle = handleRef.current;
-		}
-
-		if (elementRef.current) {
-			sortable.element = elementRef.current;
-		}
-
-		if (targetRef.current) {
-			sortable.target = targetRef.current;
-		}
-
-		if (sourceRef.current) {
-			sortable.source = sourceRef.current;
-		}
-
-		sortable.id = input.id;
-		sortable.disabled = input.disabled ?? false;
-		sortable.feedback = input.feedback ?? 'default';
-		sortable.alignment = input.alignment;
-		sortable.modifiers = input.modifiers;
-		sortable.sensors = input.sensors;
-		sortable.accept = input.accept;
-		sortable.type = input.type;
-		sortable.group = input.group;
-		sortable.index = input.index;
-		sortable.collisionPriority = input.collisionPriority;
-		sortable.transition = input.transition ?? null;
-
-		if (input.collisionDetector) {
-			sortable.collisionDetector = input.collisionDetector;
-		}
-
-		if (input.data) {
-			sortable.data = input.data;
-		}
+	useOnElementChange(handle, (handle) => {
+		sortable.handle = handle;
+	});
+	useOnElementChange(element, (element) => {
+		sortable.element = element;
+	});
+	useOnElementChange(target, (target) => {
+		sortable.target = target;
+	});
+	useOnValueChange(disabled, (disabled) => {
+		sortable.disabled = disabled === true;
+	});
+	useOnValueChange(sensors, (sensors) => {
+		sortable.sensors = sensors;
+	});
+	useOnValueChange(collisionDetector, (collisionDetector) => {
+		sortable.collisionDetector = collisionDetector;
+	});
+	useOnValueChange(collisionPriority, (collisionPriority) => {
+		sortable.collisionPriority = collisionPriority;
+	});
+	useOnValueChange(feedback, (feedback) => {
+		sortable.feedback = feedback ?? 'default';
+	});
+	useOnValueChange(
+		() => transition,
+		() => {
+			sortable.transition = transition;
+		},
+		undefined,
+		deepEqual
+	);
+	useOnValueChange(
+		modifiers,
+		(modifiers) => {
+			sortable.modifiers = modifiers;
+		},
+		undefined,
+		deepEqual
+	);
+	useOnValueChange(input.alignment, (alignment) => {
+		sortable.alignment = alignment;
 	});
 
 	return {
-		sortable,
-		isDragging: computed(() => sortable.isDragging),
-		isDropping: computed(() => sortable.isDropping),
-		isDragSource: computed(() => sortable.isDragSource),
-		isDropTarget: computed(() => sortable.isDropTarget),
-
-		ref: elementRef,
-		targetRef: targetRef,
-		sourceRef: sourceRef,
-		handleRef: handleRef,
+		sortable: trackedSortable,
+		isDragging: lens(() => trackedSortable.isDragging),
+		isDropping: lens(() => trackedSortable.isDropping),
+		isDragSource: lens(() => trackedSortable.isDragSource),
+		isDropTarget: lens(() => trackedSortable.isDropTarget),
+		handleRef: makeRef(sortable, 'handle'),
+		ref: makeRef(sortable, 'element'),
+		sourceRef: makeRef(sortable, 'source'),
+		targetRef: makeRef(sortable, 'target'),
 	};
 }

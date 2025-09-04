@@ -1,11 +1,13 @@
 <script lang="ts">
 	import {page} from '$app/state';
 	import {siteConfig} from '$lib/config';
+	import favicon from '$lib/assets/favicon.svg';
 
 	const title = $derived(page.data?.title ? `${page.data.title} - ${siteConfig.name}` : siteConfig.name);
 </script>
 
 <svelte:head>
+	<link rel="icon" href={favicon} />
 	<title>{title}</title>
 	<meta name="description" content={siteConfig.description} />
 	<meta name="keywords" content={siteConfig.keywords} />

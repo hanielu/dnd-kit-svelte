@@ -1,21 +1,3 @@
-import {
-	type DropAnimation,
-	defaultDropAnimationSideEffects,
-	useSensors,
-	useSensor,
-	TouchSensor,
-	KeyboardSensor,
-	MouseSensor,
-} from '@dnd-kit-svelte/core';
+import {KeyboardSensor, PointerSensor} from '@dnd-kit-svelte/svelte';
 
-export const dropAnimation: DropAnimation = {
-	sideEffects: defaultDropAnimationSideEffects({
-		styles: {
-			active: {
-				opacity: '0.5',
-			},
-		},
-	}),
-};
-
-export const sensors = useSensors(useSensor(TouchSensor), useSensor(KeyboardSensor), useSensor(MouseSensor));
+export const sensors = [KeyboardSensor, PointerSensor];

@@ -1,6 +1,6 @@
-import {Preset} from 'unocss';
+import {definePreset} from 'unocss';
 
-export const shadcnPreset: Preset = {
+export default definePreset(() => ({
 	name: 'shadcn',
 
 	theme: {
@@ -85,4 +85,4 @@ export const shadcnPreset: Preset = {
 		// }`,
 		//   },
 	],
-};
+}));

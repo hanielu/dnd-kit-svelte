@@ -2,6 +2,7 @@
 	import '@unocss/reset/tailwind.css';
 	import 'uno.css';
 	import '../app.css';
+
 	import Header from './header.svelte';
 	import Metadata from '$lib/components/metadata.svelte';
 
