@@ -60,7 +60,7 @@ importers:
   docs:
     dependencies:
       '@dnd-kit-svelte/svelte':
-        specifier: latest
+        specifier: ^0.1.0
         version: 0.1.0(svelte@5.38.6)
       '@dnd-kit/abstract':
         specifier: ^0.1.21
