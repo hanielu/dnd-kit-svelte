@@ -32,12 +32,3 @@
 		</div>
 	{/if}
 </div>
-
-<style>
-	.select-none {
-		/* transition:
-			transform 0.2s ease,
-			box-shadow 0.2s ease;
-		transform: scale(1); */
-	}
-</style>
