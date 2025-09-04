@@ -60,8 +60,8 @@ importers:
   docs:
     dependencies:
       '@dnd-kit-svelte/svelte':
-        specifier: workspace:*
-        version: link:../packages/svelte
+        specifier: latest
+        version: 0.1.0(svelte@5.38.6)
       '@dnd-kit/abstract':
         specifier: ^0.1.21
         version: 0.1.21
@@ -262,6 +262,11 @@ packages:
 
   '@changesets/write@0.4.0':
     resolution: {integrity: sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q==}
+
+  '@dnd-kit-svelte/svelte@0.1.0':
+    resolution: {integrity: sha512-Pw2XYC4RWaZn2ZV4CZgHl6C5CjtBR8DX6wmXBGOshNJEn5VtdgnMEwdrTmkhCLEe3XS1PwoipbvOmxdkWwUI9w==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   '@dnd-kit/abstract@0.1.21':
     resolution: {integrity: sha512-6sJut6/D21xPIK8EFMu+JJeF+fBCOmQKN1BRpeUYFi5m9P1CJpTYbBwfI107h7PHObI6a5bsckiKkRpF2orHpw==}
@@ -2554,6 +2559,14 @@ snapshots:
       fs-extra: 7.0.1
       human-id: 4.1.1
       prettier: 2.8.8
+
+  '@dnd-kit-svelte/svelte@0.1.0(svelte@5.38.6)':
+    dependencies:
+      '@dnd-kit/abstract': 0.1.21
+      '@dnd-kit/collision': 0.1.21
+      '@dnd-kit/dom': 0.1.21
+      '@dnd-kit/state': 0.1.21
+      svelte: 5.38.6
 
   '@dnd-kit/abstract@0.1.21':
     dependencies:
