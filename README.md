@@ -107,4 +107,4 @@ For detailed documentation on these concepts, please refer to the [original dnd-
 MIT © [Haniel Ubogu](https://github.com/HanielU)
 
 [dnd-kit]: https://github.com/clauderic/dnd-kit/tree/experimental
-[dnd-kit-docs]: https://next.dndkit.com/
+[dnd-kit-docs]: https://next.dndkit.com/react/quickstart

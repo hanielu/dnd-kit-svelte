@@ -14,4 +14,4 @@ npm install @dnd-kit-svelte/svelte
 
 ## Usage
 
-Visit [next.dndkit.com](https://next.dndkit.com) to learn how to get started with @dnd-kit.
+Visit [next.dndkit.com](https://next.dndkit.com/react/quickstart) to learn how to get started with @dnd-kit.

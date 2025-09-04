@@ -1,7 +1,7 @@
 <script lang="ts">
 	import {DragDropProvider} from '@dnd-kit-svelte/svelte';
 	import {sensors} from '$lib';
-	import Droppable from '$lib/components/droppable.svelte';
+	import Droppable from './droppable.svelte';
 	import Draggable from './draggable.svelte';
 
 	const targets = ['A', 'B', 'C'];
