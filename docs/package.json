@@ -27,7 +27,7 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
-		"@dnd-kit-svelte/svelte": "workspace:*",
+		"@dnd-kit-svelte/svelte": "latest",
 		"@dnd-kit/abstract": "^0.1.21",
 		"@dnd-kit/helpers": "^0.1.21",
 		"motion-sve": "^0.2.4"
