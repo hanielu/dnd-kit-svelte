@@ -1,12 +1,12 @@
 <script lang="ts" module>
 	import type {Data, DragDropEvents} from '@dnd-kit/abstract';
 	import type {DragDropManagerInput, Draggable, Droppable} from '@dnd-kit/dom';
+	import type {Snippet} from 'svelte';
 	import {DragDropContext} from './context.js';
 	import {DragDropManager, defaultPreset} from '@dnd-kit/dom';
 	import {deepEqual} from '@dnd-kit/state';
 	import {lens} from 'runed';
 	import {showPopover} from '@dnd-kit/dom/utilities';
-	import {untrack, type Snippet} from 'svelte';
 	import {useOnValueChange} from '$hooks';
 	import {useRenderer} from './renderer.svelte.js';
 
@@ -58,7 +58,9 @@
 
 	const {renderer, trackRendering} = useRenderer();
 
-	function attachManager(mgr: W) {
+	// on mount
+	$effect(() => {
+		const mgr = input.manager ?? (new DragDropManager<T, U, V>(input) as W);
 		mgr.renderer = renderer;
 
 		// This is needed because the way svelte orders items in keyed each blocks
@@ -95,14 +97,6 @@
 		manager = mgr;
 
 		return manager.destroy;
-	}
-
-	// on mount
-	$effect(() => {
-		return untrack(() => {
-			const mgr = (input.manager ?? (new DragDropManager<T, U, V>(input) as W)) as W;
-			return attachManager(mgr);
-		});
 	});
 
 	const options = [undefined, deepEqual] as const;
