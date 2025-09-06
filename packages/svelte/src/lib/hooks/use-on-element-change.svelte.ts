@@ -1,13 +1,13 @@
-import {toFn, type MaybeGetter} from 'runed';
+import {resolve, type MaybeGetter} from 'runed';
 
 export function useOnElementChange(
-	value: MaybeGetter<Element> | undefined,
+	value: MaybeGetter<Element | undefined> | undefined,
 	onChange: (value: Element | undefined) => void
 ) {
-	let previous = toFn(value)();
+	let previous = resolve(value);
 
 	$effect.pre(() => {
-		const current = toFn(value)();
+		const current = resolve(value);
 		if (current !== previous) {
 			previous = current;
 			onChange(current);

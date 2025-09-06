@@ -2,7 +2,7 @@ import type {Data} from '@dnd-kit/abstract';
 import type {DraggableInput} from '@dnd-kit/dom';
 import {Draggable} from '@dnd-kit/dom';
 import {deepEqual} from '@dnd-kit/state';
-import {resolveObj, type MaybeGetterObject, lens, toFnObject} from 'runed';
+import {resolveObj, lens, type MaybeGetterObject} from 'runed';
 import {makeRef} from '$lib/utilities/index.js';
 import {useDeepSignal, useOnElementChange, useOnValueChange} from '$hooks';
 import {useInstance} from '../hooks/use-instance.svelte.js';
@@ -10,15 +10,13 @@ import {useInstance} from '../hooks/use-instance.svelte.js';
 export type UseDraggableInput<T extends Data = Data> = MaybeGetterObject<DraggableInput<T>>;
 
 export function useDraggable<T extends Data = Data>(input: UseDraggableInput<T>) {
-	const {disabled, data, element, handle, id, modifiers, sensors} = toFnObject(input);
+	const {disabled, data, element, handle, id, modifiers, sensors} = input;
 	const draggable = useInstance(
 		(manager) =>
 			new Draggable(
 				{
 					...resolveObj(input),
 					register: false,
-					handle: handle?.(),
-					element: element?.(),
 				},
 				manager
 			)

@@ -1,8 +1,27 @@
+type AnyFn = (...args: any[]) => any;
+
+// util: detect any
+type IsAny<T> = 0 extends 1 & T ? true : false;
+// strip/keep nil
+type StripNil<T> = Exclude<T, undefined | null>;
+type KeepNil<T, U> = (undefined extends T ? U | undefined : U) extends infer V
+	? null extends T
+		? V | null
+		: V
+	: never;
+
 /**
  * Represents a value that can either be of type T or a function that returns type T
  * @template T The type of the value or return value
+ * If T is a function type, require Getter<T>. Else allow T | Getter<T>.
  */
-export type MaybeGetter<T> = T | Getter<T>;
+export type MaybeGetter<T> =
+	IsAny<T> extends true
+		? T | Getter<T>
+		: [StripNil<T>] extends [AnyFn]
+			? KeepNil<T, Getter<StripNil<T>>>
+			: T | Getter<T>;
+
 export type Getter<T> = () => T;
 
 /**

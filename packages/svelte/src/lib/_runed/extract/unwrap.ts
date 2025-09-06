@@ -10,7 +10,7 @@ import type {FnObject, Getter, MaybeGetter, MaybeGetterObject} from './types.js'
  * @returns The resolved value or the default.
  */
 export function resolve<T>(value: MaybeGetter<T>): T {
-	return typeof value === 'function' ? (value as Function)() : value;
+	return typeof value === 'function' ? (value as Getter<T>)() : (value as T);
 }
 
 /**
@@ -36,13 +36,22 @@ export function resolveObj<T extends object>(obj: MaybeGetterObject<T>): T {
 	return out as T;
 }
 
-export function toFn<T>(value: MaybeGetter<T>): Getter<T> {
-	return typeof value === 'function' ? (value as Getter<T>) : () => value;
+/**
+ * Converts a value that may be a getter function or a direct value to a getter function.
+ *
+ * If the input is a function, return the function.
+ *
+ * @template T - The expected return type.
+ * @param value - A value or a function that returns a value.
+ * @returns A getter function
+ */
+export function asGetter<T>(value: MaybeGetter<T> | undefined): Getter<T> {
+	return typeof value === 'function' ? (value as Getter<T>) : () => value as T;
 }
 
 /**
- * Ensures all properties are functions.
- * If a property is already a function, keep it. Otherwise wrap it in a no-arg function.
+ * Ensures all properties are getter functions.
+ * If a property is already a getter function, keep it. Otherwise wrap it in a no-arg function.
  */
 export function toFnObject<T extends object>(obj: MaybeGetterObject<T>): FnObject<T> {
 	const out: Partial<FnObject<T>> = {};

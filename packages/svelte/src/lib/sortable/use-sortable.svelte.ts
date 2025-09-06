@@ -1,7 +1,7 @@
 import type {Data} from '@dnd-kit/abstract';
 import {batch, deepEqual} from '@dnd-kit/state';
 import {defaultSortableTransition, Sortable, type SortableInput} from '@dnd-kit/dom/sortable';
-import {resolveObj, type MaybeGetterObject, resolve, lens, watch, toFnObject, toFn} from 'runed';
+import {resolveObj, resolve, lens, watch, asGetter, type MaybeGetterObject} from 'runed';
 import {makeRef} from '$lib/utilities/index.js';
 import {useDeepSignal, useOnElementChange, useOnValueChange} from '$hooks';
 import {useInstance} from '../core/hooks/use-instance.svelte.js';
@@ -25,7 +25,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
 		sensors,
 		target,
 		type,
-	} = toFnObject(input);
+	} = input;
 
 	const transition = $derived({
 		...defaultSortableTransition,
@@ -38,10 +38,6 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
 				...resolveObj(input),
 				transition,
 				register: false,
-				handle: handle?.(),
-				element: element?.(),
-				target: target?.(),
-				feedback: feedback?.(),
 			},
 			manager
 		);
@@ -52,7 +48,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
 	useOnValueChange(id, (id) => (sortable.id = id));
 
 	// group could be undefined when dragging
-	watch.pre([toFn(group), index], ([group, index]) => {
+	watch.pre([asGetter(group), asGetter(index)], ([group, index]) => {
 		batch(() => {
 			sortable.group = group;
 			sortable.index = index;

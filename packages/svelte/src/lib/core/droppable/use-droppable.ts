@@ -3,7 +3,7 @@ import type {DroppableInput} from '@dnd-kit/dom';
 import {Droppable} from '@dnd-kit/dom';
 import {deepEqual} from '@dnd-kit/state';
 import {defaultCollisionDetection} from '@dnd-kit/collision';
-import {resolveObj, type MaybeGetterObject, lens, toFnObject} from 'runed';
+import {resolveObj, lens, type MaybeGetterObject} from 'runed';
 import {makeRef} from '$lib/utilities/index.js';
 import {useDeepSignal, useOnElementChange, useOnValueChange} from '$hooks';
 import {useInstance} from '../hooks/use-instance.svelte.js';
@@ -11,14 +11,13 @@ import {useInstance} from '../hooks/use-instance.svelte.js';
 export type UseDroppableInput<T extends Data = Data> = MaybeGetterObject<DroppableInput<T>>;
 
 export function useDroppable<T extends Data = Data>(input: UseDroppableInput<T>) {
-	const {collisionDetector, data, disabled, element, id, accept, type} = toFnObject(input);
+	const {collisionDetector, data, disabled, element, id, accept, type} = input;
 	const droppable = useInstance(
 		(manager) =>
 			new Droppable(
 				{
 					...resolveObj(input),
 					register: false,
-					element: element?.(),
 				},
 				manager
 			)
