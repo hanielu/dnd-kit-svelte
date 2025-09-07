@@ -5,7 +5,7 @@
 	import {DragDropContext} from './context.js';
 	import {DragDropManager, defaultPreset} from '@dnd-kit/dom';
 	import {deepEqual} from '@dnd-kit/state';
-	import {lens} from 'runed';
+	import {lens, watch} from 'runed';
 	import {showPopover} from '@dnd-kit/dom/utilities';
 	import {useOnValueChange} from '$hooks';
 	import {useRenderer} from './renderer.svelte.js';
@@ -58,46 +58,48 @@
 
 	const {renderer, trackRendering} = useRenderer();
 
-	// on mount
-	$effect(() => {
-		const mgr = input.manager ?? (new DragDropManager<T, U, V>(input) as W);
-		mgr.renderer = renderer;
+	watch(
+		() => input.manager,
+		() => {
+			const mgr = input.manager ?? (new DragDropManager<T, U, V>(input) as W);
+			mgr.renderer = renderer;
 
-		// This is needed because the way svelte orders items in keyed each blocks
-		// causes the feedback to bug out and not show up when going from a lower
-		// index to a higher index. This is a workaround to ensure the feedback
-		// element stays in the top layer.
-		function checkPopover() {
-			// Ensure feedback element stays in the top layer if popover closed due to DOM reordering
-			const el = mgr.dragOperation.source?.element;
-			if (el) showPopover(el);
+			// This is needed because the way svelte orders items in keyed each blocks
+			// causes the feedback to bug out and not show up when going from a lower
+			// index to a higher index. This is a workaround to ensure the feedback
+			// element stays in the top layer.
+			function checkPopover() {
+				// Ensure feedback element stays in the top layer if popover closed due to DOM reordering
+				const el = mgr.dragOperation.source?.element;
+				if (el) showPopover(el);
+			}
+
+			mgr.monitor.addEventListener('beforedragstart', (event) => {
+				const cb = onBeforeDragStart;
+				if (cb) trackRendering(() => cb(event, mgr));
+			});
+			mgr.monitor.addEventListener('dragstart', (event) => onDragStart?.(event, mgr));
+			mgr.monitor.addEventListener('dragover', (event) => {
+				const cb = onDragOver;
+				if (cb) trackRendering(() => cb(event, mgr));
+				checkPopover();
+			});
+			mgr.monitor.addEventListener('dragmove', (event) => {
+				const cb = onDragMove;
+				if (cb) trackRendering(() => cb(event, mgr));
+				checkPopover();
+			});
+			mgr.monitor.addEventListener('dragend', (event) => {
+				const cb = onDragEnd;
+				if (cb) trackRendering(() => cb(event, mgr));
+			});
+			mgr.monitor.addEventListener('collision', (event) => onCollision?.(event, mgr));
+
+			manager = mgr;
+
+			return manager.destroy;
 		}
-
-		mgr.monitor.addEventListener('beforedragstart', (event) => {
-			const cb = onBeforeDragStart;
-			if (cb) trackRendering(() => cb(event, mgr));
-		});
-		mgr.monitor.addEventListener('dragstart', (event) => onDragStart?.(event, mgr));
-		mgr.monitor.addEventListener('dragover', (event) => {
-			const cb = onDragOver;
-			if (cb) trackRendering(() => cb(event, mgr));
-			checkPopover();
-		});
-		mgr.monitor.addEventListener('dragmove', (event) => {
-			const cb = onDragMove;
-			if (cb) trackRendering(() => cb(event, mgr));
-			checkPopover();
-		});
-		mgr.monitor.addEventListener('dragend', (event) => {
-			const cb = onDragEnd;
-			if (cb) trackRendering(() => cb(event, mgr));
-		});
-		mgr.monitor.addEventListener('collision', (event) => onCollision?.(event, mgr));
-
-		manager = mgr;
-
-		return manager.destroy;
-	});
+	);
 
 	const options = [undefined, deepEqual] as const;
 
