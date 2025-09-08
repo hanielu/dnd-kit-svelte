@@ -25,19 +25,19 @@
 			</div>
 			<nav class="flex gap-6">
 				<a
-					href="https://github.com/HanielU/dnd-kit-svelte"
+					href="https://github.com/hanielu/dnd-kit-svelte/tree/experimental"
 					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
 				>
 					GitHub
 				</a>
 				<a
-					href="https://www.npmjs.com/package/@dnd-kit-svelte/core"
+					href="https://www.npmjs.com/package/@dnd-kit-svelte/svelte"
 					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
 				>
 					npm
 				</a>
 				<a
-					href="https://github.com/HanielU/dnd-kit-svelte"
+					href="https://github.com/hanielu/dnd-kit-svelte/tree/experimental"
 					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
 				>
 					Documentation
