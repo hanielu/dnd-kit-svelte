@@ -44,7 +44,7 @@ useSortable({
 });
 
 // Svelte dnd-kit
-import {useSortable} from '@dnd-kit-svelte/sortable';
+import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
 
 useSortable({
 	// Static value
