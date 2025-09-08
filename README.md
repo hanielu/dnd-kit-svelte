@@ -28,22 +28,26 @@ This library provides a complete port of dnd-kit to Svelte, maintaining feature 
 
 The main difference lies in how reactive values are handled. Since Svelte components don't rerender the same way React components do, we've adapted the API to work with Svelte's reactivity system.
 
-### Using Functions for Reactive Values
+### Using Functions for Reactive Inputs
 
 In hooks like `useSortable`, `useDraggable`, etc., you can pass a function to any field that needs to be reactive. The function will be called whenever the value needs to be accessed, ensuring you always get the latest value from Svelte's reactive scope.
 
 Example:
 
+React:
+
 ```ts
-// React dnd-kit
 import {useSortable} from '@dnd-kit/sortable';
 
 useSortable({
 	id: item.id,
 	data: item,
 });
+```
 
-// Svelte dnd-kit
+Svelte:
+
+```ts
 import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
 
 useSortable({
@@ -60,6 +64,8 @@ In React, components re-render when their state changes, so hooks can return val
 
 Example:
 
+React:
+
 ```ts
 // React dnd-kit
 const { ref, isDragging } = useSortable({ id });
@@ -67,27 +73,31 @@ const { ref, isDragging } = useSortable({ id });
 <div ref={ref}>
   {isDragging ? 'Dragging' : 'Not dragging'}
 </div>
+```
 
-// Svelte dnd-kit
-const { ref, isDragging } = useSortable({ id });
+Svelte:
+
+```svelte
+<script>
+	import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
+
+	const {ref, isDragging} = useSortable({id});
+</script>
 
 <div {@attach ref}>
-  {isDragging.current ? 'Dragging' : 'Not dragging'}
+	{isDragging.current ? 'Dragging' : 'Not dragging'}
 </div>
 ```
 
 This pattern is used consistently across all hooks:
 
-- `useDraggable`
-- `useDroppable`
-- `useSortable`
+- [`useDraggable`](https://next.dndkit.com/react/hooks/use-draggable#output)
+- [`useDroppable`](https://next.dndkit.com/react/hooks/use-droppable#output)
+- [`useSortable`](https://next.dndkit.com/react/hooks/use-sortable#output)
 
-Properties that use `.current` include:
+All state values (e.g `isDragging`, `isDropping`, `isDragSource`, `isDropTarget`) have a `.current` getter to ensure you always access the latest value.
 
-- State values (`isDragging`, `isOver`, etc.)
-- DOM attributes (`attributes`, `listeners`)
-- Transform and transition values
-- Node references
+All refs (`ref`, `handleRef`, `sourceRef`, `targetRef`) are `Attachments`
 
 ## Core Concepts
 
@@ -95,7 +105,7 @@ All core concepts from dnd-kit remain the same:
 
 - Draggable elements
 - Droppable areas
-- DndContext provider
+- DragDropProvider provider
 - Sensors
 - Modifiers
 - Collision detection
