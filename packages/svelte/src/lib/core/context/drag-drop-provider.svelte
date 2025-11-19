@@ -98,7 +98,7 @@
 				monitor.addEventListener('collision', (event) => onCollision?.(event, manager)),
 			];
 
-			return listeners.forEach((dispose) => dispose());
+			return () => listeners.forEach((dispose) => dispose());
 		}
 	);
 
