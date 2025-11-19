@@ -1,6 +1,12 @@
 {
 	"name": "@dnd-kit-svelte/svelte",
-	"version": "0.1.3",
+	"version": "0.1.4",
+	"license": "MIT",
+	"author": "Haniel Ubogu <https://github.com/HanielU>",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/HanielU/dnd-kit-svelte.git"
+	},
 	"scripts": {
 		"build": "pnpm package",
 		"dev": "pnpm watch",
