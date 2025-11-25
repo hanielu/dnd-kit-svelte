@@ -1,6 +1,6 @@
 # dnd-kit-svelte
 
-> 📚 **Original Documentation**: [dnd-kit](https://next.dndkit.com/react/quickstart)
+> 📚 **Original Documentation**: [next.dndkit.com](https://next.dndkit.com/react/quickstart)
 
 A Svelte port of the powerful [@dnd-kit][dnd-kit] library - the modern, lightweight, performant, accessible and extensible drag & drop toolkit.
 
