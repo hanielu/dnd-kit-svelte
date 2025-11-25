@@ -5,7 +5,7 @@
 	import {DragDropContext} from './context.js';
 	import {DragDropManager, defaultPreset} from '@dnd-kit/dom';
 	import {deepEqual} from '@dnd-kit/state';
-	import {lens, watch} from 'runed';
+	import {lens} from 'runed';
 	import {showPopover} from '@dnd-kit/dom/utilities';
 	import {useOnValueChange} from '$hooks';
 	import {useRenderer} from './renderer.svelte.js';
@@ -55,9 +55,7 @@
 	}: Props<T, U, V, W> = $props();
 
 	const {renderer, trackRendering} = useRenderer();
-	const manager = $derived(input.manager ?? (new DragDropManager<T, U, V>(input) as W));
-
-	$effect.pre(() => manager.destroy);
+	const manager = input.manager ?? (new DragDropManager<T, U, V>(input) as W);
 
 	// This is needed because the way svelte orders items in keyed each blocks
 	// causes the feedback to bug out and not show up when going from a lower
@@ -69,59 +67,57 @@
 		if (el) showPopover(el);
 	}
 
-	watch(
-		() => manager,
-		() => {
-			const monitor = manager.monitor;
-			manager.renderer = renderer;
+	const monitor = manager.monitor;
+	manager.renderer = renderer;
 
-			const listeners = [
-				monitor.addEventListener('beforedragstart', (event) => {
-					const cb = onBeforeDragStart;
-					if (cb) trackRendering(() => cb(event, manager));
-				}),
-				monitor.addEventListener('dragstart', (event) => onDragStart?.(event, manager)),
-				monitor.addEventListener('dragover', (event) => {
-					const cb = onDragOver;
-					if (cb) trackRendering(() => cb(event, manager));
-					checkPopover();
-				}),
-				monitor.addEventListener('dragmove', (event) => {
-					const cb = onDragMove;
-					if (cb) trackRendering(() => cb(event, manager));
-					checkPopover();
-				}),
-				monitor.addEventListener('dragend', (event) => {
-					const cb = onDragEnd;
-					if (cb) trackRendering(() => cb(event, manager));
-				}),
-				monitor.addEventListener('collision', (event) => onCollision?.(event, manager)),
-			];
+	const listeners = [
+		monitor.addEventListener('beforedragstart', (event) => {
+			const cb = onBeforeDragStart;
+			if (cb) trackRendering(() => cb(event, manager));
+		}),
+		monitor.addEventListener('dragstart', (event) => onDragStart?.(event, manager)),
+		monitor.addEventListener('dragover', (event) => {
+			const cb = onDragOver;
+			if (cb) trackRendering(() => cb(event, manager));
+			checkPopover();
+		}),
+		monitor.addEventListener('dragmove', (event) => {
+			const cb = onDragMove;
+			if (cb) trackRendering(() => cb(event, manager));
+			checkPopover();
+		}),
+		monitor.addEventListener('dragend', (event) => {
+			const cb = onDragEnd;
+			if (cb) trackRendering(() => cb(event, manager));
+		}),
+		monitor.addEventListener('collision', (event) => onCollision?.(event, manager)),
+	];
 
-			return () => listeners.forEach((dispose) => dispose());
-		}
-	);
+	$effect(() => () => {
+		manager.destroy();
+		listeners.forEach((dispose) => dispose());
+	});
 
 	const options = [undefined, deepEqual] as const;
 
 	useOnValueChange(
 		() => input.plugins,
 		(plugins) => {
-			if (manager) manager.plugins = plugins ?? defaultPreset.plugins;
+			manager.plugins = plugins ?? defaultPreset.plugins;
 		},
 		...options
 	);
 	useOnValueChange(
 		() => input.sensors,
 		(sensors) => {
-			if (manager) manager.sensors = sensors ?? defaultPreset.sensors;
+			manager.sensors = sensors ?? defaultPreset.sensors;
 		},
 		...options
 	);
 	useOnValueChange(
 		() => input.modifiers,
 		(modifiers) => {
-			if (manager) manager.modifiers = modifiers ?? defaultPreset.modifiers;
+			manager.modifiers = modifiers ?? defaultPreset.modifiers;
 		},
 		...options
 	);
