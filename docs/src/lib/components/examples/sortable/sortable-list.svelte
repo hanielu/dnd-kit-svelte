@@ -5,7 +5,7 @@
 	import {DragDropProvider, DragOverlay} from '@dnd-kit-svelte/svelte';
 	import {move} from '@dnd-kit/helpers';
 	import {sensors} from '$lib';
-	import {RestrictToWindow} from './dnd-kit-modifiers/RestrictToWindow';
+	import {RestrictToWindowEdges} from '@dnd-kit-svelte/svelte/modifiers';
 
 	interface Todo {
 		id: string;
@@ -28,13 +28,9 @@
 
 <DragDropProvider
 	{sensors}
+	modifiers={[RestrictToWindowEdges]}
 	onDragOver={(event) => {
-		// todos = move(todos, event);
-	}}
-	onDragEnd={(event) => {
-		console.log('target', event.operation.target?.id);
-		console.log('source', event.operation.source?.id);
-		// todos = drop(todos, event);
+		todos = move(todos, event);
 	}}
 >
 	<div class="grid gap-4 md:grid-cols-2">
