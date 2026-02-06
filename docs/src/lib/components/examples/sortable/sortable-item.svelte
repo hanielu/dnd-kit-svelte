@@ -13,7 +13,7 @@
 
 	let {task, isOverlay = false, ...rest}: Props = $props();
 
-	const {ref, isDragging} = useSortable(rest);
+	const {ref, isDragging} = useSortable({...rest, feedback: 'move'});
 </script>
 
 <div class="relative select-none" {@attach ref}>

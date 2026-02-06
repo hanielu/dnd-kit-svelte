@@ -29,7 +29,10 @@
 	"dependencies": {
 		"@dnd-kit-svelte/svelte": "^0.1.1",
 		"@dnd-kit/abstract": "^0.1.21",
+		"@dnd-kit/dom": "^0.1.21",
+		"@dnd-kit/geometry": "^0.1.21",
 		"@dnd-kit/helpers": "^0.1.21",
+		"@dnd-kit/state": "^0.1.21",
 		"motion-sve": "^0.2.4"
 	}
 }

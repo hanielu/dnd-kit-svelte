@@ -1,6 +1,6 @@
 {
 	"name": "@dnd-kit-svelte/svelte",
-	"version": "0.1.5",
+	"version": "0.1.6",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
@@ -36,6 +36,10 @@
 		"./sortable": {
 			"types": "./dist/sortable/index.d.ts",
 			"svelte": "./dist/sortable/index.js"
+		},
+		"./modifiers": {
+			"types": "./dist/modifiers/index.d.ts",
+			"svelte": "./dist/modifiers/index.js"
 		}
 	},
 	"peerDependencies": {
@@ -56,9 +60,10 @@
 		"svelte"
 	],
 	"dependencies": {
-		"@dnd-kit/abstract": "^0.1.21",
-		"@dnd-kit/collision": "^0.1.21",
-		"@dnd-kit/dom": "^0.1.21",
-		"@dnd-kit/state": "^0.1.21"
+		"@dnd-kit/abstract": "^0.2.3",
+		"@dnd-kit/collision": "^0.2.3",
+		"@dnd-kit/dom": "^0.2.3",
+		"@dnd-kit/geometry": "^0.1.21",
+		"@dnd-kit/state": "^0.2.3"
 	}
 }
