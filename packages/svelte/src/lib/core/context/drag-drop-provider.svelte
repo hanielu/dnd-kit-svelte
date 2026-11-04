@@ -38,39 +38,44 @@
 	import { setDragDropContext } from "./context.js";
 	import { SvelteRenderer } from "./renderer.svelte.js";
 
-	const props: Props<T, U, V, W> = $props();
+	let {
+		manager: managerProp,
+		plugins,
+		sensors,
+		modifiers,
+		children,
+		onBeforeDragStart,
+		onCollision,
+		onDragStart,
+		onDragMove,
+		onDragOver,
+		onDragEnd,
+	}: Props<T, U, V, W> = $props();
 
 	// The manager lives as long as the provider, so it comes from the initial props: swapping `manager` is not
 	// supported, and later `plugins`, `sensors` and `modifiers` are applied to it below.
 	// svelte-ignore state_referenced_locally
-	const [manager, owned] = props.manager
-		? [props.manager, false]
-		: [
-				new DragDropManager<T, U, V>({
-					plugins: props.plugins,
-					sensors: props.sensors,
-					modifiers: props.modifiers,
-				}) as W,
-				true,
-			];
+	const [manager, owned] = managerProp
+		? [managerProp, false]
+		: [new DragDropManager<T, U, V>({ plugins, sensors, modifiers }) as W, true];
 	const renderer = new SvelteRenderer();
 	manager.renderer = renderer;
 	setDragDropContext(manager as unknown as DragDropManager);
 
 	const deep = { equals: deepEqual };
 	useOnValueChange(
-		() => resolveCustomizable(props.plugins, defaultPreset.plugins),
-		(plugins) => (manager.plugins = plugins),
+		() => resolveCustomizable(plugins, defaultPreset.plugins),
+		(resolved) => (manager.plugins = resolved),
 		deep
 	);
 	useOnValueChange(
-		() => resolveCustomizable(props.sensors, defaultPreset.sensors),
-		(sensors) => (manager.sensors = sensors),
+		() => resolveCustomizable(sensors, defaultPreset.sensors),
+		(resolved) => (manager.sensors = resolved),
 		deep
 	);
 	useOnValueChange(
-		() => resolveCustomizable(props.modifiers, defaultPreset.modifiers),
-		(modifiers) => (manager.modifiers = modifiers),
+		() => resolveCustomizable(modifiers, defaultPreset.modifiers),
+		(resolved) => (manager.modifiers = resolved),
 		deep
 	);
 
@@ -80,23 +85,23 @@
 		// state tell the renderer, so dnd-kit measures after Svelte has updated the DOM.
 		const listeners = [
 			monitor.addEventListener("beforedragstart", (event) => {
-				const handler = props.onBeforeDragStart;
+				const handler = onBeforeDragStart;
 				if (handler) renderer.track(() => handler(event, manager));
 			}),
-			monitor.addEventListener("dragstart", (event) => props.onDragStart?.(event, manager)),
+			monitor.addEventListener("dragstart", (event) => onDragStart?.(event, manager)),
 			monitor.addEventListener("dragmove", (event) => {
-				const handler = props.onDragMove;
+				const handler = onDragMove;
 				if (handler) renderer.track(() => handler(event, manager));
 			}),
 			monitor.addEventListener("dragover", (event) => {
-				const handler = props.onDragOver;
+				const handler = onDragOver;
 				if (handler) renderer.track(() => handler(event, manager));
 			}),
 			monitor.addEventListener("dragend", (event) => {
-				const handler = props.onDragEnd;
+				const handler = onDragEnd;
 				if (handler) renderer.track(() => handler(event, manager));
 			}),
-			monitor.addEventListener("collision", (event) => props.onCollision?.(event, manager)),
+			monitor.addEventListener("collision", (event) => onCollision?.(event, manager)),
 		];
 
 		return () => {
@@ -106,4 +111,4 @@
 	});
 </script>
 
-{@render props.children?.()}
+{@render children?.()}

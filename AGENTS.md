@@ -75,6 +75,9 @@ code is on the `experimental` branch. Name folders after the domain they own: no
   (`{const …}`), never `{@const}`. Keyed `{#each}` blocks.
 - `untrack` only inside an active effect or derived, around a read that must not become a dependency. It does nothing
   in component setup, effect cleanups, event handlers or code after an `await`.
+- Destructure `$props()` at declaration: each prop compiles to a direct `$$props.x` read. Keep a rest element
+  (`...rest`) only when the rest object is passed on, since it compiles to a `rest_props` proxy, and never bind the
+  whole object (`const props = $props()`), which allocates one for nothing.
 - Reading a prop once during setup is a decision, not an accident: mark it with
   `// svelte-ignore state_referenced_locally` and say why (see `DragDropProvider`'s manager).
 - Inside a package, import across folders with `#lib/…` (package.json `imports`; `svelte-package` rewrites them),
