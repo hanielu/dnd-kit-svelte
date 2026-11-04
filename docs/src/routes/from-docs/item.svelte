@@ -1,14 +1,14 @@
 <script lang="ts">
-	import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
+	import { useSortable } from "@dnd-kit-svelte/svelte/sortable";
 
-	let {id, index, column} = $props();
+	let { id, index, column } = $props();
 
-	const {ref, isDragging} = useSortable({
-		id,
+	const { ref, isDragging } = useSortable({
+		id: () => id,
 		index: () => index,
-		type: 'item',
-		accept: 'item',
-		group: column,
+		type: "item",
+		accept: "item",
+		group: () => column,
 	});
 </script>
 

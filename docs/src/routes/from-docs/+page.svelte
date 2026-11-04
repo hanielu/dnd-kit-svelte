@@ -1,21 +1,21 @@
 <script lang="ts">
-	import './styles.css';
-	import Column from './column.svelte';
-	import Item from './item.svelte';
-	import {DragDropProvider} from '@dnd-kit-svelte/svelte';
-	import {move} from '@dnd-kit/helpers';
+	import "./styles.css";
+	import Column from "./column.svelte";
+	import Item from "./item.svelte";
+	import { DragDropProvider } from "@dnd-kit-svelte/svelte";
+	import { move } from "@dnd-kit/helpers";
 
 	let items = $state({
-		A: ['A0', 'A1', 'A2'],
-		B: ['B0', 'B1'],
+		A: ["A0", "A1", "A2"],
+		B: ["B0", "B1"],
 		C: [],
 	});
 </script>
 
 <DragDropProvider
 	onDragOver={(event) => {
-		const {source} = event.operation;
-		if (source?.type === 'column') return;
+		const { source } = event.operation;
+		if (source?.type === "column") return;
 		items = move(items, event);
 	}}
 >

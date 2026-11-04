@@ -10,22 +10,22 @@
 		index: number;
 		group?: string | number;
 		isOverlay?: boolean;
-		data?: {group: string | number};
+		data?: { group: string | number };
 	}
 </script>
 
 <script lang="ts">
-	import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
+	import { useSortable } from "@dnd-kit-svelte/svelte/sortable";
 
-	let {task, index, group, isOverlay = false, data}: ItemProps = $props();
+	let { task, index, group, isOverlay = false, data }: ItemProps = $props();
 
-	const {ref, handleRef, isDragging, isDropTarget} = useSortable({
-		id: task.id,
+	const { ref, handleRef, isDragging, isDropTarget } = useSortable({
+		id: () => task.id,
 		index: () => index,
-		type: 'item',
-		accept: 'item',
-		group: group,
-		data: data,
+		type: "item",
+		accept: "item",
+		group: () => group,
+		data: () => data,
 	});
 </script>
 
@@ -33,8 +33,8 @@
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
 	<div
 		class={[
-			'p-3 bg-white rd-2xl flex-s-between',
-			{invisible: isDragging.current && !isOverlay, 'bg-orange/5!': isDropTarget.current},
+			"p-3 bg-white rd-2xl flex-s-between",
+			{ invisible: isDragging.current && !isOverlay, "bg-orange/5!": isDropTarget.current },
 		]}
 	>
 		<div class="">

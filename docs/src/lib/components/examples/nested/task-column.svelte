@@ -1,11 +1,11 @@
 <script lang="ts" module>
-	import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
-	import {CollisionPriority} from '@dnd-kit/abstract';
-	import type {Snippet} from 'svelte';
+	import { useSortable } from "@dnd-kit-svelte/svelte/sortable";
+	import { CollisionPriority } from "@dnd-kit/abstract";
+	import type { Snippet } from "svelte";
 
 	interface ColumnItemProps {
 		children: Snippet<[isDragging: boolean]>;
-		data: {title: string; description: string};
+		data: { title: string; description: string };
 		class?: string;
 		index: number;
 		id: string | number;
@@ -14,20 +14,20 @@
 </script>
 
 <script lang="ts">
-	let {data, index, class: className, children, id, isOverlay = false}: ColumnItemProps = $props();
+	let { data, index, class: className, children, id, isOverlay = false }: ColumnItemProps = $props();
 
-	const {ref, handleRef, isDragging} = useSortable({
-		id: id,
+	const { ref, handleRef, isDragging } = useSortable({
+		id: () => id,
 		index: () => index,
-		type: 'column',
-		accept: ['item', 'column'],
+		type: "column",
+		accept: ["item", "column"],
 		collisionPriority: CollisionPriority.Low,
 	});
 </script>
 
 <div class="relative" {@attach ref}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
-	<div class={['p-5 pt-6 bg-#F9F9F9 rd-3xl', className, {invisible: isDragging.current && !isOverlay}]}>
+	<div class={["p-5 pt-6 bg-#F9F9F9 rd-3xl", className, { invisible: isDragging.current && !isOverlay }]}>
 		<div class="flex-s-between text-#9E9E9E">
 			<div class="pl-5.5">
 				<p class="text-(lg dark) fw-bold relative flex-s-start">

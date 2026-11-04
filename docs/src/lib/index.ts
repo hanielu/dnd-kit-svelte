@@ -1,3 +1,3 @@
-import {KeyboardSensor, PointerSensor} from '@dnd-kit-svelte/svelte';
+import { KeyboardSensor, PointerSensor } from "@dnd-kit-svelte/svelte";
 
 export const sensors = [KeyboardSensor, PointerSensor];

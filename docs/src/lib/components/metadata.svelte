@@ -1,7 +1,7 @@
 <script lang="ts">
-	import {page} from '$app/state';
-	import {siteConfig} from '$lib/config';
-	import favicon from '$lib/assets/favicon.svg';
+	import { page } from "$app/state";
+	import { siteConfig } from "#lib/config.js";
+	import favicon from "#lib/assets/favicon.svg";
 
 	const title = $derived(page.data?.title ? `${page.data.title} - ${siteConfig.name}` : siteConfig.name);
 </script>

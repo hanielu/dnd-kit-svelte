@@ -1,18 +1,18 @@
 <script lang="ts">
-	import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
-	import {CollisionPriority} from '@dnd-kit/abstract';
+	import { useSortable } from "@dnd-kit-svelte/svelte/sortable";
+	import { CollisionPriority } from "@dnd-kit/abstract";
 
-	let {children, id, index} = $props();
+	let { children, id, index } = $props();
 
-	const {ref, isDropTarget} = useSortable({
-		id,
+	const { ref, isDropTarget } = useSortable({
+		id: () => id,
 		index: () => index,
-		type: 'column',
+		type: "column",
 		collisionPriority: CollisionPriority.Low,
-		accept: ['item', 'column'],
+		accept: ["item", "column"],
 	});
 </script>
 
-<div class={['Column', isDropTarget.current && 'bg-pink!']} {@attach ref}>
+<div class={["Column", isDropTarget.current && "bg-pink!"]} {@attach ref}>
 	{@render children()}
 </div>

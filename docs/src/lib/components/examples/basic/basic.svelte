@@ -1,10 +1,10 @@
 <script lang="ts">
-	import {DragDropProvider} from '@dnd-kit-svelte/svelte';
-	import {sensors} from '$lib';
-	import Droppable from '../../droppable.svelte';
-	import Draggable from './draggable.svelte';
+	import { DragDropProvider } from "@dnd-kit-svelte/svelte";
+	import { sensors } from "#lib";
+	import Droppable from "../../droppable.svelte";
+	import Draggable from "./draggable.svelte";
 
-	const targets = ['A', 'B', 'C'];
+	const targets = ["A", "B", "C"];
 	let target = $state<string | number>();
 </script>
 
@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="grid md:grid-cols-3 gap-8">
-		{#each targets as id}
+		{#each targets as id (id)}
 			<Droppable {id} class="flex-s-center h-100px bg-#F9F9F9 rd-3xl">
 				{#if target === id}
 					{@render draggable()}

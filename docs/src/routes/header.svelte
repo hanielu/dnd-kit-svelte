@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LogosSvelteIcon from '~icons/logos/svelte-icon';
+	import LogosSvelteIcon from "~icons/logos/svelte-icon";
 </script>
 
 <header class="p-5">
@@ -9,8 +9,8 @@
 			<p class="text-#4A4A55 fw-semibold">dnd kit</p>
 		</div>
 		<div class="flex-s-start gap-3 underline text-(sm #4F4F4F) fw-medium lg:text-base">
-			<a href="https://github.com/hanielu/dnd-kit-svelte/tree/experimental">Github</a>
-			<a href="https://github.com/hanielu/dnd-kit-svelte/tree/experimental">Documentation</a>
+			<a href="https://github.com/hanielu/dnd-kit-svelte/tree/main">Github</a>
+			<a href="https://github.com/hanielu/dnd-kit-svelte/tree/main">Documentation</a>
 		</div>
 	</nav>
 </header>

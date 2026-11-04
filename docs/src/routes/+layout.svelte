@@ -1,12 +1,12 @@
 <script lang="ts">
-	import '@unocss/reset/tailwind.css';
-	import 'uno.css';
-	import '../app.css';
+	import "@unocss/reset/tailwind.css";
+	import "uno.css";
+	import "../app.css";
 
-	import Header from './header.svelte';
-	import Metadata from '$lib/components/metadata.svelte';
+	import Header from "./header.svelte";
+	import Metadata from "#lib/components/metadata.svelte";
 
-	let {children} = $props();
+	let { children } = $props();
 </script>
 
 <Metadata />
@@ -25,7 +25,7 @@
 			</div>
 			<nav class="flex gap-6">
 				<a
-					href="https://github.com/hanielu/dnd-kit-svelte/tree/experimental"
+					href="https://github.com/hanielu/dnd-kit-svelte/tree/main"
 					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
 				>
 					GitHub
@@ -37,7 +37,7 @@
 					npm
 				</a>
 				<a
-					href="https://github.com/hanielu/dnd-kit-svelte/tree/experimental"
+					href="https://github.com/hanielu/dnd-kit-svelte/tree/main"
 					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
 				>
 					Documentation

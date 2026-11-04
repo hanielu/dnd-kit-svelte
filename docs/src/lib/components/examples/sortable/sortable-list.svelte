@@ -1,46 +1,37 @@
 <script lang="ts">
-	import Droppable from '$lib/components/droppable.svelte';
-	import SortableItem from './sortable-item.svelte';
-	import {CollisionPriority} from '@dnd-kit/abstract';
-	import {DragDropProvider, DragOverlay} from '@dnd-kit-svelte/svelte';
-	import {move} from '@dnd-kit/helpers';
-	import {sensors} from '$lib';
-	import {RestrictToWindowEdges} from '@dnd-kit-svelte/svelte/modifiers';
+	import { DragDropProvider, DragOverlay } from "@dnd-kit-svelte/svelte";
+	import { RestrictToWindow } from "@dnd-kit-svelte/svelte/modifiers";
+	import { CollisionPriority } from "@dnd-kit/abstract";
+	import { move } from "@dnd-kit/helpers";
+	import { sensors } from "#lib";
+	import Droppable from "#lib/components/droppable.svelte";
+	import SortableItem from "./sortable-item.svelte";
 
 	interface Todo {
 		id: string;
 		content: string;
 	}
 
-	const items = {
-		'in-progress': [
-			{id: 'task-1', content: 'Learn Svelte'},
-			{id: 'task-2', content: 'Build a Kanban board'},
-			{id: 'task-3', content: 'Review code'},
-			{id: 'task-4', content: 'Setup project'},
+	let todos = $state<Record<string, Todo[]>>({
+		"in-progress": [
+			{ id: "task-1", content: "Learn Svelte" },
+			{ id: "task-2", content: "Build a Kanban board" },
+			{ id: "task-3", content: "Review code" },
+			{ id: "task-4", content: "Setup project" },
 		],
 		done: [],
-	};
-
-	type Todos = Record<string, Todo[]>;
-	let todos = $state<Todos>(items);
+	});
 </script>
 
-<DragDropProvider
-	{sensors}
-	modifiers={[RestrictToWindowEdges]}
-	onDragOver={(event) => {
-		todos = move(todos, event);
-	}}
->
+<DragDropProvider {sensors} modifiers={[RestrictToWindow]} onDragOver={(event) => (todos = move(todos, event))}>
 	<div class="grid gap-4 md:grid-cols-2">
-		{@render taskList('in-progress', 'In Progress', todos['in-progress'])}
-		{@render taskList('done', 'Done', todos['done'])}
+		{@render taskList("in-progress", "In Progress", todos["in-progress"])}
+		{@render taskList("done", "Done", todos["done"])}
 	</div>
 
 	<DragOverlay>
 		{#snippet children(source)}
-			{@const task = todos[source.data.group].find((todo) => todo.id === source.id)!}
+			{const task = todos[source.data.group].find((todo) => todo.id === source.id)!}
 			<SortableItem id={task.id} {task} index={0} isOverlay />
 		{/snippet}
 	</DragOverlay>
@@ -58,7 +49,7 @@
 
 		<div class="grid gap-2">
 			{#each tasks as task, index (task.id)}
-				<SortableItem {task} id={task.id} index={() => index} group={id} data={{group: id}} type="item" />
+				<SortableItem {task} id={task.id} index={() => index} group={id} data={{ group: id }} type="item" />
 			{/each}
 		</div>
 	</Droppable>

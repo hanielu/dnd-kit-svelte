@@ -1,5 +1,6 @@
 <script lang="ts">
-	import {useSortable, type UseSortableInput} from '@dnd-kit-svelte/svelte/sortable';
+	import { useSortable, type UseSortableInput } from "@dnd-kit-svelte/svelte/sortable";
+	import { Feedback } from "@dnd-kit/dom";
 
 	interface Task {
 		id: string | number;
@@ -11,14 +12,20 @@
 		isOverlay?: boolean;
 	}
 
-	let {task, isOverlay = false, ...rest}: Props = $props();
+	let { task, isOverlay = false, ...rest }: Props = $props();
 
-	const {ref, isDragging} = useSortable({...rest, feedback: 'move'});
+	// The parent passes the fields that change (`index`) as getters, so spreading the rest props keeps them reactive.
+	// svelte-ignore state_referenced_locally
+	const { ref, isDragging } = useSortable({
+		...rest,
+		// Function values are wrapped in a getter: `(defaults) => …` extends the default sortable plugins.
+		plugins: () => (defaults) => [...defaults, Feedback.configure({ feedback: "move" })],
+	});
 </script>
 
 <div class="relative select-none" {@attach ref}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
-	<div class={['p-4 bg-white rd-18px', {invisible: isDragging.current && !isOverlay}]}>
+	<div class={["p-4 bg-white rd-18px", { invisible: isDragging.current && !isOverlay }]}>
 		{task.content}
 	</div>
 
