@@ -1,12 +1,12 @@
 import type { Data } from "@dnd-kit/abstract";
 import { Draggable, type DraggableInput } from "@dnd-kit/dom";
-import { deepEqual } from "@dnd-kit/state";
 import {
+	assignTo,
 	lens,
 	resolve,
 	resolveObject,
 	useDeepSignal,
-	useOnValueChange,
+	useSync,
 	type MaybeGetterObject,
 } from "#lib/reactivity/index.js";
 import { attachTo } from "../attachments.js";
@@ -18,48 +18,21 @@ export type UseDraggableInput<T extends Data = Data> = MaybeGetterObject<Omit<Dr
 export function useDraggable<T extends Data = Data>(input: UseDraggableInput<T>) {
 	const draggable = useInstance((manager) => new Draggable({ ...resolveObject(input), register: false }, manager));
 	const tracked = useDeepSignal(draggable);
-	const deep = { equals: deepEqual };
+	const write = assignTo(draggable);
+	type Fields = Partial<Draggable<T>>;
 
-	useOnValueChange(
-		() => resolve(input.id),
-		(id) => (draggable.id = id)
-	);
-	useOnValueChange(
-		() => resolve(input.handle),
-		(handle) => (draggable.handle = handle),
-		{ pre: true }
-	);
-	useOnValueChange(
-		() => resolve(input.element),
-		(element) => (draggable.element = element),
-		{ pre: true }
-	);
-	useOnValueChange(
-		() => resolve(input.data),
-		(data) => data && (draggable.data = data)
-	);
-	useOnValueChange(
-		() => resolve(input.disabled),
-		(disabled) => (draggable.disabled = disabled === true)
-	);
-	useOnValueChange(
-		() => resolve(input.sensors),
-		(sensors) => (draggable.sensors = sensors),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.modifiers),
-		(modifiers) => (draggable.modifiers = modifiers),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.plugins),
-		(plugins) => (draggable.plugins = plugins),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.alignment),
-		(alignment) => (draggable.alignment = alignment)
+	useSync((): Fields => ({ element: resolve(input.element), handle: resolve(input.handle) }), write, { pre: true });
+	useSync(
+		(): Fields => ({
+			id: resolve(input.id),
+			data: resolve(input.data),
+			disabled: resolve(input.disabled) === true,
+			sensors: resolve(input.sensors),
+			modifiers: resolve(input.modifiers),
+			plugins: resolve(input.plugins),
+			alignment: resolve(input.alignment),
+		}),
+		write
 	);
 
 	return {

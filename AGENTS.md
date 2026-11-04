@@ -27,14 +27,16 @@ Skills live in `.agents/skills/` (Codex, Cursor); `.claude/skills/` holds relati
 ## Invariants
 
 - **One entity per hook call.** A hook creates its `Draggable`/`Droppable`/`Sortable` once, with `register: false`,
-  and `useInstance` registers it while the component is mounted. Input changes are synced onto that entity with
-  `useOnValueChange`; never recreate it.
+  and `useInstance` registers it after mount, once its element is attached. Input changes are synced onto that entity
+  with `useSync`, which writes only the fields that changed (arrays by content); never recreate it. Each hook has one
+  `pre` sync for refs and list position (`element`, `handle`, `group`, `index`) and one for the rest, and annotates
+  each read with the entity's fields (`(): Fields =>`) so a misspelled field is a type error.
 - **Inputs are values or getters.** Every input field is a `MaybeGetter`: a value, or a function returning it
   (`index: () => index`). A function-valued field (`accept`, `collisionDetector`, `plugins: (defaults) => …`) must be
   wrapped in a getter, because a bare function is always read as one. Hooks read `input.x` lazily inside effects
   (`resolve(input.x)`), so getter properties and a component's rest props stay reactive too. Never destructure the
   input during setup. Call a `(defaults) => …` callback in the tracked read and compare what it returns, so state it
-  reads stays reactive; `useOnValueChange` runs its write untracked.
+  reads stays reactive; `useSync` runs its write untracked.
 - **Outputs are lenses and attachments.** Entity state (`isDragging`, `isDropTarget`…) is a `lens`, read through
   `.current`; element refs (`ref`, `handleRef`, `sourceRef`, `targetRef`) are attachments from `attachTo`.
 - **Reactive values are class instances.** Anything read through a getter (`Lens`, `SignalLens`,
@@ -64,7 +66,7 @@ Skills live in `.agents/skills/` (Codex, Cursor); `.claude/skills/` holds relati
 | `packages/svelte/src/lib/core/droppable/`     | `useDroppable`                                                                |
 | `packages/svelte/src/lib/core/hooks/`         | `useDragDropManager`, `useDragDropMonitor`, `useDragOperation`, `useInstance` |
 | `packages/svelte/src/lib/core/attachments.ts` | `attachTo`, the attachment behind every element ref                           |
-| `packages/svelte/src/lib/reactivity/`         | `lens`, getters (`MaybeGetter`), signal subscriptions, `useOnValueChange`     |
+| `packages/svelte/src/lib/reactivity/`         | `lens`, getters (`MaybeGetter`), signal subscriptions, `useSync`              |
 | `packages/svelte/src/lib/sortable/`           | `useSortable` (`/sortable` export)                                            |
 | `packages/svelte/src/lib/modifiers/`          | dnd kit's modifiers plus the cursor modifiers (`/modifiers` export)           |
 | `docs/`                                       | The examples site (SvelteKit, static, UnoCSS), deployed to Vercel             |

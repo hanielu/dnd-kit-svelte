@@ -33,8 +33,7 @@
 	generics="T extends Data = Data, U extends Draggable<T> = Draggable<T>, V extends Droppable<T> = Droppable<T>, W extends DragDropManager<T, U, V> = DragDropManager<T, U, V>"
 >
 	import { defaultPreset, resolveCustomizable } from "@dnd-kit/dom";
-	import { deepEqual } from "@dnd-kit/state";
-	import { useOnValueChange } from "#lib/reactivity/index.js";
+	import { useSync } from "#lib/reactivity/index.js";
 	import { setDragDropContext } from "./context.js";
 	import { keepFeedbackOnTop } from "./feedback-popover.js";
 	import { SvelteRenderer } from "./renderer.svelte.js";
@@ -63,21 +62,13 @@
 	manager.renderer = renderer;
 	setDragDropContext(manager as unknown as DragDropManager);
 
-	const deep = { equals: deepEqual };
-	useOnValueChange(
-		() => resolveCustomizable(plugins, defaultPreset.plugins),
-		(resolved) => (manager.plugins = resolved),
-		deep
-	);
-	useOnValueChange(
-		() => resolveCustomizable(sensors, defaultPreset.sensors),
-		(resolved) => (manager.sensors = resolved),
-		deep
-	);
-	useOnValueChange(
-		() => resolveCustomizable(modifiers, defaultPreset.modifiers),
-		(resolved) => (manager.modifiers = resolved),
-		deep
+	useSync(
+		() => ({
+			plugins: resolveCustomizable(plugins, defaultPreset.plugins),
+			sensors: resolveCustomizable(sensors, defaultPreset.sensors),
+			modifiers: resolveCustomizable(modifiers, defaultPreset.modifiers),
+		}),
+		(changed) => Object.assign(manager, changed)
 	);
 
 	$effect(() => {

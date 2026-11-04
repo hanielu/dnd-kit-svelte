@@ -1,15 +1,15 @@
 import type { Data, Plugins } from "@dnd-kit/abstract";
 import { resolveCustomizable } from "@dnd-kit/dom";
 import { resolveSortableTransition, Sortable, SortableKeyboardPlugin, type SortableInput } from "@dnd-kit/dom/sortable";
-import { batch, deepEqual } from "@dnd-kit/state";
 import { attachTo } from "#lib/core/attachments.js";
 import { useInstance } from "#lib/core/hooks/use-instance.svelte.js";
 import {
+	assignTo,
 	lens,
 	resolve,
 	resolveObject,
 	useDeepSignal,
-	useOnValueChange,
+	useSync,
 	type MaybeGetterObject,
 } from "#lib/reactivity/index.js";
 
@@ -42,89 +42,45 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
 			)
 	);
 	const tracked = useDeepSignal(sortable);
-	const deep = { equals: deepEqual };
+	const write = assignTo(sortable);
+	type Fields = Partial<Sortable<T>>;
 
-	useOnValueChange(
-		() => resolve(input.id),
-		(id) => (sortable.id = id)
+	// Before the DOM updates, in one batch, since an item that moves to another list changes group and index together.
+	useSync(
+		(): Fields => ({
+			element: resolve(input.element),
+			handle: resolve(input.handle),
+			target: resolve(input.target),
+			group: resolve(input.group),
+			index: resolve(input.index),
+		}),
+		write,
+		{ pre: true }
 	);
-	// The group and index of an item can change together when it moves to another list.
-	useOnValueChange(
-		() => [resolve(input.group), resolve(input.index)] as const,
-		([group, index]) =>
-			batch(() => {
-				sortable.group = group;
-				sortable.index = index;
-			}),
-		{ pre: true, equals: (a, b) => a[0] === b[0] && a[1] === b[1] }
-	);
-	useOnValueChange(
-		() => resolve(input.index),
+	// After that batch, so dnd kit has captured the item's previous shape to animate from.
+	useSync(
+		() => ({ index: resolve(input.index) }),
 		() => {
 			if (sortable.manager?.dragOperation.status.idle && transition?.idle) sortable.refreshShape();
 		},
 		{ pre: true }
 	);
-	useOnValueChange(
-		() => resolve(input.type),
-		(type) => (sortable.type = type)
-	);
-	useOnValueChange(
-		() => resolve(input.accept),
-		(accept) => (sortable.accept = accept),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.data),
-		(data) => data && (sortable.data = data)
-	);
-	useOnValueChange(
-		() => resolve(input.handle),
-		(handle) => (sortable.handle = handle),
-		{ pre: true }
-	);
-	useOnValueChange(
-		() => resolve(input.element),
-		(element) => (sortable.element = element),
-		{ pre: true }
-	);
-	useOnValueChange(
-		() => resolve(input.target),
-		(target) => (sortable.target = target),
-		{ pre: true }
-	);
-	useOnValueChange(
-		() => resolve(input.disabled),
-		(disabled) => (sortable.disabled = disabled ?? false),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.sensors),
-		(sensors) => (sortable.sensors = sensors),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.collisionDetector),
-		(detector) => (sortable.collisionDetector = detector)
-	);
-	useOnValueChange(
-		() => resolve(input.collisionPriority),
-		(priority) => (sortable.collisionPriority = priority)
-	);
-	useOnValueChange(plugins, (plugins) => (sortable.plugins = plugins), deep);
-	useOnValueChange(
-		() => transition,
-		(transition) => (sortable.transition = transition),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.modifiers),
-		(modifiers) => (sortable.modifiers = modifiers),
-		deep
-	);
-	useOnValueChange(
-		() => resolve(input.alignment),
-		(alignment) => (sortable.alignment = alignment)
+	useSync(
+		(): Fields => ({
+			id: resolve(input.id),
+			data: resolve(input.data),
+			disabled: resolve(input.disabled) ?? false,
+			type: resolve(input.type),
+			accept: resolve(input.accept),
+			sensors: resolve(input.sensors),
+			modifiers: resolve(input.modifiers),
+			plugins: plugins(),
+			transition,
+			collisionDetector: resolve(input.collisionDetector),
+			collisionPriority: resolve(input.collisionPriority),
+			alignment: resolve(input.alignment),
+		}),
+		write
 	);
 
 	return {
