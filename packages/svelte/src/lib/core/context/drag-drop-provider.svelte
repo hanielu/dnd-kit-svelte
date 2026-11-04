@@ -36,6 +36,7 @@
 	import { deepEqual } from "@dnd-kit/state";
 	import { useOnValueChange } from "#lib/reactivity/index.js";
 	import { setDragDropContext } from "./context.js";
+	import { keepFeedbackOnTop } from "./feedback-popover.js";
 	import { SvelteRenderer } from "./renderer.svelte.js";
 
 	let {
@@ -102,6 +103,7 @@
 				if (handler) renderer.track(() => handler(event, manager));
 			}),
 			monitor.addEventListener("collision", (event) => onCollision?.(event, manager)),
+			keepFeedbackOnTop(manager as unknown as DragDropManager),
 		];
 
 		return () => {

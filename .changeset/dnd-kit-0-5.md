@@ -21,3 +21,7 @@ New:
 - `DragDropProvider`'s `plugins`, `sensors` and `modifiers` accept `(defaults) => …` to extend the defaults.
 - Hooks read their input lazily, so getter properties and a component's rest props stay reactive, and properties first read after a drag started still update.
 - `DragDropProvider` no longer destroys a `manager` it was given.
+
+Fixed:
+
+- Without a `DragOverlay`, the dragged element no longer drops out of the top layer when Svelte moves it to a higher index in a keyed `{#each}`; this replaces the `checkPopover` workaround, which only fixed it on the next pointer move.
