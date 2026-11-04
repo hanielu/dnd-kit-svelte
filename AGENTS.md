@@ -43,6 +43,11 @@ Skills live in `.agents/skills/` (Codex, Cursor); `.claude/skills/` holds relati
   `useComputed` or `useDeepSignal`, never directly in a template, `$derived` or `$effect`.
 - **Handlers that change state go through the renderer.** `DragDropProvider` runs them in `renderer.track`, so dnd
   kit measures (sortable animations, optimistic sorting) only after Svelte has updated the DOM.
+- **dnd kit never moves DOM nodes that Svelte renders.** A keyed `{#each}` walks its own node ranges, so DOM moved
+  behind its back makes it misplace or hang. `useSortable` strips `OptimisticSortingPlugin` from its defaults, lists
+  and columns sort through state in `onDragOver`/`onDragEnd`, and `keepFeedbackOnTop` reopens the dragged element's
+  popover when Svelte moves it together with the Feedback placeholder. Test reorders in both directions, with and
+  without a `DragOverlay`.
 - **Small and side-effect free.** No module-level side effects (`"sideEffects": false`), no vendored utility
   libraries, no new runtime dependencies beyond `@dnd-kit/*`. Remove code that nothing uses.
 - **No absolute local paths** in committed files.

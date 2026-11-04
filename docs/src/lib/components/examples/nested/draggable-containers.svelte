@@ -5,7 +5,7 @@
 	import TaskColumn from "./task-column.svelte";
 	import TaskItem from "./task-item.svelte";
 
-	let items = $state({
+	const tasks = {
 		"dev-tasks": [
 			{ id: "setup-project", title: "Setup Project", description: "Initialize repository and configure tools" },
 			{ id: "create-components", title: "Create Components", description: "Build reusable UI components" },
@@ -14,7 +14,12 @@
 			{ id: "color-palette", title: "Color Palette", description: "Define brand colors and variants" },
 			{ id: "typography", title: "Typography", description: "Select and implement fonts" },
 		],
-	});
+	};
+	type ColumnId = keyof typeof tasks;
+
+	let items = $state(tasks);
+	// Columns are sorted through state like items: dnd kit never moves DOM nodes that Svelte renders.
+	let columns = $state(Object.keys(tasks) as ColumnId[]);
 
 	const meta: Record<string, { title: string; description: string }> = {
 		"dev-tasks": { title: "Development Tasks", description: "Technical implmentation tasks" },
@@ -26,14 +31,14 @@
 	{sensors}
 	onDragOver={(event) => {
 		const { source } = event.operation;
-		if (source?.type === "column") return;
-		items = move(items, event);
+		if (source?.type === "column") columns = move(columns, event);
+		else items = move(items, event);
 	}}
 >
 	<div class="grid gap-3 md:grid-cols-2">
-		{#each Object.entries(items) as [columnId, nesteds], colIdx (columnId)}
+		{#each columns as columnId, colIdx (columnId)}
 			<TaskColumn id={columnId} data={meta[columnId]} index={colIdx}>
-				{#each nesteds as nested, nestedIdx (nested.id)}
+				{#each items[columnId] as nested, nestedIdx (nested.id)}
 					<TaskItem task={nested} index={nestedIdx} group={columnId} data={{ group: columnId }} />
 				{/each}
 			</TaskColumn>
@@ -46,12 +51,12 @@
 		{#snippet children(source)}
 			<!-- if it has group, it's an item -->
 			{#if source.data.group}
-				{const task = items[source.data.group as keyof typeof items]?.find((task) => task.id === source.id)!}
+				{const task = items[source.data.group as ColumnId]?.find((task) => task.id === source.id)!}
 				<TaskItem {task} index={0} isOverlay />
 			{:else}
 				<!-- if it doesn't have group, it's a column -->
 				<TaskColumn id={source.id} data={meta[source.id]} index={0} isOverlay>
-					{#each items[source.id as keyof typeof items] as item, itemIdx (item.id)}
+					{#each items[source.id as ColumnId] as item, itemIdx (item.id)}
 						<TaskItem task={item} index={itemIdx} group={source.id} data={{ group: source.id }} />
 					{/each}
 				</TaskColumn>

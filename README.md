@@ -95,7 +95,7 @@ A sortable list:
 	let items = $state(["a", "b", "c"]);
 </script>
 
-<DragDropProvider onDragEnd={(event) => (items = move(items, event))}>
+<DragDropProvider onDragOver={(event) => (items = move(items, event))}>
 	<ul>
 		{#each items as id, index (id)}
 			<SortableItem {id} {index} />
@@ -141,6 +141,11 @@ lenses (`Lens<boolean>`): their `current` updates the template on its own.
 ```
 
 **Refs are attachments.** `ref`, `handleRef`, `sourceRef` and `targetRef` go on elements with `{@attach}`.
+
+**Lists sort through state.** dnd kit's `OptimisticSortingPlugin` reorders DOM nodes during a drag, which a keyed
+`{#each}` can't recover from, so `useSortable` leaves it out of its default plugins (and out of the defaults a
+`plugins: () => (defaults) => …` callback receives). Move items in `onDragOver` to sort while dragging, as above, or
+in `onDragEnd` to sort on drop. Sort columns or groups the same way, with their own array in state.
 
 **`DragOverlay` renders a snippet.** It receives the drag source:
 

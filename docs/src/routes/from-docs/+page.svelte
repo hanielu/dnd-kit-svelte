@@ -5,24 +5,27 @@
 	import { DragDropProvider } from "@dnd-kit-svelte/svelte";
 	import { move } from "@dnd-kit/helpers";
 
-	let items = $state({
+	const initial = {
 		A: ["A0", "A1", "A2"],
 		B: ["B0", "B1"],
-		C: [],
-	});
+		C: [] as string[],
+	};
+
+	let items = $state(initial);
+	let columns = $state(Object.keys(initial) as (keyof typeof initial)[]);
 </script>
 
 <DragDropProvider
 	onDragOver={(event) => {
 		const { source } = event.operation;
-		if (source?.type === "column") return;
-		items = move(items, event);
+		if (source?.type === "column") columns = move(columns, event);
+		else items = move(items, event);
 	}}
 >
 	<div class="Root">
-		{#each Object.entries(items) as [column, _items], colIdx (column)}
+		{#each columns as column, colIdx (column)}
 			<Column id={column} index={colIdx}>
-				{#each _items as id, itemIdx (id)}
+				{#each items[column] as id, itemIdx (id)}
 					<Item {id} {column} index={itemIdx} />
 				{/each}
 			</Column>

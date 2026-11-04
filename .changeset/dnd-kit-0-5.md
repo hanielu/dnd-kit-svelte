@@ -12,6 +12,7 @@ Breaking changes:
 - `DragOverlay` takes `class` instead of `className`.
 - `RestrictToWindowEdges` is removed from `/modifiers`; use dnd kit's `RestrictToWindow` (also exported there, with `RestrictToElement`).
 - `DragDropEvents` is replaced by `DragDropEventHandlers` (the handler map of `useDragDropMonitor`) and the event types `DragStartEvent`, `DragOverEvent`, `DragEndEvent`…
+- `useSortable` leaves dnd kit's `OptimisticSortingPlugin` out of its default plugins, including the defaults a `(defaults) => …` callback receives. It reorders DOM nodes behind Svelte's back, and dropping then hung the page when the list was updated in `onDragEnd`. Sort lists through state in `onDragOver` (during the drag) or `onDragEnd` (on drop); listing the plugin explicitly still opts in.
 - Requires Svelte 5.40 or later.
 
 New:

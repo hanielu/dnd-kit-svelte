@@ -1,5 +1,10 @@
-import type { Data } from "@dnd-kit/abstract";
-import { resolveSortableTransition, Sortable, type SortableInput } from "@dnd-kit/dom/sortable";
+import type { Data, Plugins } from "@dnd-kit/abstract";
+import {
+	OptimisticSortingPlugin,
+	resolveSortableTransition,
+	Sortable,
+	type SortableInput,
+} from "@dnd-kit/dom/sortable";
 import { batch, deepEqual } from "@dnd-kit/state";
 import { attachTo } from "#lib/core/attachments.js";
 import { useInstance } from "#lib/core/hooks/use-instance.svelte.js";
@@ -15,10 +20,33 @@ import {
 /** `SortableInput`, where every property may also be a getter (`index: () => index`) to stay reactive. */
 export type UseSortableInput<T extends Data = Data> = MaybeGetterObject<Omit<SortableInput<T>, "register">>;
 
+type SortablePlugins = SortableInput<Data>["plugins"];
+
+/**
+ * Removes `OptimisticSortingPlugin` from the default sortable plugins, including the defaults a `(defaults) => …`
+ * callback receives. It reorders DOM nodes during a drag behind Svelte's back, and the keyed `{#each}` rendering the
+ * list then hangs when the drop updates its items. Lists sort through state instead: update them in `onDragOver` to
+ * sort during the drag, or in `onDragEnd` to sort on drop. Listing the plugin explicitly still opts in.
+ */
+function withoutOptimisticSorting(plugins: SortablePlugins): NonNullable<SortablePlugins> {
+	const strip = (defaults: Plugins) => defaults.filter((plugin) => plugin !== OptimisticSortingPlugin);
+	if (typeof plugins === "function") return (defaults) => plugins(strip(defaults));
+	return plugins ?? strip;
+}
+
 export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
 	const transition = $derived(resolveSortableTransition(resolve(input.transition)));
 	const sortable = useInstance(
-		(manager) => new Sortable({ ...resolveObject(input), transition, register: false }, manager)
+		(manager) =>
+			new Sortable(
+				{
+					...resolveObject(input),
+					plugins: withoutOptimisticSorting(resolve(input.plugins)),
+					transition,
+					register: false,
+				},
+				manager
+			)
 	);
 	const tracked = useDeepSignal(sortable);
 	const deep = { equals: deepEqual };
@@ -92,7 +120,7 @@ export function useSortable<T extends Data = Data>(input: UseSortableInput<T>) {
 	);
 	useOnValueChange(
 		() => resolve(input.plugins),
-		(plugins) => (sortable.plugins = plugins),
+		(plugins) => (sortable.plugins = withoutOptimisticSorting(plugins)),
 		deep
 	);
 	useOnValueChange(
