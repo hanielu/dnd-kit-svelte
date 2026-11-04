@@ -1,9 +1,5 @@
-import {DragDropManager} from '@dnd-kit/dom';
-import {lens, Context, type Lens} from 'runed';
+import type { DragDropManager } from "@dnd-kit/dom";
+import { createContext } from "svelte";
 
-export const defaultManager = new DragDropManager();
-
-export const DragDropContext = new Context<Lens<DragDropManager | null>>(
-	'DragDropContext',
-	lens(() => defaultManager)
-);
+/** The manager of the closest `DragDropProvider` (or the registration-proof proxy a `DragOverlay` provides). */
+export const [getDragDropContext, setDragDropContext] = createContext<DragDropManager>();

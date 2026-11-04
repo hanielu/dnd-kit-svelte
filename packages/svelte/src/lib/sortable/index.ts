@@ -1,4 +1,3 @@
-export {useSortable} from './use-sortable.svelte';
-export type {UseSortableInput} from './use-sortable.svelte';
+export { useSortable, type UseSortableInput } from "./use-sortable.svelte.js";
 
-export {isSortable} from '@dnd-kit/dom/sortable';
+export { isSortable, isSortableOperation } from "@dnd-kit/dom/sortable";
