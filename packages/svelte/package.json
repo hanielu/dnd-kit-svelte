@@ -1,19 +1,34 @@
 {
 	"name": "@dnd-kit-svelte/svelte",
 	"version": "0.1.6",
+	"description": "dnd-kit for Svelte 5: draggable, droppable and sortable primitives, a drag overlay and modifiers, built on @dnd-kit/dom with runes and attachments",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/HanielU/dnd-kit-svelte.git"
+		"url": "git+https://github.com/hanielu/dnd-kit-svelte.git",
+		"directory": "packages/svelte"
 	},
+	"homepage": "https://svelte-dnd-kit.vercel.app",
+	"bugs": "https://github.com/hanielu/dnd-kit-svelte/issues",
+	"keywords": [
+		"svelte",
+		"svelte5",
+		"sveltekit",
+		"runes",
+		"dnd",
+		"dnd-kit",
+		"drag-and-drop",
+		"draggable",
+		"droppable",
+		"sortable",
+		"kanban"
+	],
 	"scripts": {
-		"build": "pnpm package",
-		"dev": "pnpm watch",
-		"dev:svelte": "vite dev",
-		"watch": "svelte-package --watch",
-		"package": "svelte-kit sync && svelte-package && publint",
-		"prepublishOnly": "npm run package",
+		"dev": "svelte-kit sync && svelte-package --watch",
+		"build": "svelte-kit sync && svelte-package && publint",
+		"prepack": "cp ../../README.md README.md && bun run build",
+		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
@@ -22,9 +37,7 @@
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"
 	],
-	"sideEffects": [
-		"**/*.css"
-	],
+	"sideEffects": false,
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
@@ -42,28 +55,28 @@
 			"svelte": "./dist/modifiers/index.js"
 		}
 	},
+	"imports": {
+		"#lib": "./src/lib/index.js",
+		"#lib/*": "./src/lib/*"
+	},
 	"peerDependencies": {
-		"svelte": "^5.0.0"
+		"svelte": "^5.40.0"
+	},
+	"dependencies": {
+		"@dnd-kit/abstract": "^0.5.3",
+		"@dnd-kit/collision": "^0.5.3",
+		"@dnd-kit/dom": "^0.5.3",
+		"@dnd-kit/state": "^0.5.3"
 	},
 	"devDependencies": {
-		"@sveltejs/adapter-auto": "^6.0.0",
-		"@sveltejs/kit": "^2.22.0",
-		"@sveltejs/package": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^6.0.0",
-		"publint": "^0.3.2",
-		"svelte": "^5.0.0",
-		"svelte-check": "^4.0.0",
-		"typescript": "^5.0.0",
-		"vite": "^7.0.4"
-	},
-	"keywords": [
-		"svelte"
-	],
-	"dependencies": {
-		"@dnd-kit/abstract": "^0.2.3",
-		"@dnd-kit/collision": "^0.2.3",
-		"@dnd-kit/dom": "^0.2.3",
-		"@dnd-kit/geometry": "^0.1.21",
-		"@dnd-kit/state": "^0.2.3"
+		"@sveltejs/adapter-auto": "^8.0.0",
+		"@sveltejs/kit": "^3.1.1",
+		"@sveltejs/package": "^3.0.2",
+		"@sveltejs/vite-plugin-svelte": "^7.2.0",
+		"publint": "^0.3.21",
+		"svelte": "^5.57.3",
+		"svelte-check": "^4.6.0",
+		"typescript": "^6.0.3",
+		"vite": "^8.3.5"
 	}
 }

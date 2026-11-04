@@ -1,4 +1,22 @@
-# Package Managers
+.DS_Store
+node_modules
+build
+dist
+.svelte-kit
+package
+archive
+.env
+.env.*
+!.env.example
+
+# Ignore lockfiles
+bun.lock
 package-lock.json
-pnpm-lock.yaml
 yarn.lock
+
+# Skills are vendored as published
+.agents
+.claude/skills
+
+# Editor caches
+.svelte-language-server-rs

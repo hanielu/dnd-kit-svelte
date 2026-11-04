@@ -4,14 +4,11 @@ The following is a list of sources from which code was used/modified in this cod
 
 -------------------------------------------------------------------------------
 
-This codebase contains a modified portion of code from Dnd Kit which can be obtained at:
+This codebase contains a modified portion of code from dnd kit which can be obtained at:
   * SOURCE:
-    * https://www.npmjs.com/package/@dnd-kit/core
-    * https://www.npmjs.com/package/@dnd-kit/sortable
-    * https://www.npmjs.com/package/@dnd-kit/utilities
-    * https://www.npmjs.com/package/@dnd-kit/accessibility
-    * https://www.npmjs.com/package/@dnd-kit/modifiers
+    * https://www.npmjs.com/package/@dnd-kit/react
+    * https://github.com/clauderic/dnd-kit/tree/main/packages/react
   * LICENSE (MIT):
-    * https://github.com/clauderic/dnd-kit/blob/master/LICENSE
+    * https://github.com/clauderic/dnd-kit/blob/main/LICENSE
 
 -------------------------------------------------------------------------------

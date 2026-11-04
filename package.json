@@ -4,36 +4,25 @@
 	"private": true,
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",
+	"type": "module",
+	"workspaces": [
+		"packages/*",
+		"docs"
+	],
 	"scripts": {
-		"build": "pnpm -r build",
-		"build:packages": "pnpm -F \"./packages/**\" --parallel build",
-		"check": "pnpm build:packages && pnpm -r check",
-		"dev": "pnpm -F \"./packages/**\" svelte-kit sync && pnpm -r --parallel --reporter append-only --color dev",
+		"build": "bun run --filter @dnd-kit-svelte/svelte build",
+		"check": "bun run build && bun run --workspaces --if-present check",
+		"dev": "bun run --workspaces --parallel --if-present dev",
+		"docs": "bun run --filter docs dev",
 		"format": "prettier --write .",
-		"lint": "prettier --check . && eslint .",
-		"release": "pnpm build:packages && changeset publish"
+		"lint": "prettier --check .",
+		"release": "bun run build && changeset publish",
+		"version-packages": "changeset version && bun install"
 	},
 	"devDependencies": {
-		"@changesets/cli": "^2.27.11",
-		"@eslint/compat": "^1.2.3",
-		"@sveltejs/adapter-vercel": "^5.5.2",
-		"@sveltejs/kit": "^2.0.0",
-		"@sveltejs/vite-plugin-svelte": "^4.0.0",
-		"eslint": "^9.7.0",
-		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.36.0",
-		"globals": "^15.0.0",
-		"prettier": "^3.3.2",
-		"prettier-plugin-svelte": "^3.2.6",
-		"svelte": "^5.0.0",
-		"svelte-check": "^4.0.0",
-		"typescript": "^5.0.0",
-		"typescript-eslint": "^8.0.0",
-		"vite": "^5.4.11"
-	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"esbuild"
-		]
+		"@changesets/changelog-github": "^0.7.0",
+		"@changesets/cli": "^2.31.1",
+		"prettier": "^3.9.10",
+		"prettier-plugin-svelte": "^4.1.1"
 	}
 }

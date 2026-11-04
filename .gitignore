@@ -5,8 +5,8 @@ node_modules
 .vercel
 .netlify
 .wrangler
-/.svelte-kit
-/build
+.svelte-kit
+build
 /dist
 
 # OS
@@ -22,3 +22,9 @@ Thumbs.db
 # Vite
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# The pre-rewrite repository, kept locally for reference while porting
+archive
+
+# Copied from the root README when the package is packed
+packages/svelte/README.md
