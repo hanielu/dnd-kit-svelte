@@ -1,122 +1,180 @@
 # dnd-kit-svelte
 
-> 📚 **Original Documentation**: [next.dndkit.com](https://next.dndkit.com/react/quickstart)
+[![npm](https://img.shields.io/npm/v/@dnd-kit-svelte/svelte.svg)](https://www.npmjs.com/package/@dnd-kit-svelte/svelte)
 
-A Svelte port of the powerful [@dnd-kit][dnd-kit] library - the modern, lightweight, performant, accessible and extensible drag & drop toolkit.
+[dnd kit](https://github.com/clauderic/dnd-kit) for Svelte 5: draggable, droppable and sortable primitives, a drag
+overlay and modifiers, built on `@dnd-kit/dom` with runes and attachments. The API follows
+[`@dnd-kit/react`](https://dndkit.com/react/quickstart), so its documentation applies here, with the Svelte
+differences below.
+
+**[Examples](https://svelte-dnd-kit.vercel.app)**
+
+## Install
+
+```sh
+npm i @dnd-kit-svelte/svelte
+```
+
+Requires Svelte 5.40 or later. Helpers such as `move` come from `@dnd-kit/helpers`; plugins such as `Feedback` from
+`@dnd-kit/dom`.
 
 ## Quick start
 
-Install it:
-
-```bash
-npm i @dnd-kit-svelte/svelte
-# or
-yarn add @dnd-kit-svelte/svelte
-# or
-pnpm add @dnd-kit-svelte/svelte
-```
-
-## Overview
-
-This library provides a complete port of dnd-kit to Svelte, maintaining feature parity with the original React implementation while adapting to Svelte's reactivity system. All documentation and APIs from the [original dnd-kit][dnd-kit-docs] library apply here, with some Svelte-specific adaptations.
-
-## Examples
-
-- [Sortable Tasks List](docs/src/lib/components/examples/sortable/sortable-list.svelte)
-- [Nested Sortable List](docs/src/lib/components/examples/nested/draggable-containers.svelte)
-- [Basic Drag & Drop](docs/src/lib/components/examples/basic/basic.svelte)
-
-## Key Differences from React Implementation
-
-The main difference lies in how reactive values are handled. Since Svelte components don't rerender the same way React components do, we've adapted the API to work with Svelte's reactivity system.
-
-### Using Functions for Reactive Inputs
-
-In hooks like `useSortable`, `useDraggable`, etc., you can pass a function to any field that needs to be reactive. The function will be called whenever the value needs to be accessed, ensuring you always get the latest value from Svelte's reactive scope.
-
-Example:
-
-React:
-
-```ts
-import {useSortable} from '@dnd-kit/sortable';
-
-useSortable({
-	id: item.id,
-	data: item,
-});
-```
-
-Svelte:
-
-```ts
-import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
-
-useSortable({
-	// Static value
-	id: item.id,
-	// Reactive value using a function
-	data: () => item, // Access reactive state value
-});
-```
-
-### Data returned from hooks
-
-In React, components re-render when their state changes, so hooks can return values directly. However, since Svelte components don't re-render, all non-function properties returned from hooks use a `.current` getter to ensure you always access the latest value.
-
-Example:
-
-React:
-
-```ts
-// React dnd-kit
-const { ref, isDragging } = useSortable({ id });
-
-<div ref={ref}>
-  {isDragging ? 'Dragging' : 'Not dragging'}
-</div>
-```
-
-Svelte:
+Hooks find their manager through context, so they are called in components rendered inside `DragDropProvider`.
 
 ```svelte
-<script>
-	import {useSortable} from '@dnd-kit-svelte/svelte/sortable';
+<!-- draggable.svelte -->
+<script lang="ts">
+	import { useDraggable } from "@dnd-kit-svelte/svelte";
 
-	const {ref, isDragging} = useSortable({id});
+	const { ref } = useDraggable({ id: "draggable" });
 </script>
 
-<div {@attach ref}>
-	{isDragging.current ? 'Dragging' : 'Not dragging'}
+<button {@attach ref}>Drag me</button>
+```
+
+```svelte
+<!-- droppable.svelte -->
+<script lang="ts">
+	import { useDroppable } from "@dnd-kit-svelte/svelte";
+	import type { Snippet } from "svelte";
+
+	let { id, children }: { id: string; children?: Snippet } = $props();
+
+	const { ref, isDropTarget } = useDroppable({ id: () => id });
+</script>
+
+<div {@attach ref} data-over={isDropTarget.current}>
+	{@render children?.()}
 </div>
 ```
 
-This pattern is used consistently across all hooks:
+```svelte
+<script lang="ts">
+	import { DragDropProvider } from "@dnd-kit-svelte/svelte";
+	import Draggable from "./draggable.svelte";
+	import Droppable from "./droppable.svelte";
 
-- [`useDraggable`](https://next.dndkit.com/react/hooks/use-draggable#output)
-- [`useDroppable`](https://next.dndkit.com/react/hooks/use-droppable#output)
-- [`useSortable`](https://next.dndkit.com/react/hooks/use-sortable#output)
+	let dropped = $state(false);
+</script>
 
-All state values (e.g `isDragging`, `isDropping`, `isDragSource`, `isDropTarget`) have a `.current` getter to ensure you always access the latest value.
+<DragDropProvider onDragEnd={(event) => !event.canceled && (dropped = event.operation.target?.id === "droppable")}>
+	{#if !dropped}
+		<Draggable />
+	{/if}
 
-All refs (`ref`, `handleRef`, `sourceRef`, `targetRef`) are `Attachments`
+	<Droppable id="droppable">
+		{#if dropped}
+			<Draggable />
+		{/if}
+	</Droppable>
+</DragDropProvider>
+```
 
-## Core Concepts
+A sortable list:
 
-All core concepts from dnd-kit remain the same:
+```svelte
+<!-- sortable-item.svelte -->
+<script lang="ts">
+	import { useSortable } from "@dnd-kit-svelte/svelte/sortable";
 
-- Draggable elements
-- Droppable areas
-- DragDropProvider provider
-- Sensors
-- Modifiers
-- Collision detection
+	let { id, index }: { id: string; index: number } = $props();
 
-For detailed documentation on these concepts, please refer to the [original dnd-kit documentation][dnd-kit-docs].
+	const { ref, isDragging } = useSortable({ id: () => id, index: () => index });
+</script>
+
+<li {@attach ref} data-dragging={isDragging.current}>{id}</li>
+```
+
+```svelte
+<script lang="ts">
+	import { DragDropProvider } from "@dnd-kit-svelte/svelte";
+	import { move } from "@dnd-kit/helpers";
+	import SortableItem from "./sortable-item.svelte";
+
+	let items = $state(["a", "b", "c"]);
+</script>
+
+<DragDropProvider onDragEnd={(event) => (items = move(items, event))}>
+	<ul>
+		{#each items as id, index (id)}
+			<SortableItem {id} {index} />
+		{/each}
+	</ul>
+</DragDropProvider>
+```
+
+## Differences from React
+
+Svelte components don't re-render, so values that change reach the hooks as functions, and values that the hooks
+produce are read through `.current`.
+
+**Inputs are values or getters.** Any input field can be a value, read once, or a function returning it, read
+whenever it changes:
+
+```ts
+useSortable({
+	id: item.id, // fixed
+	index: () => index, // follows `index`
+	data: () => item,
+});
+```
+
+Getter properties (`get index() { return index; }`) and a component's rest props work the same way. A field whose
+value is itself a function (`accept`, `collisionDetector`, `plugins: (defaults) => …`) must be wrapped in a getter:
+
+```ts
+import { Feedback } from "@dnd-kit/dom";
+
+useSortable({
+	id,
+	index: () => index,
+	plugins: () => (defaults) => [...defaults, Feedback.configure({ feedback: "clone" })],
+});
+```
+
+**State is read through `.current`.** `isDragging`, `isDropping`, `isDragSource` and `isDropTarget` are
+lenses (`Lens<boolean>`): their `current` updates the template on its own.
+
+```svelte
+<div {@attach ref}>{isDragging.current ? "Dragging" : "Idle"}</div>
+```
+
+**Refs are attachments.** `ref`, `handleRef`, `sourceRef` and `targetRef` go on elements with `{@attach}`.
+
+**`DragOverlay` renders a snippet.** It receives the drag source:
+
+```svelte
+<DragOverlay>
+	{#snippet children(source)}
+		<Item id={source.id} />
+	{/snippet}
+</DragOverlay>
+```
+
+## API
+
+| Export                                                                                 | From                               |
+| -------------------------------------------------------------------------------------- | ---------------------------------- |
+| `DragDropProvider`, `DragOverlay`                                                      | `@dnd-kit-svelte/svelte`           |
+| `useDraggable`, `useDroppable`                                                         | `@dnd-kit-svelte/svelte`           |
+| `useDragDropManager`, `useDragDropMonitor`, `useDragOperation`, `useInstance`          | `@dnd-kit-svelte/svelte`           |
+| `KeyboardSensor`, `PointerSensor`, event types (`DragEndEvent`…)                       | `@dnd-kit-svelte/svelte`           |
+| `useSortable`, `isSortable`, `isSortableOperation`                                     | `@dnd-kit-svelte/svelte/sortable`  |
+| dnd kit's modifiers, `SnapCenterToCursor`, `AlignTopLeftToCursor`, `OffsetBottomRight` | `@dnd-kit-svelte/svelte/modifiers` |
+
+For what each one does, see the [dnd kit documentation](https://dndkit.com/react/quickstart).
+
+## Development
+
+This is a Bun workspace: the package lives in `packages/svelte`, the examples site in `docs`.
+
+```sh
+bun install
+bun run dev    # the package in watch mode and the examples site
+bun run check  # build and type-check everything
+```
 
 ## License
 
-MIT © [Haniel Ubogu](https://github.com/HanielU)
-
-[dnd-kit]: https://github.com/clauderic/dnd-kit/tree/experimental
-[dnd-kit-docs]: https://next.dndkit.com/react/quickstart
+MIT © [Haniel Ubogu](https://github.com/HanielU). Contains code adapted from dnd kit, see [NOTICE.txt](NOTICE.txt).

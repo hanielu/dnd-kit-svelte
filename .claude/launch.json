@@ -1,0 +1,11 @@
+{
+	"version": "0.0.1",
+	"configurations": [
+		{
+			"name": "docs",
+			"runtimeExecutable": "bun",
+			"runtimeArgs": ["run", "--cwd", "docs", "vite", "dev", "--port", "5191", "--strictPort"],
+			"port": 5191
+		}
+	]
+}
