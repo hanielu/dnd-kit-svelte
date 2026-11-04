@@ -14,7 +14,8 @@ dnd-kit-svelte is a Svelte 5 adapter for [dnd kit](https://github.com/clauderic/
 - `packages/svelte` (the official `@dnd-kit/svelte`, `create*` API) is a sibling, not a source: compare against it,
   don't copy its API. This package is measured against it, bundle size included.
 - When bumping dnd kit, move every `@dnd-kit/*` dependency to the same version, read the `CHANGELOG.md` of `dom`,
-  `abstract` and `react` for the whole range, and port what changed in the React adapter.
+  `abstract` and `react` for the whole range, and port what changed in the React adapter. `useSortable` keeps its
+  own copy of dnd kit's default sortable plugins, which aren't exported: check it against `dom/src/sortable`.
 
 ## Skills
 
@@ -32,7 +33,8 @@ Skills live in `.agents/skills/` (Codex, Cursor); `.claude/skills/` holds relati
   (`index: () => index`). A function-valued field (`accept`, `collisionDetector`, `plugins: (defaults) => …`) must be
   wrapped in a getter, because a bare function is always read as one. Hooks read `input.x` lazily inside effects
   (`resolve(input.x)`), so getter properties and a component's rest props stay reactive too. Never destructure the
-  input during setup.
+  input during setup. Call a `(defaults) => …` callback in the tracked read and compare what it returns, so state it
+  reads stays reactive; `useOnValueChange` runs its write untracked.
 - **Outputs are lenses and attachments.** Entity state (`isDragging`, `isDropTarget`…) is a `lens`, read through
   `.current`; element refs (`ref`, `handleRef`, `sourceRef`, `targetRef`) are attachments from `attachTo`.
 - **Reactive values are class instances.** Anything read through a getter (`Lens`, `SignalLens`,
