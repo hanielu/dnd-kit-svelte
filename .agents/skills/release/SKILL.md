@@ -128,6 +128,10 @@ skips a GitHub release that already exists.
 
 ## 5. Check the release
 
+npm can take several minutes to list a new version. 0.2.0 appeared seven minutes after the workflow published it. Poll
+`https://registry.npmjs.org/@dnd-kit-svelte%2fsvelte` in the background for up to 15 minutes before treating it as
+missing. If it is still missing, ask the user to check npmjs.com for a version waiting in the staging queue.
+
 ```bash
 npm view @dnd-kit-svelte/svelte@<version> version dist.integrity dist.attestations --json
 npm view @dnd-kit-svelte/svelte dist-tags.latest
