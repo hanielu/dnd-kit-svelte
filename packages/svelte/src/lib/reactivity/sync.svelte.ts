@@ -1,5 +1,6 @@
 import { batch, deepEqual } from "@dnd-kit/state";
 import { untrack } from "svelte";
+import { useBlockEffect } from "./effect.svelte.js";
 
 /** Arrays (plugins, sensors, modifiers, `accept`) are compared by content, everything else by identity. */
 function same(a: unknown, b: unknown): boolean {
@@ -32,7 +33,7 @@ export function useSync<T extends object>(
 	};
 
 	if (pre) $effect.pre(run);
-	else $effect(run);
+	else useBlockEffect(run);
 }
 
 /** A `write` for `useSync` that assigns the changed fields to `entity`. Like React, `data` is replaced, never cleared. */

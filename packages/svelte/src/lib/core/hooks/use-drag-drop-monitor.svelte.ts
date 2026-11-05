@@ -1,5 +1,6 @@
 import type { Data, DragDropEventHandlers } from "@dnd-kit/abstract";
 import type { DragDropManager, Draggable, Droppable } from "@dnd-kit/dom";
+import { useBlockEffect } from "#lib/reactivity/index.js";
 import { useDragDropManager } from "./use-drag-drop-manager.js";
 
 type EventName<T extends string> = T extends "beforedragstart"
@@ -37,7 +38,7 @@ export function useDragDropMonitor<
 >(handlers: Partial<EventHandlers<T, U, V, W>>): void {
 	const manager = useDragDropManager<T, U, V, W>();
 
-	$effect(() => {
+	useBlockEffect(() => {
 		const listeners = Object.keys(handlers).map((name) => {
 			const event = name.slice(2).toLowerCase() as keyof Events<T, U, V, W>;
 			return manager.monitor.addEventListener(event, (...args: unknown[]) =>

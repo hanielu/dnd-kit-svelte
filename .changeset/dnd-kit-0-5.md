@@ -17,6 +17,7 @@ Breaking changes:
 
 New:
 
+- Hooks can be called in a `{const …}` declaration tag (Svelte 5.56 or later), inside `{#each}` or a snippet in the provider's markup, so a list's items need no component of their own. Each item's entity is unregistered when its block is removed.
 - `useDragDropMonitor`, to listen to drag and drop events below a `DragDropProvider`, and `useInstance`, for custom entities.
 - `DragOverlay` takes `dropAnimation` (`null` to disable it).
 - `DragDropProvider`'s `plugins`, `sensors` and `modifiers` accept `(defaults) => …` to extend the defaults.

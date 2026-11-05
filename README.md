@@ -20,7 +20,7 @@ Requires Svelte 5.40 or later. Helpers such as `move` come from `@dnd-kit/helper
 
 ## Quick start
 
-Hooks find their manager through context, so they are called in components rendered inside `DragDropProvider`.
+Hooks find their manager through context, so call them in components rendered inside `DragDropProvider`.
 
 ```svelte
 <!-- draggable.svelte -->
@@ -99,6 +99,28 @@ A sortable list:
 	<ul>
 		{#each items as id, index (id)}
 			<SortableItem {id} {index} />
+		{/each}
+	</ul>
+</DragDropProvider>
+```
+
+When each item is one element, you can skip its component and call the hook in a `{const …}` tag inside `{#each}`
+(Svelte 5.56 or later):
+
+```svelte
+<script lang="ts">
+	import { DragDropProvider } from "@dnd-kit-svelte/svelte";
+	import { useSortable } from "@dnd-kit-svelte/svelte/sortable";
+	import { move } from "@dnd-kit/helpers";
+
+	let items = $state(["a", "b", "c"]);
+</script>
+
+<DragDropProvider onDragOver={(event) => (items = move(items, event))}>
+	<ul>
+		{#each items as id, index (id)}
+			{const { ref } = useSortable({ id, index: () => index })}
+			<li {@attach ref}>{id}</li>
 		{/each}
 	</ul>
 </DragDropProvider>

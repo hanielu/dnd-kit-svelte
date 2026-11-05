@@ -27,10 +27,15 @@ Skills live in `.agents/skills/` (Codex, Cursor); `.claude/skills/` holds relati
 ## Invariants
 
 - **One entity per hook call.** A hook creates its `Draggable`/`Droppable`/`Sortable` once, with `register: false`,
-  and `useInstance` registers it after mount, once its element is attached. Input changes are synced onto that entity
-  with `useSync`, which writes only the fields that changed (arrays by content); never recreate it. Each hook has one
-  `pre` sync for refs and list position (`element`, `handle`, `group`, `index`) and one for the rest, and annotates
-  each read with the entity's fields (`(): Fields =>`) so a misspelled field is a type error.
+  and `useInstance` registers it in a microtask from an `$effect.pre`, after `{@attach}` has set the element. Input
+  changes are synced onto that entity with `useSync`, which writes only the fields that changed (arrays by content);
+  never recreate it. Each hook has one `pre` sync for refs and list position (`element`, `handle`, `group`, `index`)
+  and one for the rest, and annotates each read with the entity's fields (`(): Fields =>`) so a misspelled field is a
+  type error.
+- **Hooks work without a component.** A hook can be called in a `{const …}` declaration tag (Svelte 5.56+), inside
+  `{#each}` or a snippet in the provider's markup, and its entity must then belong to that block. Svelte defers an
+  `$effect` created during a component's first render and gives it to the component, so a hook never calls `$effect`
+  directly: use `$effect.pre` or `useBlockEffect`. Test with an item removed after mount and with one added after it.
 - **Inputs are values or getters.** Every input field is a `MaybeGetter`: a value, or a function returning it
   (`index: () => index`). A function-valued field (`accept`, `collisionDetector`, `plugins: (defaults) => …`) must be
   wrapped in a getter, because a bare function is always read as one. Hooks read `input.x` lazily inside effects
