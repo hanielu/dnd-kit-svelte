@@ -28,3 +28,6 @@ archive
 
 # Copied from the root README when the package is packed
 packages/svelte/README.md
+
+# Vale styles, downloaded by `vale sync`
+.vale/styles

@@ -100,10 +100,24 @@ code is on the `experimental` branch. Name folders after the domain they own: no
 
 ## Docs app
 
-- Each example is a folder under `docs/src/lib/components/examples/<name>/` and a `Section` on the home page, which
-  links to its source on GitHub. Examples use the package exactly as users would: `@dnd-kit-svelte/svelte`, never
-  `#lib` paths into `packages/`.
-- Styling is UnoCSS with the presets in `docs/presets/`.
+- The home page shows the examples under `docs/src/lib/components/examples/<name>/`, each in a `Section` that links to
+  its source on GitHub. Examples use the package exactly as users would: `@dnd-kit-svelte/svelte`, never `#lib` paths
+  into `packages/`.
+- Docs pages are Markdown, `docs/src/routes/docs/**/+page.md`, compiled by mdsx (`docs/mdsx.config.ts`). Frontmatter
+  gives the `title` and `description`. Elements render through `docs/src/lib/markdown/blueprint.svelte`, so their
+  styles stay off the demos. Add each page to `docs/src/lib/docs/nav.ts`.
+- Live demos live in `docs/src/lib/examples/`. `import demo from "#lib/examples/name.svelte?demo"` gives the
+  component and its source, highlighted at build time with twinkleplop, for `<Demo {demo} />`: the code shown is the
+  code that runs. A demo split over several files gets a folder (`examples/name/name.svelte` and its components);
+  `?demo` follows its relative `.svelte` imports and `Demo` shows a tab for each file.
+- Examples and snippets call hooks in components by default. Use a `{const …}` tag only for an item of a line or two
+  of markup inside `{#each}`, where a component would only pass `id` and `index` through.
+- Prose follows the ai-tells Vale style: short sentences, plain verbs, no figurative ones ("lands", "lives in"). Run
+  `bun run prose` and treat its hits as hints. Don't delete facts to quiet it, and keep braces in code spans, since
+  mdsx reads a bare `{` as a Svelte expression.
+- Styling is UnoCSS with the presets in `docs/presets/`. Colors are tokens in `docs/src/app.css` (`bg-surface`,
+  `text-ink-soft`…) with a light and a dark value; `.dark` on `<html>` switches them, set before paint in `app.html`.
+  Headings and demos use Manrope, docs prose Inter, and code Geist Mono.
 - `.claude/launch.json` starts it on port 5191 (`docs`). dnd kit runs collision detection on `requestAnimationFrame`,
   which a hidden browser tab pauses: test drags in a visible page.
 
@@ -116,6 +130,7 @@ bun run docs       # the docs site only, against the last build of the package
 bun run build      # svelte-package + publint for @dnd-kit-svelte/svelte
 bun run check      # build, then svelte-check every workspace
 bun run format     # prettier --write .
+bun run prose      # vale sync, then lint the docs pages with the ai-tells style
 bunx changeset     # describe a user-facing package change for the next release
 ```
 

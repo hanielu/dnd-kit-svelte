@@ -7,7 +7,7 @@ overlay and modifiers, built on `@dnd-kit/dom` with runes and attachments. The A
 [`@dnd-kit/react`](https://dndkit.com/react/quickstart), so its documentation applies here, with the Svelte
 differences below.
 
-**[Examples](https://svelte-dnd-kit.vercel.app)**
+**[Docs and examples](https://svelte-dnd-kit.vercel.app/docs)**
 
 ## Install
 
@@ -190,7 +190,7 @@ in `onDragEnd` to sort on drop. Sort columns or groups the same way, with their 
 | `useSortable`, `isSortable`, `isSortableOperation`                                     | `@dnd-kit-svelte/svelte/sortable`  |
 | dnd kit's modifiers, `SnapCenterToCursor`, `AlignTopLeftToCursor`, `OffsetBottomRight` | `@dnd-kit-svelte/svelte/modifiers` |
 
-For what each one does, see the [dnd kit documentation](https://dndkit.com/react/quickstart).
+For what each one does, see the [documentation](https://svelte-dnd-kit.vercel.app/docs).
 
 ## Development
 

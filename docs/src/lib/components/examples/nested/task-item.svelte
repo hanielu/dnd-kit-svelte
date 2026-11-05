@@ -33,16 +33,16 @@
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
 	<div
 		class={[
-			"p-3 bg-white rd-2xl flex-s-between",
+			"p-3 bg-item rd-2xl flex-s-between",
 			{ invisible: isDragging.current && !isOverlay, "bg-orange/5!": isDropTarget.current },
 		]}
 	>
 		<div class="">
 			<p class="text-lg font-bold">{task.title}</p>
-			<p class="text-sm text-gray-500">{task.description}</p>
+			<p class="text-sm text-ink-faint">{task.description}</p>
 		</div>
 
-		<div class="i-lucide-grip-vertical text-gray-500 cursor-pointer" {@attach handleRef}></div>
+		<div class="i-lucide-grip-vertical text-ink-faint cursor-pointer" {@attach handleRef}></div>
 	</div>
 
 	<!-- Drag placeholder -->

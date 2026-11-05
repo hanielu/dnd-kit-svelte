@@ -22,7 +22,7 @@
 	let columns = $state(Object.keys(tasks) as ColumnId[]);
 
 	const meta: Record<string, { title: string; description: string }> = {
-		"dev-tasks": { title: "Development Tasks", description: "Technical implmentation tasks" },
+		"dev-tasks": { title: "Development Tasks", description: "Technical implementation tasks" },
 		"design-tasks": { title: "Design Tasks", description: "UI/UX design related tasks" },
 	};
 </script>
@@ -45,7 +45,7 @@
 		{/each}
 	</div>
 
-	<p class="text-(sm center #9E9E9E) fw-medium pt-3">Drag and drop to reorder</p>
+	<p class="text-(sm center ink-faint) fw-medium pt-3">Drag and drop to reorder</p>
 
 	<DragOverlay>
 		{#snippet children(source)}

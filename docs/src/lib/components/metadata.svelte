@@ -1,15 +1,19 @@
 <script lang="ts">
 	import { page } from "$app/state";
 	import { siteConfig } from "#lib/config.js";
+	import { findPage } from "#lib/docs/nav.js";
 	import favicon from "#lib/assets/favicon.svg";
 
-	const title = $derived(page.data?.title ? `${page.data.title} - ${siteConfig.name}` : siteConfig.name);
+	const pageTitle = $derived(page.data?.title ?? findPage(page.url.pathname)?.title);
+	const title = $derived(pageTitle ? `${pageTitle} · dnd kit for Svelte` : siteConfig.name);
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<title>{title}</title>
-	<meta name="description" content={siteConfig.description} />
+	{#if !page.url.pathname.startsWith("/docs")}
+		<meta name="description" content={siteConfig.description} />
+	{/if}
 	<meta name="keywords" content={siteConfig.keywords} />
 	<meta name="author" content="Haniel Ubogu" />
 	<meta name="twitter:card" content="summary_large_image" />

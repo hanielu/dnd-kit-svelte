@@ -19,17 +19,17 @@
 		{#if !target}
 			{@render draggable()}
 		{:else}
-			<div class="text-neutral-4 fw-semibold">Drop here</div>
+			<div class="text-ink-faint fw-semibold">Drop here</div>
 		{/if}
 	</div>
 
 	<div class="grid md:grid-cols-3 gap-8">
 		{#each targets as id (id)}
-			<Droppable {id} class="flex-s-center h-100px bg-#F9F9F9 rd-3xl">
+			<Droppable {id} class="flex-s-center h-100px bg-zone rd-3xl">
 				{#if target === id}
 					{@render draggable()}
 				{:else}
-					<div class="text-neutral-4 fw-semibold">Drop here</div>
+					<div class="text-ink-faint fw-semibold">Drop here</div>
 				{/if}
 			</Droppable>
 		{/each}

@@ -27,10 +27,10 @@
 
 <div class="relative" {@attach ref}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
-	<div class={["p-5 pt-6 bg-#F9F9F9 rd-3xl", className, { invisible: isDragging.current && !isOverlay }]}>
-		<div class="flex-s-between text-#9E9E9E">
+	<div class={["p-5 pt-6 bg-zone rd-3xl", className, { invisible: isDragging.current && !isOverlay }]}>
+		<div class="flex-s-between text-ink-faint">
 			<div class="pl-5.5">
-				<p class="text-(lg dark) fw-bold relative flex-s-start">
+				<p class="text-(lg ink) fw-bold relative flex-s-start">
 					<span class="s-10px bg-orange rd-full abs left--20px"></span>
 					{data.title}
 				</p>

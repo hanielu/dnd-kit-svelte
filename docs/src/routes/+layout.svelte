@@ -1,48 +1,30 @@
 <script lang="ts">
 	import "@unocss/reset/tailwind.css";
 	import "uno.css";
+	import "@twinkleplop/theme-github";
 	import "../app.css";
 
+	import { page } from "$app/state";
 	import Header from "./header.svelte";
+	import Footer from "./footer.svelte";
 	import Metadata from "#lib/components/metadata.svelte";
 
 	let { children } = $props();
+
+	// Docs pages put the footer under their content column, next to the fixed sidebar.
+	const docs = $derived(page.url.pathname.startsWith("/docs"));
 </script>
 
 <Metadata />
 
-<Header />
+<div class="min-h-screen flex|col">
+	<Header />
 
-<main class="px-5 py-10 space-y-16">
-	{@render children()}
-</main>
+	<main class="flex-1">
+		{@render children()}
+	</main>
 
-<footer class="mt-auto border-t border-border">
-	<div class="container mx-auto px-5 py-8">
-		<div class="flex flex-col md:flex-row justify-between items-center gap-4">
-			<div class="text-sm text-muted-foreground">
-				© {new Date().getFullYear()} Haniel Ubogu.
-			</div>
-			<nav class="flex gap-6">
-				<a
-					href="https://github.com/hanielu/dnd-kit-svelte/tree/main"
-					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-				>
-					GitHub
-				</a>
-				<a
-					href="https://www.npmjs.com/package/@dnd-kit-svelte/svelte"
-					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-				>
-					npm
-				</a>
-				<a
-					href="https://github.com/hanielu/dnd-kit-svelte/tree/main"
-					class="text-sm text-muted-foreground hover:text-foreground transition-colors"
-				>
-					Documentation
-				</a>
-			</nav>
-		</div>
-	</div>
-</footer>
+	{#if !docs}
+		<Footer class="max-w-6xl mx-a px-5" />
+	{/if}
+</div>

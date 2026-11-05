@@ -20,3 +20,5 @@ yarn.lock
 
 # Editor caches
 .svelte-language-server-rs
+.vale
+.vale.ini

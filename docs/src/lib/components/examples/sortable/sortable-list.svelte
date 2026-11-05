@@ -38,13 +38,7 @@
 </DragDropProvider>
 
 {#snippet taskList(id: string, title: string, tasks: Todo[])}
-	<Droppable
-		class="bg-#F9F9F9 rd-3xl p-3 pt-6"
-		{id}
-		type="column"
-		accept="item"
-		collisionPriority={CollisionPriority.Low}
-	>
+	<Droppable class="bg-zone rd-3xl p-3 pt-6" {id} type="column" accept="item" collisionPriority={CollisionPriority.Low}>
 		<p class="text-lg fw-bold pb-3">{title}</p>
 
 		<div class="grid gap-2">

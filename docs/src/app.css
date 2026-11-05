@@ -1,76 +1,107 @@
+/* Colors are RGB channels so UnoCSS can add an alpha (`bg-ink/10`). `.dark` swaps every one of them. */
 :root {
-	--background: 0 0% 100%;
-	--foreground: 224 71.4% 4.1%;
+	--page: 250 250 250;
+	--surface: 255 255 255;
+	--zone: 249 249 249;
+	--item: 255 255 255;
+	--line: 236 236 238;
+	--ink: 30 30 30;
+	--ink-soft: 54 54 63;
+	--ink-faint: 158 158 158;
+	/* Svelte orange, darkened to read as text on white. */
+	--brand: 201 52 0;
+	/* Opacity of the ink fill behind inline code. */
+	--code-fill: 0.06;
 
+	--background: 0 0% 98%;
+	--foreground: 224 71.4% 4.1%;
 	--muted: 220 14.3% 95.9%;
 	--muted-foreground: 220 8.9% 46.1%;
-
 	--popover: 0 0% 100%;
 	--popover-foreground: 224 71.4% 4.1%;
-
 	--card: 0 0% 100%;
 	--card-foreground: 224 71.4% 4.1%;
-
 	--border: 220 13% 91%;
 	--input: 220 13% 91%;
-
 	--primary: 220.9 39.3% 11%;
 	--primary-foreground: 210 20% 98%;
-
 	--secondary: 220 14.3% 95.9%;
 	--secondary-foreground: 220.9 39.3% 11%;
-
 	--accent: 220 14.3% 95.9%;
 	--accent-foreground: 220.9 39.3% 11%;
-
 	--destructive: 0 72.2% 50.6%;
 	--destructive-foreground: 210 20% 98%;
-
 	--ring: 224 71.4% 4.1%;
-
 	--radius: 0.5rem;
 
+	color-scheme: light;
 	font-weight: 400;
-	--at-apply: font-manrope bg-#FAFAFA;
+	--at-apply: font-manrope bg-page text-ink;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-
 	scroll-behavior: smooth;
+	/* Clears the sticky docs header. */
+	scroll-padding-top: 4rem;
+}
+
+.dark {
+	--page: 12 12 14;
+	--surface: 23 23 26;
+	--zone: 16 16 19;
+	--item: 33 33 38;
+	--line: 42 42 48;
+	--ink: 237 237 240;
+	--ink-soft: 210 210 216;
+	--ink-faint: 118 118 128;
+	--brand: 255 110 64;
+	--code-fill: 0.09;
+
+	--background: 240 10% 3.9%;
+	--foreground: 0 0% 98%;
+	--muted: 240 3.7% 15.9%;
+	--muted-foreground: 240 5% 64.9%;
+	--popover: 240 10% 3.9%;
+	--popover-foreground: 0 0% 98%;
+	--card: 240 10% 3.9%;
+	--card-foreground: 0 0% 98%;
+	--border: 240 3.7% 15.9%;
+	--input: 240 3.7% 15.9%;
+	--primary: 0 0% 98%;
+	--primary-foreground: 240 5.9% 10%;
+	--secondary: 240 3.7% 15.9%;
+	--secondary-foreground: 0 0% 98%;
+	--accent: 240 3.7% 15.9%;
+	--accent-foreground: 0 0% 98%;
+	--destructive: 0 62.8% 30.6%;
+	--destructive-foreground: 0 85.7% 97.3%;
+	--ring: 240 3.7% 15.9%;
+
+	color-scheme: dark;
 }
 
 * {
 	line-height: 1;
 }
 
-.dark {
-	--background: 240 10% 3.9%;
-	--foreground: 0 0% 98%;
-
-	--muted: 240 3.7% 15.9%;
-	--muted-foreground: 240 5% 64.9%;
-
-	--popover: 240 10% 3.9%;
-	--popover-foreground: 0 0% 98%;
-
-	--card: 240 10% 3.9%;
-	--card-foreground: 0 0% 98%;
-
-	--border: 240 3.7% 15.9%;
-	--input: 240 3.7% 15.9%;
-
-	--primary: 0 0% 98%;
-	--primary-foreground: 240 5.9% 10%;
-
-	--secondary: 240 3.7% 15.9%;
-	--secondary-foreground: 0 0% 98%;
-
-	--accent: 240 3.7% 15.9%;
-	--accent-foreground: 0 0% 98%;
-
-	--destructive: 0 62.8% 30.6%;
-	--destructive-foreground: 0 85.7% 97.3%;
-
-	--ring: 240 3.7% 15.9%;
+/* Code highlighted at build time by twinkleplop. Token colors come from @twinkleplop/theme-github, imported in the
+   root layout, which switches with `.dark`. */
+.twinkleplop {
+	margin: 0;
+	padding: 1.5rem 1.75rem;
+	overflow-x: auto;
+	border-radius: 1.5rem;
+	background: rgb(var(--surface));
+	font-family: "Geist Mono", ui-monospace, monospace;
+	font-size: 15px;
+	tab-size: 2;
+}
+.twinkleplop,
+.twinkleplop * {
+	line-height: 1.65;
+}
+/* The reset gives every <code> the system monospace stack; the block's own font should apply. */
+.twinkleplop code {
+	font: inherit;
 }

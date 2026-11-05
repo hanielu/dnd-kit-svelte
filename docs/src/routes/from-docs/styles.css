@@ -12,15 +12,15 @@
 	padding: 20px;
 	min-width: 175px;
 	min-height: 200px;
-	background-color: rgba(0, 0, 0, 0.1);
-	border: 1px solid rgba(0, 0, 0, 0.1);
+	background-color: rgb(var(--ink) / 0.07);
+	border: 1px solid rgb(var(--ink) / 0.1);
 	border-radius: 10px;
 }
 
 .Item {
 	appearance: none;
-	background: #fff;
-	color: #666;
+	background: rgb(var(--item));
+	color: rgb(var(--ink-soft));
 	padding: 12px 20px;
 	border: none;
 	border-radius: 5px;

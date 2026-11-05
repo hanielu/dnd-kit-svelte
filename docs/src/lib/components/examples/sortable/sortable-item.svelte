@@ -25,7 +25,7 @@
 
 <div class="relative select-none" {@attach ref}>
 	<!-- Original element - becomes invisible during drag but maintains dimensions -->
-	<div class={["p-4 bg-white rd-18px", { invisible: isDragging.current && !isOverlay }]}>
+	<div class={["p-4 bg-item rd-18px", { invisible: isDragging.current && !isOverlay }]}>
 		{task.content}
 	</div>
 

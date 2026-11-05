@@ -13,13 +13,13 @@
 
 <section {id} class="container-base flex|col gap-5">
 	<div class="flex|col gap-4 md:(flex-row flex-s-between)">
-		<h2 class="text-2xl fw-bold tracking--3%">{title}</h2>
+		<h2 class="text-(2xl ink) fw-bold tracking--3%">{title}</h2>
 		<div>
 			<a
 				href="https://github.com/hanielu/dnd-kit-svelte/blob/main/docs/src/lib/components/examples{link}"
 				target="_blank"
 				rel="noopener noreferrer"
-				class="bg-#1E1E1E inline-flex p-1.5 pr-3.5 rd-3 items-center gap-2"
+				class="bg-ink inline-flex p-1.5 pr-3.5 rd-3 items-center gap-2"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 256 256"
 					><g fill="none"
@@ -29,7 +29,7 @@
 						/></g
 					></svg
 				>
-				<span class="text-white fw-bold">View Code</span>
+				<span class="text-page fw-bold">View Code</span>
 			</a>
 		</div>
 	</div>
