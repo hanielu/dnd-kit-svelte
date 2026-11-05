@@ -27,12 +27,13 @@
 	"scripts": {
 		"dev": "svelte-kit sync && svelte-package --watch",
 		"build": "svelte-kit sync && svelte-package && publint",
-		"prepack": "cp ../../README.md README.md && bun run build",
+		"prepack": "cp ../../README.md ../../LICENSE ../../NOTICE.txt . && bun run build",
 		"prepare": "svelte-kit sync || echo ''",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
 	},
 	"files": [
+		"NOTICE.txt",
 		"dist",
 		"!dist/**/*.test.*",
 		"!dist/**/*.spec.*"

@@ -26,8 +26,10 @@ vite.config.ts.timestamp-*
 # The pre-rewrite repository, kept locally for reference while porting
 archive
 
-# Copied from the root README when the package is packed
+# Copied from the root when the package is packed
 packages/svelte/README.md
+packages/svelte/LICENSE
+packages/svelte/NOTICE.txt
 
 # Vale styles, downloaded by `vale sync`
 .vale/styles

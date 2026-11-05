@@ -26,5 +26,6 @@ New:
 
 Fixed:
 
+- The package includes `LICENSE` and `NOTICE.txt`, which earlier versions left out.
 - Long lists mount faster: entities register once their element is attached, so dnd kit's accessibility pass runs once per item instead of twice (5,000 sortables: 13.4 s → 10.5 s).
 - Without a `DragOverlay`, the dragged element no longer drops out of the top layer when Svelte moves it to a higher index in a keyed `{#each}`; this replaces the `checkPopover` workaround, which only fixed it on the next pointer move.
