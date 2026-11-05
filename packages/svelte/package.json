@@ -9,7 +9,7 @@
 		"url": "git+https://github.com/hanielu/dnd-kit-svelte.git",
 		"directory": "packages/svelte"
 	},
-	"homepage": "https://svelte-dnd-kit.vercel.app",
+	"homepage": "https://dnd-kit-svelte.vercel.app",
 	"bugs": "https://github.com/hanielu/dnd-kit-svelte/issues",
 	"keywords": [
 		"svelte",
