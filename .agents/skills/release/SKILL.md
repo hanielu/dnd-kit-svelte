@@ -132,9 +132,12 @@ skips a GitHub release that already exists.
 npm view @dnd-kit-svelte/svelte@<version> version dist.integrity dist.attestations --json
 npm view @dnd-kit-svelte/svelte dist-tags.latest
 npm pack @dnd-kit-svelte/svelte@<version> --dry-run --json > "$TMPDIR/published.json"
-gh release view "@dnd-kit-svelte/svelte@<version>" --json url,tagName,isLatest,targetCommitish,body
-git fetch --tags origin
+gh release view "@dnd-kit-svelte/svelte@<version>" --json url,tagName,targetCommitish,body
+gh api repos/hanielu/dnd-kit-svelte/releases/latest --jq .tag_name
+git fetch origin tag "@dnd-kit-svelte/svelte@<version>"
 ```
+
+Fetch only the new tag: an old `0.0.1` tag differs between local clones and GitHub, so `git fetch --tags` fails.
 
 - `latest` is the new version, and `dist.attestations` shows provenance.
 - The published file list matches the local pack from step 2: compare the `path` lists of the two JSON files.
