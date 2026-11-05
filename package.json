@@ -17,7 +17,6 @@
 		"format": "prettier --write .",
 		"prose": "vale sync && vale docs/src/routes/docs",
 		"lint": "prettier --check .",
-		"release": "bun run build && changeset publish",
 		"version-packages": "changeset version && bun install"
 	},
 	"devDependencies": {

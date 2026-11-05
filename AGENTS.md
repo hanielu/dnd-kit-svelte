@@ -23,6 +23,7 @@ Skills live in `.agents/skills/` (Codex, Cursor); `.claude/skills/` holds relati
 
 - `svelte-code-writer` and `svelte-core-bestpractices`: any `.svelte` or `.svelte.ts` work. Validate with
   `npx @sveltejs/mcp svelte-autofixer <file> --svelte-version 5`.
+- `release`: publishing a new version. Asked to make a release, follow it from preflight to the report.
 
 ## Invariants
 
@@ -134,7 +135,9 @@ bun run prose      # vale sync, then lint the docs pages with the ai-tells style
 bunx changeset     # describe a user-facing package change for the next release
 ```
 
-`release.yml` opens the "version packages" pull request on `main`; `publish.yml` is run by hand after it is merged and
-publishes through npm trusted publishing.
+Every user-facing package change gets a changeset. Releases follow the `release` skill: it versions the changesets
+locally, pushes `main`, and runs `publish.yml`, which publishes through npm trusted publishing (with provenance) and
+creates the GitHub release. `ci.yml` checks every push to `main` and every pull request. Never publish from a local
+machine.
 
 Do not stage or commit unless asked.

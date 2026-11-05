@@ -1,27 +1,26 @@
-name: Version Packages
+name: CI
 
+# Checks every push to main and every pull request. Releases don't go through a version pull request: the release
+# skill (.agents/skills/release) versions locally and runs publish.yml.
 on:
   push:
     branches: [main]
-  workflow_dispatch:
+  pull_request:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
-  cancel-in-progress: false
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  release:
-    name: Version
+  check:
+    name: Check
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v7
-        with:
-          fetch-depth: 0
 
       - name: Setup Bun
         uses: oven-sh/setup-bun@v2
@@ -32,6 +31,7 @@ jobs:
         uses: actions/setup-node@v7
         with:
           node-version: 24.15.0
+          package-manager-cache: false
 
       - name: Install dependencies
         run: bun install --frozen-lockfile
@@ -40,11 +40,5 @@ jobs:
       - name: Check
         run: bun run check
 
-      - name: Create or update version pull request
-        uses: changesets/action@v1
-        with:
-          version: bun run version-packages
-          commit: "chore: version packages"
-          title: "chore: version packages"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Check formatting
+        run: bun run lint

@@ -1,8 +1,11 @@
 name: Publish Package
 
-# Run by hand once the version pull request is merged. npm trusts this workflow through trusted publishing (OIDC), so
-# no npm token is stored and npm attaches provenance. The trusted publisher is configured on npmjs.com under
-# @dnd-kit-svelte/svelte → Settings, for hanielu/dnd-kit-svelte and this workflow's filename (publish.yml).
+# Publishes the version on main to npm and creates its GitHub release. The release skill (.agents/skills/release)
+# runs it with `gh workflow run publish.yml --ref main` after it pushes the version commit; it can also be run by hand
+# from the Actions tab. npm trusts this workflow through trusted publishing (OIDC), so no npm token is stored and npm
+# attaches provenance. The trusted publisher is configured on npmjs.com under @dnd-kit-svelte/svelte → Settings, for
+# hanielu/dnd-kit-svelte and this workflow's filename (publish.yml). Its allowed actions include `npm publish`, so a
+# version goes live when this workflow publishes it, without waiting in npm's staging queue for approval.
 on:
   workflow_dispatch:
 
@@ -37,6 +40,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           package-manager-cache: false
 
+      # Trusted publishing needs npm 11.5.1 or later.
+      - name: Update npm
+        run: npm install --global npm@^11.5.1
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
 
@@ -44,12 +51,18 @@ jobs:
       - name: Check
         run: bun run check
 
+      - name: Check formatting
+        run: bun run lint
+
       - name: Read package version
         id: package
         run: echo "version=$(jq -r .version packages/svelte/package.json)" >> "$GITHUB_OUTPUT"
 
+      # Skips a version that is already on npm, so running the workflow again only finishes the GitHub release.
       - name: Publish to npm
         run: bunx changeset publish
+        env:
+          NPM_CONFIG_PROVENANCE: true
 
       - name: Create GitHub release
         env:
@@ -67,5 +80,6 @@ jobs:
               --notes-file "$RUNNER_TEMP/release-notes.md" \
               --generate-notes \
               --target "$GITHUB_SHA" \
-              --title "$TAG"
+              --title "$TAG" \
+              --latest
           fi
