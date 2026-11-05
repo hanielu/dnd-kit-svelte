@@ -1,6 +1,6 @@
 {
 	"name": "@dnd-kit-svelte/svelte",
-	"version": "0.1.6",
+	"version": "0.2.0",
 	"description": "dnd-kit for Svelte 5: draggable, droppable and sortable primitives, a drag overlay and modifiers, built on @dnd-kit/dom with runes and attachments",
 	"license": "MIT",
 	"author": "Haniel Ubogu <https://github.com/HanielU>",

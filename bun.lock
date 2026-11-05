@@ -48,7 +48,7 @@
     },
     "packages/svelte": {
       "name": "@dnd-kit-svelte/svelte",
-      "version": "0.1.6",
+      "version": "0.2.0",
       "dependencies": {
         "@dnd-kit/abstract": "^0.5.3",
         "@dnd-kit/collision": "^0.5.3",
